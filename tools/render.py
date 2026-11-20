@@ -125,14 +125,16 @@ def build_ass(clip, D):
             ev.append(f"Dialogue: 1,{ts(a)},{ts(b)},Cap,,0,0,0,,{pop}{' '.join(parts)}")
     hook = clip['hook'].replace('|', r'\N')
     hd = clip.get('hook_dur', 3.2)
+    hook_y = clip.get('seam', SEAM) + 185
     ev.append(f"Dialogue: 5,{ts(0)},{ts(hd)},Hook,,0,0,0,,"
-              r"{\pos(540,985)\fad(0,150)}" + hook)
+              r"{\pos(540," + str(hook_y) + r")\fad(0,150)}" + hook)
     ev.append(f"Dialogue: 2,{ts(0)},{ts(D)},Tag,,0,0,0,,"
-              r"{\pos(540,1850)}LIVE ON TWITCH.TV/KREEKCRAFT")
+              r"{\pos(540,1850)}" + clip.get('tag', 'LIVE ON TWITCH.TV/KREEKCRAFT'))
     ev.append(f"Dialogue: 6,{ts(D)},{ts(D + END)},EndS,,0,0,0,,"
-              r"{\pos(540,800)\fad(150,0)}WATCH KREEKCRAFT LIVE")
+              r"{\pos(540,800)\fad(150,0)}" + clip.get('end_title', 'WATCH KREEKCRAFT LIVE'))
     ev.append(f"Dialogue: 6,{ts(D)},{ts(D + END)},EndL,,0,0,0,,"
-              r"{\pos(540,960)\fad(150,0)\fscx70\fscy70\t(0,200,\fscx100\fscy100)}twitch.tv/kreekcraft")
+              r"{\pos(540,960)\fad(150,0)\fscx70\fscy70\t(0,200,\fscx100\fscy100)}"
+              + clip.get('end_link', 'twitch.tv/kreekcraft'))
     ev.append(f"Dialogue: 6,{ts(D)},{ts(D + END)},EndS,,0,0,0,,"
               r"{\pos(540,1120)\fad(150,0)\fs46}FOLLOW FOR MORE GTA 6 CLIPS")
     head = f"""[Script Info]
@@ -161,15 +163,20 @@ def render(clip):
     open(ass, 'w').write(build_ass(clip, D))
     T = D + END
     full = clip.get('layout') == 'full'
-    gy = SEAM + (H - SEAM - 608) // 2 if full else SEAM
+    seam = clip.get('seam', SEAM)                                  # facecam panel height
+    cx, cy, cw, ch = clip.get('cam', [0, 0.015, 0.225, 0.555])     # facecam crop (fractions)
+    gx, gyy, gw, gh = clip.get('game', [0.272, 0.03, 0.456, 0.84])  # gameplay crop (fractions)
+    gy = seam + (H - seam - 608) // 2 if full else seam
     fc = (
         f"[0:v]trim=start={clip['start']}:end={clip['end']},setpts=PTS-STARTPTS,fps=30,split=3[v1][v2][v3];"
         f"[v1]crop=ih*9/16:ih,scale={W}:{H},gblur=sigma=40,eq=brightness=-0.12[bg];"
-        f"[v2]crop=iw*0.225:ih*0.555:0:ih*0.015,scale=-2:{SEAM}[cam];"
+        f"[v2]crop=iw*{cw}:ih*{ch}:iw*{cx}:ih*{cy},"
+        f"scale=w={W}:h={seam}:force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2[cam];"
         + (f"[v3]scale={W}:-2[game];" if full else
-           f"[v3]crop=iw*0.456:ih*0.84:iw*0.272:ih*0.03,scale={W}:{H - SEAM}[game];") +
-        f"[bg][cam]overlay=x=(W-w)/2:y=0[t1];[t1][game]overlay=0:{gy},"
-        f"drawbox=x=0:y={SEAM - 3}:w=iw:h=6:color=0x9146FF:t=fill,"
+           f"[v3]crop=iw*{gw}:ih*{gh}:iw*{gx}:ih*{gyy},"
+           f"scale={W}:{H - seam}:force_original_aspect_ratio=increase,crop={W}:{H - seam}[game];") +
+        f"[bg][cam]overlay=x=(W-w)/2:y=({seam}-h)/2[t1];[t1][game]overlay=0:{gy},"
+        f"drawbox=x=0:y={seam - 3}:w=iw:h=6:color=0x9146FF:t=fill,"
         f"tpad=stop_mode=clone:stop_duration={END},"
         f"gblur=sigma=28:enable='gte(t,{D})',eq=brightness=-0.28:enable='gte(t,{D})',"
         f"ass={ass},format=yuv420p[v];"

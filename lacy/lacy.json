@@ -1,0 +1,10 @@
+[
+ {"name":"L01-lacy-gta6-release-countdown","src":"/tmp/claude-0/-home-user/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/lacy/src/L5.mp4","tx":"L5","start":0,"end":30,
+  "seam":600,"cam":[0,0,0.258,0.255],"layout":"full","cap_y":1745,
+  "tag":"LACY'S GTA 6 MARATHON","end_title":"WATCH LACY LIVE","end_link":"twitch.tv/lacy",
+  "hook":"LACY COUNTING DOWN|TO THE GTA 6 RELEASE"},
+ {"name":"L02-lacy-cant-steal-cars","src":"/tmp/claude-0/-home-user/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/lacy/src/L10.mp4","tx":"L10","start":0,"end":15,
+  "seam":600,"cam":[0,0,0.258,0.255],"game":[0.25,0.02,0.5,0.86],
+  "tag":"LACY'S GTA 6 MARATHON","end_title":"WATCH LACY LIVE","end_link":"twitch.tv/lacy",
+  "hook":"LACY FINDS OUT YOU CAN'T|JUST STEAL CARS IN GTA 6"}
+]
