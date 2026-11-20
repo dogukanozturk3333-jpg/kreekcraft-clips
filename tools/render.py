@@ -171,12 +171,12 @@ def render(clip):
         f"[0:v]trim=start={clip['start']}:end={clip['end']},setpts=PTS-STARTPTS,fps=30,split=3[v1][v2][v3];"
         f"[v1]crop=ih*9/16:ih,scale={W}:{H},gblur=sigma=40,eq=brightness=-0.12[bg];"
         f"[v2]crop=iw*{cw}:ih*{ch}:iw*{cx}:ih*{cy},"
-        f"scale=w={W}:h={seam}:force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2[cam];"
-        + (f"[v3]scale={W}:-2[game];" if full else
+        f"scale=w={W}:h={seam}:force_original_aspect_ratio=decrease:flags=lanczos,scale=trunc(iw/2)*2:trunc(ih/2)*2[cam];"
+        + (f"[v3]scale={W}:-2:flags=lanczos[game];" if full else
            f"[v3]crop=iw*{gw}:ih*{gh}:iw*{gx}:ih*{gyy},"
-           f"scale={W}:{H - seam}:force_original_aspect_ratio=increase,crop={W}:{H - seam}[game];") +
+           f"scale={W}:{H - seam}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H - seam}[game];") +
         f"[bg][cam]overlay=x=(W-w)/2:y=({seam}-h)/2[t1];[t1][game]overlay=0:{gy},"
-        f"drawbox=x=0:y={seam - 3}:w=iw:h=6:color=0x9146FF:t=fill,"
+        f"unsharp=5:5:0.6:5:5:0.0,drawbox=x=0:y={seam - 3}:w=iw:h=6:color=0x9146FF:t=fill,"
         f"tpad=stop_mode=clone:stop_duration={END},"
         f"gblur=sigma=28:enable='gte(t,{D})',eq=brightness=-0.28:enable='gte(t,{D})',"
         f"ass={ass},format=yuv420p[v];"
@@ -197,7 +197,7 @@ def render(clip):
     out = f"{OUT}/{clip['name']}.mp4"
     cmd = ['ffmpeg', '-v', 'error', '-y', '-i', clip['src'], '-filter_complex', fc,
            '-map', '[v]', '-map', '[a]', '-t', f'{T}',
-           '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-maxrate', '10M', '-bufsize', '20M',
+           '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-maxrate', '14M', '-bufsize', '28M',
            '-profile:v', 'high', '-level', '4.1', '-r', '30', '-g', '60',
            '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', out]
     subprocess.run(cmd, check=True)
