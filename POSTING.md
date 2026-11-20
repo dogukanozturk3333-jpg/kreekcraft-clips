@@ -16,7 +16,7 @@ Source: twitch.tv/kreekcraft/clip/SaltyTameWrenBatChest-yMa6Bgoi-Pc3cTIZ
 
 **YouTube description:**
 KreekCraft pulls up to the Nine1Nine club in Vice City and instantly knows his stream is cooked 💀
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
@@ -32,7 +32,7 @@ Source: twitch.tv/kreekcraft/clip/MistyArtisticPastaRedCoat-n9AtvJi8u6V595d-
 
 **YouTube description:**
 KreekCraft says sorry to EVERY NPC in the GTA 6 store… then realizes he might be about to steal everything 😂
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
@@ -48,7 +48,7 @@ Source: twitch.tv/kreekcraft/clip/IronicPricklyPizzaKappaClaus-C_6ZTicMCU7Gc_eN
 
 **YouTube description:**
 KreekCraft goes diving in GTA 6 and a shark takes out Jason's friend right in front of him 🦈
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
@@ -64,7 +64,7 @@ Source: twitch.tv/kreekcraft/clip/TangentialFreezingTeaKlappa-3haneQVakbOUV_GJ
 
 **YouTube description:**
 KreekCraft promises chat an extra GTA 6 giveaway if a crocodile gets him. "There's no way I'm getting eaten." …yeah 🐊
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
@@ -80,7 +80,7 @@ Source: twitch.tv/kreekcraft/clip/AmazonianGleamingPenguinTheThing-Iw1YjlPoMz1yY
 
 **YouTube description:**
 KreekCraft takes on a whole camp in GTA 6's swamps… and it gets loud.
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
@@ -96,7 +96,7 @@ Source: twitch.tv/kreekcraft/clip/GentleTransparentEagleTwitchRaid-_o7aK-ePRk8u7
 
 **YouTube description:**
 KreekCraft steals a mobility scooter in GTA 6… and Granny is NOT letting it go 👵💨 "This is the greatest game of all time."
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
@@ -115,7 +115,7 @@ Post this 1–2 days after #04 — "Part 2" content gets traffic from people who
 
 **YouTube description:**
 Part 2 of KreekCraft vs the GTA 6 crocodiles. He didn't get eaten… so obviously he walked straight back to them 🐊
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
@@ -132,7 +132,7 @@ Source: twitch.tv/kreekcraft/clip/AmorphousWealthyKuduKappaWealth-rleXIZZzS2hHHV
 
 **YouTube description:**
 The moment KreekCraft launched GTA 6 for the very first time live on stream 😱
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
@@ -148,7 +148,7 @@ Source: twitch.tv/kreekcraft/clip/SassyAmorphousEchidnaSuperVinlin-GkU45SSAAdVP-
 
 **YouTube description:**
 KreekCraft's first ever robbery in GTA 6 goes exactly as planned… right? 💰
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
@@ -164,7 +164,7 @@ Source: twitch.tv/kreekcraft/clip/FantasticFrigidAubergineBabyRage-kAc_ssX2V75xX
 
 **YouTube description:**
 KreekCraft gets knocked out by a random NPC on the train tracks in GTA 6… and he wants revenge 💀
-Watch KreekCraft LIVE on Twitch: https://twitch.tv/kreekcraft
+Watch KreekCraft on YouTube and Twitch: https://twitch.tv/kreekcraft
 
 #GTA6 #KreekCraft #GrandTheftAutoVI #gaming #shorts
 
