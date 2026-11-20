@@ -1,0 +1,303 @@
+[
+ {
+  "streamer": "kreekcraft",
+  "cam": [
+   0,
+   0.0,
+   0.23,
+   0.6
+  ],
+  "game": [
+   0.272,
+   0.03,
+   0.456,
+   0.84
+  ],
+  "name": "K01-kreekcraft-helicopter",
+  "created": "2026-11-20T02:53:06Z",
+  "start": 2.6,
+  "end": 46.6,
+  "hook": "HE PICKED THE CHOPPER...|NOW HE HAS TO FLY IT",
+  "replay": [
+   19.6,
+   22.6
+  ],
+  "sfx": [
+   [
+    30.2,
+    "boom"
+   ]
+  ],
+  "src": "src/WonderfulRockyHawkPMSTwin-CRg4X98nNwIS4i1A.mp4",
+  "tx": "WonderfulRockyHawkPMSTwin-CRg4X98nNwIS4i1A",
+  "source_clip": "WonderfulRockyHawkPMSTwin-CRg4X98nNwIS4i1A"
+ },
+ {
+  "streamer": "kreekcraft",
+  "cam": [
+   0,
+   0.0,
+   0.23,
+   0.6
+  ],
+  "game": [
+   0.272,
+   0.03,
+   0.456,
+   0.84
+  ],
+  "name": "K02-kreekcraft-dog-on-jet-ski",
+  "created": "2026-11-20T02:53:28Z",
+  "start": 14.5,
+  "end": 48.6,
+  "hook": "\"IF A DOG ON A JET SKI|PICKS ME UP...\"",
+  "replay": [
+   33.0,
+   35.8
+  ],
+  "sfx": [
+   [
+    34.0,
+    "boom"
+   ]
+  ],
+  "src": "src/ClearObedientDoveOMGScoots-3px9kJPxfwI4z0w_.mp4",
+  "tx": "ClearObedientDoveOMGScoots-3px9kJPxfwI4z0w_",
+  "source_clip": "ClearObedientDoveOMGScoots-3px9kJPxfwI4z0w_"
+ },
+ {
+  "streamer": "kreekcraft",
+  "cam": [
+   0,
+   0.0,
+   0.23,
+   0.6
+  ],
+  "game": [
+   0.272,
+   0.03,
+   0.456,
+   0.84
+  ],
+  "name": "K03-kreekcraft-hugs-the-hulk",
+  "created": "2026-11-19T15:53:00Z",
+  "start": 13.8,
+  "end": 58.8,
+  "hook": "GTA 6 HAS A HULK...|SO HE WENT FOR A HUG",
+  "replay": [
+   51.0,
+   54.0
+  ],
+  "sfx": [
+   [
+    52.2,
+    "ding"
+   ]
+  ],
+  "src": "src/DullRockyYogurtNerfBlueBlaster-cf4hra0bvJYzDF3e.mp4",
+  "tx": "DullRockyYogurtNerfBlueBlaster-cf4hra0bvJYzDF3e",
+  "source_clip": "DullRockyYogurtNerfBlueBlaster-cf4hra0bvJYzDF3e"
+ },
+ {
+  "streamer": "asianjeff",
+  "game": [
+   0.315,
+   0.12,
+   0.4,
+   0.72
+  ],
+  "name": "A01-asianjeff-cant-find-l3",
+  "created": "2026-11-19T05:26:54Z",
+  "cam": [
+   0,
+   0.28,
+   0.31,
+   0.39
+  ],
+  "start": 3.4,
+  "end": 59.9,
+  "hook": "HE COULDN'T FIND L3...|THEN THE COPS SHOWED UP",
+  "replay": [
+   44.0,
+   47.0
+  ],
+  "sfx": [
+   [
+    25.7,
+    "boom"
+   ]
+  ],
+  "src": "src/CulturedColdbloodedTriangleCoolStoryBob-CVvhH4OV8Rcf7Att.mp4",
+  "tx": "CulturedColdbloodedTriangleCoolStoryBob-CVvhH4OV8Rcf7Att",
+  "source_clip": "CulturedColdbloodedTriangleCoolStoryBob-CVvhH4OV8Rcf7Att"
+ },
+ {
+  "streamer": "asianjeff",
+  "game": [
+   0.315,
+   0.12,
+   0.4,
+   0.72
+  ],
+  "name": "A02-asianjeff-chat-teaches-r3",
+  "created": "2026-11-19T05:36:32Z",
+  "cam": [
+   0,
+   0.28,
+   0.31,
+   0.39
+  ],
+  "start": 0,
+  "end": 30.0,
+  "hook": "CHAT HAD TO TEACH HIM|WHAT R3 IS",
+  "replay": [
+   25.0,
+   28.0
+  ],
+  "sfx": [
+   [
+    15.9,
+    "ding"
+   ],
+   [
+    26.4,
+    "boom"
+   ]
+  ],
+  "src": "src/BlatantExquisiteMonitorGrammarKing-KZJb61NKnli7x9PO.mp4",
+  "tx": "BlatantExquisiteMonitorGrammarKing-KZJb61NKnli7x9PO",
+  "source_clip": "BlatantExquisiteMonitorGrammarKing-KZJb61NKnli7x9PO"
+ },
+ {
+  "streamer": "asianjeff",
+  "game": [
+   0.315,
+   0.12,
+   0.4,
+   0.72
+  ],
+  "name": "A03-asianjeff-scared-with-a-gun",
+  "created": "2026-11-19T05:36:09Z",
+  "cam": [
+   0,
+   0.28,
+   0.31,
+   0.39
+  ],
+  "start": 0,
+  "end": 30.0,
+  "hook": "HE HAS A GUN...|AND HE'S STILL TERRIFIED",
+  "replay": [
+   23.0,
+   26.0
+  ],
+  "sfx": [
+   [
+    25.7,
+    "boom"
+   ]
+  ],
+  "src": "src/FilthyAliveGrasshopperArsonNoSexy-qlCwixvkI9_WnZ-B.mp4",
+  "tx": "FilthyAliveGrasshopperArsonNoSexy-qlCwixvkI9_WnZ-B",
+  "source_clip": "FilthyAliveGrasshopperArsonNoSexy-qlCwixvkI9_WnZ-B"
+ },
+ {
+  "streamer": "asianjeff",
+  "game": [
+   0.315,
+   0.12,
+   0.4,
+   0.72
+  ],
+  "name": "A04-asianjeff-smooth-landing",
+  "created": "2026-11-19T05:52:16Z",
+  "cam": [
+   0,
+   0.29,
+   0.26,
+   0.44
+  ],
+  "start": 0,
+  "end": 30.0,
+  "hook": "CHAT TAUGHT HIM TO FLY...|CAN HE LAND IT?",
+  "replay": [
+   21.8,
+   24.8
+  ],
+  "sfx": [
+   [
+    23.6,
+    "ding"
+   ]
+  ],
+  "src": "src/HedonisticFunTriangleOMGScoots-y9eMrbY7gnClYQlF.mp4",
+  "tx": "HedonisticFunTriangleOMGScoots-y9eMrbY7gnClYQlF",
+  "source_clip": "HedonisticFunTriangleOMGScoots-y9eMrbY7gnClYQlF"
+ },
+ {
+  "streamer": "asianjeff",
+  "game": [
+   0.315,
+   0.12,
+   0.4,
+   0.72
+  ],
+  "name": "A05-asianjeff-first-takeoff",
+  "created": "2026-11-19T05:59:38Z",
+  "cam": [
+   0,
+   0.36,
+   0.25,
+   0.31
+  ],
+  "start": 0,
+  "end": 30.0,
+  "hook": "HIS FIRST GTA 6 TAKEOFF|WAS WAY TOO CLOSE",
+  "replay": [
+   7.6,
+   10.6
+  ],
+  "sfx": [
+   [
+    9.0,
+    "boom"
+   ]
+  ],
+  "src": "src/OnerousArtsyKimchiStinkyCheese-pw3DaAkM0zTR4k-K.mp4",
+  "tx": "OnerousArtsyKimchiStinkyCheese-pw3DaAkM0zTR4k-K",
+  "source_clip": "OnerousArtsyKimchiStinkyCheese-pw3DaAkM0zTR4k-K"
+ },
+ {
+  "streamer": "asianjeff",
+  "game": [
+   0.315,
+   0.12,
+   0.4,
+   0.72
+  ],
+  "name": "A06-asianjeff-meets-lucia",
+  "created": "2026-11-19T08:12:35Z",
+  "cam": [
+   0,
+   0.28,
+   0.31,
+   0.39
+  ],
+  "start": 0,
+  "end": 25.0,
+  "hook": "ASIANJEFF'S FIRST LOOK|AT LUCIA",
+  "replay": [
+   0.8,
+   3.4
+  ],
+  "sfx": [
+   [
+    2.7,
+    "pop"
+   ]
+  ],
+  "src": "src/AntsyKathishCurryM4xHeh-DWF2tqfzyNNr3J-8.mp4",
+  "tx": "AntsyKathishCurryM4xHeh-DWF2tqfzyNNr3J-8",
+  "source_clip": "AntsyKathishCurryM4xHeh-DWF2tqfzyNNr3J-8"
+ }
+]

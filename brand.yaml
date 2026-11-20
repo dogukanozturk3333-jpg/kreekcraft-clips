@@ -1,0 +1,57 @@
+# Zeipan edit package. tools/render.py reads every value here; change the look in one place.
+
+channel:
+  name: ZEIPAN                 # drawn top-left as the channel badge
+  logo: assets/logo.png        # optional PNG; when the file is missing the name above is drawn instead
+
+frame:                         # thin colored border around the whole video
+  enabled: true
+  color: "9146FF"              # RRGGBB
+  width: 8
+  accent: "FFE500"             # progress bar + highlighted caption word
+
+top_bar:                       # row above the facecam: logo/channel name left, context strip right
+  height: 96
+
+context:                       # "<Streamer> • GTA 6 • Day N"
+  template: "{streamer} • GTA 6 • Day {day}"
+  uppercase: true
+  timezone: America/New_York   # day N counts calendar days in this zone from the streamer's day1
+
+streamers:
+  kreekcraft:
+    name: KreekCraft
+    twitch: twitch.tv/kreekcraft
+    day1: 2026-11-18
+  asianjeff:
+    name: AsianJeff
+    twitch: twitch.tv/asianjeff
+    day1: 2026-11-19
+
+reaction_zoom:                 # sudden punch-in on the gameplay at audio peaks (the facecam/overlay never zooms)
+  scale: 1.2
+  hold: 0.55                   # seconds at full zoom
+  release: 0.3                 # seconds easing back out
+  min_gap: 4.0                 # seconds between two punch-ins
+  per_seconds: 7               # at most one punch-in per this many seconds
+  whoosh: true
+
+replay:                        # ending: main moment again, zoomed and slowed, so the Short loops into the hook
+  enabled: true
+  speed: 0.5
+  zoom: 1.2
+  length: 2.6                  # source seconds replayed when a clip sets no "replay" range
+  label: "REPLAY 0.5x"
+  sfx: rewind                  # plays as the replay starts; empty for none
+
+sfx:                           # punchline sound effects (files in dir, licenses in README "Sound effects")
+  dir: assets/sfx
+  volume: 0.8
+
+end_cta:                       # shown over the replay
+  title: "WATCH {NAME} LIVE"
+  sub: "FOLLOW FOR MORE GTA 6 CLIPS"
+
+series:                        # numbered titles: "... | GTA 6 Streamer Moments #N"
+  name: GTA 6 Streamer Moments
+  log: tools/series.tsv        # number -> file; next number = last + 1
