@@ -82,7 +82,7 @@ He couldn't find L3… then the cops showed up 🚔 | Watch AsianJeff live on Tw
 ---
 
 ## #5 — `A02-asianjeff-chat-teaches-r3.mp4`
-Source: twitch.tv/asianjeff/clip/BlatantExquisiteMonitorGrammarKing-KZJb61NKnli7x9PO (0–30.0 s)
+Source: twitch.tv/asianjeff/clip/BlatantExquisiteMonitorGrammarKing-KZJb61NKnli7x9PO (2.4–30.0 s)
 
 **YouTube title:** Chat Had to Teach AsianJeff What R3 Is 🎮 | GTA 6 Streamer Moments #5 #shorts
 
