@@ -213,6 +213,7 @@ def load_words(clip):
         if not re.search(r'[A-Za-z0-9]', w['w']):
             continue
         txt = w['w']
+        w['brk'] = bool(re.search(r'[.,?!]$', txt))          # sentence/clause end: start a new caption chunk
         txt = clip.get('replace', {}).get(txt.lower(), txt)
         for pat, rep in CENSOR:
             txt = re.sub(pat, rep, txt, flags=re.I)
@@ -224,6 +225,9 @@ def load_words(clip):
             continue
         w['t0'], w['t1'] = t0, min(t1, clip['end'] - clip['start'])
         out.append(w)
+    for a, b in zip(out, out[1:]):                          # zero-length words: give each at least 0.1 s on screen
+        if b['t0'] - a['t0'] < 0.1:
+            b['t0'] = min(a['t0'] + 0.1, max(b['t1'] - 0.02, a['t0'] + 0.05))
     return out
 
 def chunks(words, maxw=3, maxc=16):
@@ -231,7 +235,7 @@ def chunks(words, maxw=3, maxc=16):
     for w in words:
         if cur and (len(cur) >= maxw or w['t0'] - cur[-1]['t1'] > 0.6
                     or len(' '.join(x['w'] for x in cur + [w])) > maxc
-                    or re.search(r'[.?!-]$', cur[-1]['w'])):
+                    or cur[-1].get('brk') or re.search(r'[.?!-]$', cur[-1]['w'])):
             yield cur; cur = []
         cur.append(w)
     if cur:
