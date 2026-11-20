@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Render vertical 1080x1920 streamer clips with the Zeipan edit package (brand.yaml):
-brand frame + channel badge, "<Streamer> • GTA 6 • Day N" context strip, facecam/overlay panel on top
+brand frame + logo badge, 0.8 s logo sting at the start, "<Streamer> • GTA 6 • Day N" context strip, facecam/overlay panel on top
 (never zoomed or blurred, so the streamer's overlay stays visible), gameplay below with 1.2x punch-ins on
 reaction peaks, own hook line, word-highlighted captions, punchline sound effects, and an ending that
 replays the main moment zoomed at 0.5x with the twitch.tv CTA so the Short loops.
@@ -407,11 +407,21 @@ def render(clip):
         f"unsharp=5:5:0.6:5:5:0.0,drawbox=x=0:y={seam - 3}:w=iw:h=6:color=0x{FRAME_C}:t=fill,"
         f"{border}{bar}ass={ass},format=yuv420p[vb]"
     )
+    intro = BRAND.get('intro', {})
     if has_logo:
         inputs += ['-loop', '1', '-i', logo]
         fc += (f";[{nin}:v]scale=-1:{TOP - 30},format=rgba[lg];"
-               f"[vb][lg]overlay=x={FW + 22}:y={FW}+({TOP}-h)/2:shortest=1[v]")
+               f"[vb][lg]overlay=x={FW + 22}:y={FW}+({TOP}-h)/2:shortest=1[vl]")
         nin += 1
+        if intro.get('enabled', True):      # brand sting: big logo pops over the gameplay, clip keeps playing
+            idur, iw_ = intro.get('duration', 0.8), intro.get('width', 720)
+            inputs += ['-loop', '1', '-t', f'{idur}', '-framerate', '30', '-i', logo]
+            fc += (f";[{nin}:v]format=rgba,scale=w='{iw_}*(0.7+0.3*min(1,t/0.15))':h=-2:eval=frame,"
+                   f"fade=t=in:st=0:d=0.08:alpha=1,fade=t=out:st={idur - 0.25:.2f}:d=0.25:alpha=1[lgi];"
+                   f"[vl][lgi]overlay=x=(W-w)/2:y={intro.get('y', 1560)}-h/2:eof_action=pass[v]")
+            nin += 1
+        else:
+            fc += ';[vl]null[v]'
     else:
         fc += ';[vb]null[v]'
 
@@ -437,6 +447,8 @@ def render(clip):
     sfx_dir = os.path.join(REPO, BRAND['sfx']['dir'])
     vol = BRAND['sfx'].get('volume', 0.8)
     hits = [(remap(t - clip['start']), name) for t, name in clip.get('sfx', [])]   # source-file seconds
+    if has_logo and intro.get('enabled', True) and intro.get('sfx'):
+        hits.append((0.0, intro['sfx']))
     if rr and BRAND['replay'].get('sfx'):
         hits.append((D - 0.05, BRAND['replay']['sfx']))
     for k, (t, name) in enumerate(hits):

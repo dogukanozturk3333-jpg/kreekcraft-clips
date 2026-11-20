@@ -2,7 +2,14 @@
 
 channel:
   name: ZEIPAN                 # drawn top-left as the channel badge
-  logo: assets/logo.png        # optional PNG; when the file is missing the name above is drawn instead
+  logo: assets/logo.png        # tools/make_logo.py draws it from the colors below; if missing the name above is drawn instead
+
+intro:                         # brand sting: big logo pops over the gameplay for the first moments (clip keeps playing)
+  enabled: true
+  duration: 0.8
+  width: 720
+  y: 1560                      # center of the logo, inside the gameplay area
+  sfx: pop
 
 frame:                         # thin colored border around the whole video
   enabled: true
