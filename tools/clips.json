@@ -1,0 +1,154 @@
+[
+ {
+  "name": "01-stream-about-to-get-banned",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src/clip1.mp4",
+  "tx": "clip1",
+  "start": 0,
+  "end": 30,
+  "hook": "THIS GTA 6 CLUB IS ABOUT|TO GET HIS STREAM BANNED"
+ },
+ {
+  "name": "02-most-polite-gta6-player",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src/clip2.mp4",
+  "tx": "clip2",
+  "start": 0,
+  "end": 30,
+  "hook": "WORLD'S MOST POLITE|GTA 6 PLAYER"
+ },
+ {
+  "name": "03-friend-eaten-by-shark",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src/clip3.mp4",
+  "tx": "clip3",
+  "start": 0,
+  "end": 30,
+  "sources": [
+   [
+    "txm",
+    0,
+    10.5
+   ],
+   [
+    "tx",
+    10.5,
+    14.5
+   ],
+   [
+    "txm",
+    14.5,
+    29.0
+   ]
+  ],
+  "hook": "HIS FRIEND GOT EATEN|BY A SHARK IN GTA 6",
+  "bleep": [
+   [
+    0.12,
+    0.56
+   ],
+   [
+    18.4,
+    18.8
+   ]
+  ]
+ },
+ {
+  "name": "04-crocodile-bet",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src/clip4.mp4",
+  "tx": "clip4",
+  "start": 0,
+  "end": 30,
+  "hook": "HE BET A FREE GTA 6 COPY|HE WOULDN'T GET EATEN..."
+ },
+ {
+  "name": "05-gator-island-shootout",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src/clip5.mp4",
+  "tx": "clip5",
+  "start": 0,
+  "end": 30,
+  "sources": [
+   [
+    "tx",
+    0,
+    99
+   ]
+  ],
+  "hook": "GTA 6 SHOOTOUTS|ARE NO JOKE"
+ },
+ {
+  "name": "06-stole-grannys-scooter",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src/clip6.mp4",
+  "tx": "clip6",
+  "start": 0,
+  "end": 42,
+  "sources": [
+   [
+    "tx",
+    0,
+    99
+   ]
+  ],
+  "drop": [
+   [
+    10.8,
+    12.3
+   ],
+   [
+    24.25,
+    24.7
+   ]
+  ],
+  "hook": "HE STOLE GRANNY'S|SCOOTER IN GTA 6"
+ },
+ {
+  "name": "07-crocodile-part-2",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src2/clip25.mp4",
+  "tx": "clip25",
+  "start": 9.2,
+  "end": 42,
+  "replace": {
+   "chant?": "chances?"
+  },
+  "hook": "HE SURVIVED THE CROC...|THEN WENT BACK FOR MORE"
+ },
+ {
+  "name": "08-first-time-launching-gta6",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src2/clip15.mp4",
+  "tx": "clip15",
+  "start": 0,
+  "end": 28,
+  "hook": "KREEKCRAFT'S FIRST TIME|LAUNCHING GTA 6",
+  "layout": "full",
+  "cap_y": 1745
+ },
+ {
+  "name": "09-robbing-first-store",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src2/clip26.mp4",
+  "tx": "clip26",
+  "start": 0,
+  "end": 32,
+  "hook": "KREEKCRAFT ROBS HIS|FIRST STORE IN GTA 6",
+  "bleep": [
+   [
+    11.6,
+    11.95
+   ],
+   [
+    14.45,
+    14.8
+   ]
+  ]
+ },
+ {
+  "name": "10-npc-was-not-playing",
+  "src": "/tmp/claude-0/-home-user-petrewo/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/src2/clip11.mp4",
+  "tx": "clip11",
+  "start": 0,
+  "end": 30,
+  "hook": "THIS GTA 6 NPC|WAS NOT PLAYING",
+  "bleep": [
+   [
+    1.2,
+    1.75
+   ]
+  ]
+ }
+]
