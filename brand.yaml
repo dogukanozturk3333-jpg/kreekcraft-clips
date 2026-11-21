@@ -34,6 +34,10 @@ streamers:
     name: AsianJeff
     twitch: twitch.tv/asianjeff
     day1: 2026-11-19
+  kaicenat:
+    name: Kai Cenat
+    twitch: twitch.tv/kaicenat
+    day1: 2026-11-15
 
 reaction_zoom:                 # sudden punch-in on the gameplay at audio peaks (the facecam/overlay never zooms)
   scale: 1.2

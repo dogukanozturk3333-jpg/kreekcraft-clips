@@ -1,0 +1,35 @@
+[
+ {
+  "name": "C01-kaicenat-six-stars",
+  "streamer": "kaicenat",
+  "created": "2026-11-15T20:59:01Z",
+  "src": "src/SincereMoldyGaragePartyTime-C2fuK1XJ2UtVfHel.mp4",
+  "tx": "SincereMoldyGaragePartyTime-C2fuK1XJ2UtVfHel",
+  "source_clip": "SincereMoldyGaragePartyTime-C2fuK1XJ2UtVfHel",
+  "start": 0,
+  "end": 35.8,
+  "cam": [
+   0,
+   0.7,
+   0.2,
+   0.3
+  ],
+  "game": [
+   0.272,
+   0.03,
+   0.456,
+   0.84
+  ],
+  "hook": "GTA 6 HAS A|SIX STAR WANTED LEVEL?!",
+  "replay": [
+   31.9,
+   34.4
+  ],
+  "sfx": [
+   [
+    32.2,
+    "boom"
+   ]
+  ]
+ }
+]
