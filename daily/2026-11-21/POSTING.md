@@ -24,3 +24,21 @@ Kai Cenat GTA 6 funny moments and reactions from his GTA 6 stream — GTA 6 game
 
 **TikTok / Instagram caption:**
 GTA 6 has a SIX star wanted level?! ⭐ | Watch Kai Cenat live on Twitch! 🔴 twitch.tv/kaicenat #GTA6 #KaiCenat #GrandTheftAutoVI #gaming #fyp
+
+---
+
+## #11 — `X01-streamers-try-flying.mp4` (themed compilation, YouTube only — no campaign)
+Built with `tools/compile.py daily/2026-11-21/X01-streamers-try-flying.json`. Segments:
+1. KreekCraft — twitch.tv/kreekcraft/clip/WonderfulRockyHawkPMSTwin-CRg4X98nNwIS4i1A (19.0–26.4 s)
+2. AsianJeff — twitch.tv/asianjeff/clip/OnerousArtsyKimchiStinkyCheese-pw3DaAkM0zTR4k-K (6.0–12.4 s)
+3. AsianJeff — twitch.tv/asianjeff/clip/HedonisticFunTriangleOMGScoots-y9eMrbY7gnClYQlF (19.6–27.9 s)
+
+**YouTube title:** Streamers Try Flying in GTA 6… ✈️ | GTA 6 Streamer Moments #11 #shorts
+
+**YouTube description:**
+KreekCraft gets a chopper off the ground, AsianJeff nearly crashes on takeoff… then sticks the landing ✈️ "Smooth as butter."
+Watch them live: https://twitch.tv/kreekcraft · https://twitch.tv/asianjeff
+
+GTA 6 streamer funny moments compilation — KreekCraft and AsianJeff flying in Grand Theft Auto VI.
+
+#GTA6 #KreekCraft #AsianJeff #GrandTheftAutoVI #GTAVI #GTA6Funny #gaming #shorts

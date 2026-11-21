@@ -273,10 +273,14 @@ def build_ass(clip, D, T, remap, seam, has_logo, replay):
             pop = r'{\pos(540,%d)}' % clip.get('cap_y', 1320) + pop
             ev.append(f"Dialogue: 1,{ts(a)},{ts(b)},Cap,,0,0,0,,{pop}{' '.join(parts)}")
     # hook: our own line, never the Twitch clip title
-    hook = clip['hook'].replace('|', r'\N')
-    hd = clip.get('hook_dur', 3.2)
-    ev.append(f"Dialogue: 5,{ts(0)},{ts(hd)},Hook,,0,0,0,,"
-              r"{\pos(540," + str(seam + 185) + r")\fad(0,150)}" + hook)
+    if clip.get('hook'):
+        hook = clip['hook'].replace('|', r'\N')
+        hd = clip.get('hook_dur', 3.2)
+        ev.append(f"Dialogue: 5,{ts(0)},{ts(hd)},Hook,,0,0,0,,"
+                  r"{\pos(540," + str(seam + 185) + r")\fad(0,150)}" + hook)
+    if clip.get('label'):           # compilation segment label, e.g. "#1 KREEKCRAFT"
+        ev.append(f"Dialogue: 6,{ts(0)},{ts(D)},Rpl,,0,0,0,,"
+                  r"{\an8\pos(540," + str(seam + 34) + r")\fs46}" + clip['label'])
     # brand top bar: channel badge (unless a logo image is overlaid) + context strip
     yb = FW + TOP // 2
     if not has_logo:
@@ -297,13 +301,14 @@ def build_ass(clip, D, T, remap, seam, has_logo, replay):
     if replay:
         ev.append(f"Dialogue: 6,{ts(D)},{ts(T)},Rpl,,0,0,0,,"
                   r"{\an8\pos(540," + str(seam + 34) + r")\fad(120,0)}" + BRAND['replay']['label'])
-    ev.append(f"Dialogue: 6,{ts(D)},{ts(T)},EndS,,0,0,0,,"
-              r"{\pos(540,1440)\fad(150,0)}" + title)
-    ev.append(f"Dialogue: 6,{ts(D)},{ts(T)},EndL,,0,0,0,,"
-              r"{\pos(540,1565)\fad(150,0)\fscx70\fscy70\t(0,200,\fscx100\fscy100)}"
-              + clip.get('end_link', twitch))
-    ev.append(f"Dialogue: 6,{ts(D)},{ts(T)},EndS,,0,0,0,,"
-              r"{\pos(540,1685)\fad(150,0)\fs46}" + cta['sub'])
+    if T - D > 0.01:                # compilation segments end without a CTA
+        ev.append(f"Dialogue: 6,{ts(D)},{ts(T)},EndS,,0,0,0,,"
+                  r"{\pos(540,1440)\fad(150,0)}" + title)
+        ev.append(f"Dialogue: 6,{ts(D)},{ts(T)},EndL,,0,0,0,,"
+                  r"{\pos(540,1565)\fad(150,0)\fscx70\fscy70\t(0,200,\fscx100\fscy100)}"
+                  + clip.get('end_link', twitch))
+        ev.append(f"Dialogue: 6,{ts(D)},{ts(T)},EndS,,0,0,0,,"
+                  r"{\pos(540,1685)\fad(150,0)\fs46}" + cta['sub'])
     fc, ac = ass_col(FRAME_C), ass_col(ACCENT_C)
     head = f"""[Script Info]
 ScriptType: v4.00+
@@ -347,9 +352,10 @@ def render(clip):
     D = round(sum(b - a for a, b in keep), 3)
     db = loudness(clip) if clip.get('fx', True) else None
     peaks = find_peaks(clip, db, keep, remap, D)
-    rr = replay_range(clip, db, D0)
+    ending = clip.get('ending', 'replay')               # 'replay' | 'card' | 'none' (compilation segment)
+    rr = replay_range(clip, db, D0) if ending == 'replay' else None
     speed = BRAND['replay']['speed']
-    RD = (rr[1] - rr[0]) / speed if rr else END
+    RD = (rr[1] - rr[0]) / speed if rr else (END if ending == 'card' else 0.0)
     T = round(D + RD, 3)
     seam = clip.get('seam', SEAM)
     logo = os.path.join(REPO, BRAND['channel'].get('logo') or '')
@@ -391,10 +397,10 @@ def render(clip):
                f"[mv][rv]concat=n=2:v=1:a=0,split=3[v1][v2][v3];")
     else:
         vin = (f"[0:v]trim=start={clip['start']}:end={clip['end']},setpts=PTS-STARTPTS,fps=30,{vsel}"
-               f"tpad=stop_mode=clone:stop_duration={END},setsar=1,split=3[v1][v2][v3];")
+               + (f"tpad=stop_mode=clone:stop_duration={RD}," if RD > 0 else '') + "setsar=1,split=3[v1][v2][v3];")
     camh = seam - FW - TOP
     bar = (f"drawbox=x={FW}:y=ih-{FW + 12}:w='(iw-{2 * FW})*t/{D}':h=12:color=0x{ACCENT_C}@0.95:t=fill"
-           f":enable='lt(t,{D})'," if clip.get('fx', True) else '')
+           f":enable='lt(t,{D})'," if clip.get('fx', True) and clip.get('bar', True) else '')
     border = f"drawbox=x=0:y=0:w=iw:h=ih:color=0x{FRAME_C}:t={FW}," if FW else ''
     fc = (
         vin +
@@ -405,20 +411,25 @@ def render(clip):
         f"{game}[game];"
         f"[bg][cam]overlay=x=(W-w)/2:y={FW + TOP}+({camh}-h)/2[t1];[t1][game]overlay=0:{gy},"
         f"unsharp=5:5:0.6:5:5:0.0,drawbox=x=0:y={seam - 3}:w=iw:h=6:color=0x{FRAME_C}:t=fill,"
-        f"{border}{bar}ass={ass},format=yuv420p[vb]"
+        f"{border}{bar}ass={ass},format=yuv420p,setsar=1[vb]"
     )
     intro = BRAND.get('intro', {})
+    sting = has_logo and intro.get('enabled', True) and clip.get('intro', True)
+    idur, iw_ = intro.get('duration', 0.8), intro.get('width', 720)
+    at_end = intro.get('position', 'start') == 'end'
+    st0 = max(0.0, T - idur - 0.05) if at_end else 0.0          # sting start time
+    sy = intro.get('end_y', 1150) if at_end else intro.get('y', 1560)
     if has_logo:
         inputs += ['-loop', '1', '-i', logo]
         fc += (f";[{nin}:v]scale=-1:{TOP - 30},format=rgba[lg];"
                f"[vb][lg]overlay=x={FW + 22}:y={FW}+({TOP}-h)/2:shortest=1[vl]")
         nin += 1
-        if intro.get('enabled', True):      # brand sting: big logo pops over the gameplay, clip keeps playing
-            idur, iw_ = intro.get('duration', 0.8), intro.get('width', 720)
+        if sting:                           # brand sting: big logo pops over the gameplay, clip keeps playing
             inputs += ['-loop', '1', '-t', f'{idur}', '-framerate', '30', '-i', logo]
-            fc += (f";[{nin}:v]format=rgba,scale=w='{iw_}*(0.7+0.3*min(1,t/0.15))':h=-2:eval=frame,"
-                   f"fade=t=in:st=0:d=0.08:alpha=1,fade=t=out:st={idur - 0.25:.2f}:d=0.25:alpha=1[lgi];"
-                   f"[vl][lgi]overlay=x=(W-w)/2:y={intro.get('y', 1560)}-h/2:eof_action=pass[v]")
+            fc += (f";[{nin}:v]format=rgba,setpts=PTS-STARTPTS+{st0:.3f}/TB,"
+                   f"scale=w='{iw_}*(0.7+0.3*min(1,max(0,t-{st0:.3f})/0.15))':h=-2:eval=frame,"
+                   f"fade=t=in:st={st0:.3f}:d=0.08:alpha=1,fade=t=out:st={st0 + idur - 0.25:.3f}:d=0.25:alpha=1[lgi];"
+                   f"[vl][lgi]overlay=x=(W-w)/2:y={sy}-h/2:eof_action=pass[v]")
             nin += 1
         else:
             fc += ';[vl]null[v]'
@@ -435,7 +446,7 @@ def render(clip):
     else:
         fc += (f";[0:a]atrim=start={clip['start']}:end={clip['end']},asetpts=PTS-STARTPTS,{asel}"
                f"loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000,aformat=channel_layouts=stereo,"
-               f"afade=t=out:st={D - 0.4}:d={0.4 + END * 0.6},apad=whole_dur={T}[a00]")
+               + (f"afade=t=out:st={D - 0.4}:d={0.4 + RD * 0.6}," if RD > 0 else '') + f"apad=whole_dur={T}[a00]")
     fx = []          # (label, start time in output)
     rz = BRAND['reaction_zoom']
     if peaks and rz.get('whoosh', True):
@@ -447,8 +458,8 @@ def render(clip):
     sfx_dir = os.path.join(REPO, BRAND['sfx']['dir'])
     vol = BRAND['sfx'].get('volume', 0.8)
     hits = [(remap(t - clip['start']), name) for t, name in clip.get('sfx', [])]   # source-file seconds
-    if has_logo and intro.get('enabled', True) and intro.get('sfx'):
-        hits.append((0.0, intro['sfx']))
+    if sting and intro.get('sfx'):
+        hits.append((st0, intro['sfx']))
     if rr and BRAND['replay'].get('sfx'):
         hits.append((D - 0.05, BRAND['replay']['sfx']))
     for k, (t, name) in enumerate(hits):

@@ -11,13 +11,14 @@ Also clips for the AsianJeff GTA 6 clipping campaign on Content Rewards ($1 / 1K
 - `tools/render.py` — renderer (facecam + overlay top, gameplay bottom, hook, captions, profanity bleeps, twitch.tv/kreekcraft end card)
 - `tools/processed.txt` — Twitch clip slugs already reviewed
 - `brand.yaml` — our edit package (frame color, channel badge/logo, context strip, punch-in zoom, replay, sfx, series name); `tools/render.py` reads it
+- `tools/compile.py` — themed compilations: several streamers' moments on one theme, `#N STREAMER` labels, outro with every streamer's twitch.tv link
 - `tools/series.tsv` — "GTA 6 Streamer Moments #N" numbers already used in titles
 - `tools/uploaded.tsv` — videos already on the Zeipan channel; check it before every upload so nothing goes up twice
 
 ## Edit package (brand.yaml)
 Every clip rendered by `tools/render.py` gets:
 - a thin brand-colored frame and the Zeipan logo (`assets/logo.png`, drawn by `tools/make_logo.py`) at the top the whole time
-- an intro sting: the big Zeipan logo pops over the gameplay for the first 0.8 s with a pop sound (the clip and hook already play underneath, so no dead intro time)
+- a logo sting: the big Zeipan logo pops over the gameplay for 0.8 s with a pop sound — at the end by default (`intro.position` in brand.yaml), so the first frame is pure action
 - a context strip: `<Streamer> • GTA 6 • Day N` (day counted from the streamer's `day1`, US Eastern dates)
 - our own hook line (never the Twitch clip title), word-highlighted captions, profanity bleeps
 - a sudden 1.2x punch-in on the gameplay at reaction peaks found in the audio (with a whoosh)

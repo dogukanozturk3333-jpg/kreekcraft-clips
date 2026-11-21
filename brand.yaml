@@ -4,11 +4,13 @@ channel:
   name: ZEIPAN                 # drawn top-left as the channel badge
   logo: assets/logo.png        # tools/make_logo.py draws it from the colors below; if missing the name above is drawn instead
 
-intro:                         # brand sting: big logo pops over the gameplay for the first moments (clip keeps playing)
+intro:                         # brand sting: big logo pops over the gameplay (clip keeps playing underneath)
   enabled: true
+  position: end                # end = closing sting (first frame stays pure action); start = opening sting
   duration: 0.8
   width: 720
-  y: 1560                      # center of the logo, inside the gameplay area
+  y: 1560                      # logo center when position is start
+  end_y: 1150                  # logo center when position is end (above the twitch.tv CTA)
   sfx: pop
 
 frame:                         # thin colored border around the whole video
