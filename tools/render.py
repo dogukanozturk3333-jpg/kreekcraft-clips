@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Render vertical 1080x1920 KreekCraft clips: facecam+overlay top, gameplay bottom,
-hook text, word-highlighted English captions, twitch.tv/kreekcraft tag + end card."""
+hook text, word-highlighted English captions, twitch.tv/kreekcraft tag + end card,
+plus the ZEIPAN brand layers from tools/brand.py (set "brand": false on a clip to skip them)."""
 import json, re, subprocess, sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import brand   # ZEIPAN logo bug, branded end card, sound stings (tools/brand.py)
 
 S = sys.argv[1]
 CFG = json.load(open(sys.argv[2]))
@@ -251,6 +254,7 @@ def render(clip):
            if clip.get('fx', True) else '')
     print(clip['name'], f'length {D0:.1f}s -> {D:.1f}s, cuts {len(keep) - 1}, zooms at {peaks}', flush=True)
     full = clip.get('layout') == 'full'
+    branded = clip.get('brand', True)
     seam = clip.get('seam', SEAM)                                  # facecam panel height
     cx, cy, cw, ch = clip.get('cam', [0, 0.015, 0.225, 0.555])     # facecam crop (fractions)
     gx, gyy, gw, gh = clip.get('game', [0.272, 0.03, 0.456, 0.84])  # gameplay crop (fractions)
@@ -268,7 +272,7 @@ def render(clip):
         f"{zoom}{bar}"
         f"tpad=stop_mode=clone:stop_duration={END},"
         f"gblur=sigma=28:enable='gte(t,{D})',eq=brightness=-0.28:enable='gte(t,{D})',"
-        f"ass={ass},format=yuv420p[v];"
+        f"ass={ass},format=yuv420p[{'vpre' if branded else 'v'}];"
         f"[0:a]atrim=start={clip['start']}:end={clip['end']},asetpts=PTS-STARTPTS,{asel}"
         f"loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000,aformat=channel_layouts=stereo,"
         f"afade=t=out:st={D - 0.4}:d={0.4 + END * 0.6},apad=whole_dur={T}[a00]"
@@ -289,12 +293,18 @@ def render(clip):
         fc += (f";[a0]volume=0:enable='{on}'[am];"
                f"sine=f=1000:sample_rate=48000:duration={T},volume=1.6,"
                f"volume=0:enable='not({on})'[bp];"
-               f"[am][bp]amix=inputs=2:normalize=0:duration=first[a]")
+               f"[am][bp]amix=inputs=2:normalize=0:duration=first[apre]")
     else:
-        fc += ";[a0]anull[a]"
+        fc += ";[a0]anull[apre]"
     print(clip['name'], 'bleeps:', [(round(a, 2), round(b, 2)) for a, b in spans], flush=True)
+    extra = []
+    if branded:
+        fc += ';' + brand.filters(1, 'vpre', 'apre', 'v', 'a', D, seam)
+        extra = brand.inputs()
+    else:
+        fc += ';[apre]anull[a]'
     out = f"{OUT}/{clip['name']}.mp4"
-    cmd = ['ffmpeg', '-v', 'error', '-y', '-i', clip['src'], '-filter_complex', fc,
+    cmd = ['ffmpeg', '-v', 'error', '-y', '-i', clip['src']] + extra + ['-filter_complex', fc,
            '-map', '[v]', '-map', '[a]', '-t', f'{T}',
            '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-maxrate', '11M', '-bufsize', '22M',
            '-profile:v', 'high', '-level', '4.1', '-r', '30', '-g', '60',
