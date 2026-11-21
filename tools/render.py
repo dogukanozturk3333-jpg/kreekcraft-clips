@@ -12,7 +12,8 @@ Three stages, streamed frame by frame:
 
 Per-clip config keys: name, src, tx, start, end, hook ("LINE 1|LINE 2"), and optional
 seam, cam, game, layout ("full"), cap_y, tag, end_title, end_link, sources, drop,
-replace, bleep, emoji (list), stickers ([[clip_time, "😂"], ...]), fx, trim_silence, brand."""
+replace, bleep, emoji (list, turns on emoji pop-ups at peaks), stickers ([[clip_time, "😂"], ...]),
+fx, trim_silence, brand."""
 import json, re, subprocess, sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
@@ -269,13 +270,15 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     return head + '\n'.join(ev) + '\n'
 
 def stickers_for(clip, peaks, remap, seam):
-    """Emoji pop-ups: explicit [[clip_time, emoji], ...] or automatic on reaction peaks."""
+    """Emoji pop-ups (off unless the clip sets "stickers" or "emoji")."""
     xs, y = (930, 150), max(170, int(seam * 0.36))
     if 'stickers' in clip:
         times = [(remap(t) if remap else t, e) for t, e in clip['stickers']]
-    else:
-        em = clip.get('emoji', ['😂', '💀', '😭'])
+    elif clip.get('emoji'):          # off by default; "emoji": ["😂", "💀"] turns on auto pop-ups
+        em = clip['emoji']
         times = [(p, em[i % len(em)]) for i, p in enumerate(peaks[:3])]
+    else:
+        times = []
     return [(t, e, xs[i % 2], y) for i, (t, e) in enumerate(times)]
 
 def render(clip):
@@ -349,6 +352,16 @@ def render(clip):
                 if 3.4 <= b <= D - 2.0 and all(abs(b - x) > 1.2 for x in peaks + cuts) \
                         and all(abs(b - x) >= 3.5 for x in beats):
                     beats.append(round(b, 2))
+        if len(beats) < 2:      # non-stop talking: add a transition every ~6.5 s, snapped to a word start
+            starts = [remap(w['t0']) for w in ws]
+            t = 7.0
+            while t <= D - 2.5:
+                near = min(starts, key=lambda x: abs(x - t), default=t)
+                b = round((near if abs(near - t) < 0.8 else t) - 0.03, 2)
+                if all(abs(b - x) > 1.2 for x in peaks + cuts) and all(abs(b - x) >= 3.5 for x in beats):
+                    beats.append(b)
+                t += 6.5
+            beats.sort()
     print(clip['name'], 'beats:', beats, flush=True)
     ed = fx.Edit(D, END, cuts if clip.get('fx', True) else [], peaks, seam, stick,
                  shake=loudest, intro=clip.get('fx', True), beats=beats)

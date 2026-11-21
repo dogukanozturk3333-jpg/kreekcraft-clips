@@ -4,7 +4,7 @@ Camera:      slow push-in for the whole clip, punch-in zooms on reaction peaks,
              camera shake on the biggest reaction, glitch/zoom entrance on frame 1.
 Transitions: every jump cut gets one (rotating): zoom-punch + flash, whip pan with
              motion blur, RGB-split glitch. Zoom-blur into the end card.
-Stickers:    emoji pop-ups (bounce in, wobble, pop out) on reaction peaks.
+Stickers:    optional emoji pop-ups (bounce in, wobble, pop out), off by default.
 Sound:       matching SFX track (whooshes, glitch, boom, pops, riser) as a wav.
 Captions, hook and brand layers are added later by ffmpeg on top, so they stay steady.
 """
