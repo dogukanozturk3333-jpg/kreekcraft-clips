@@ -1,0 +1,11 @@
+[
+ {"name":"c1-s1","src":"SRC/src/C3.mp4","tx":"C3","start":25,"end":35.7,"trim_silence":false,
+  "seam":600,"cam":[0,0,0.248,0.25],"game":[0.29,0.04,0.423,0.92],"cap_y":1560,
+  "tag":"CLIX • TWITCH.TV/CLIX","hook":"TOP 3 GTA 6 FAILS|#3 CLIX'S PORSCHE"},
+ {"name":"c1-s2","src":"SRC/src/C4.mp4","tx":"C4","start":6,"end":21,"trim_silence":false,"drop":[[20,40]],
+  "seam":600,"cam":[0,0,0.248,0.25],"game":[0.29,0.04,0.423,0.92],"grade":"eq=gamma=1.2:brightness=0.02","cap_y":1560,
+  "tag":"CLIX • TWITCH.TV/CLIX","hook":"#2 CLIX TRIES|TO FLY A PLANE"},
+ {"name":"c1-s3","src":"SRC/src/K2.mp4","tx":"K2","start":22,"end":35.8,"trim_silence":false,
+  "seam":600,"cam":[0,0.69,0.2,0.31],"game":[0.29,0.03,0.423,0.92],
+  "tag":"KAI CENAT • TWITCH.TV/KAICENAT","hook":"#1 KAI CENAT|GETS 6 STARS"}
+]
