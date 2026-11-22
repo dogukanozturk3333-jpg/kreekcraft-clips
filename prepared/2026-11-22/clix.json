@@ -1,0 +1,83 @@
+[
+ {
+  "name": "X01-clix-plane-fail",
+  "src": "SRC/src/C2.mp4",
+  "tx": "C2",
+  "start": 9,
+  "end": 40.4,
+  "drop": [
+   [
+    0,
+    29.9
+   ]
+  ],
+  "seam": 600,
+  "cam": [
+   0,
+   0,
+   0.248,
+   0.25
+  ],
+  "game": [
+   0.29,
+   0.04,
+   0.423,
+   0.92
+  ],
+  "tag": "CLIX \u2022 GTA 6",
+  "end_title": "WATCH CLIX LIVE",
+  "end_link": "twitch.tv/clix",
+  "hook": "CLIX TRIED TO FLY|A PLANE IN GTA 6",
+  "cap_y": 1560
+ },
+ {
+  "name": "X02-clix-crashed-porsche",
+  "src": "SRC/src/C3.mp4",
+  "tx": "C3",
+  "start": 13.8,
+  "end": 35.7,
+  "seam": 600,
+  "cam": [
+   0,
+   0,
+   0.248,
+   0.25
+  ],
+  "game": [
+   0.29,
+   0.04,
+   0.423,
+   0.92
+  ],
+  "tag": "CLIX \u2022 GTA 6",
+  "end_title": "WATCH CLIX LIVE",
+  "end_link": "twitch.tv/clix",
+  "hook": "CLIX CRASHED HIS|OWN PORSCHE IN GTA 6",
+  "cap_y": 1560
+ },
+ {
+  "name": "X03-clix-plane-crash",
+  "src": "SRC/src/C4.mp4",
+  "tx": "C4",
+  "start": 0,
+  "end": 22,
+  "seam": 600,
+  "cam": [
+   0,
+   0,
+   0.248,
+   0.25
+  ],
+  "game": [
+   0.29,
+   0.04,
+   0.423,
+   0.92
+  ],
+  "grade": "eq=gamma=1.2:brightness=0.02",
+  "tag": "CLIX \u2022 GTA 6",
+  "end_title": "WATCH CLIX LIVE",
+  "end_link": "twitch.tv/clix",
+  "hook": "CLIX'S FIRST FLIGHT|IN GTA 6"
+ }
+]
