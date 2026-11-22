@@ -1,0 +1,17 @@
+{
+  "name": "ZEIPAN",
+  "handle": "@zeipan",
+  "tagline": "GTA 6 CLIPS EVERY DAY",
+  "colors": {
+    "primary": "#FFE500",
+    "dark": "#0B0B0F",
+    "light": "#FFFFFF"
+  },
+  "font": "/usr/share/fonts/opentype/inter/Inter-BlackItalic.otf",
+  "font_upright": "/usr/share/fonts/opentype/inter/Inter-Black.otf",
+  "bug": {
+    "x": 28,
+    "size": 104,
+    "opacity": 0.92
+  }
+}
