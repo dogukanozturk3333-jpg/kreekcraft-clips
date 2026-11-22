@@ -239,6 +239,7 @@ def render(clip):
     open(ass, 'w').write(build_ass(clip, D, remap))
     T = D + END
     cut = len(keep) > 1
+    grade = (clip['grade'] + ',') if clip.get('grade') else ''   # e.g. eq=gamma=1.35 for dark night clips
     sel = '+'.join(f'between(t,{a:.3f},{b:.3f})' for a, b in keep)
     vsel = f"select='{sel}',setpts=N/30/TB," if cut else ''
     asel = f"aselect='{sel}',asetpts=N/SR/TB," if cut else ''
@@ -256,7 +257,7 @@ def render(clip):
     gx, gyy, gw, gh = clip.get('game', [0.272, 0.03, 0.456, 0.84])  # gameplay crop (fractions)
     gy = seam + (H - seam - 608) // 2 if full else seam
     fc = (
-        f"[0:v]trim=start={clip['start']}:end={clip['end']},setpts=PTS-STARTPTS,fps=30,{vsel}split=3[v1][v2][v3];"
+        f"[0:v]trim=start={clip['start']}:end={clip['end']},setpts=PTS-STARTPTS,fps=30,{vsel}{grade}split=3[v1][v2][v3];"
         f"[v1]crop=ih*9/16:ih,scale={W}:{H},gblur=sigma=40,eq=brightness=-0.12[bg];"
         f"[v2]crop=iw*{cw}:ih*{ch}:iw*{cx}:ih*{cy},"
         f"scale=w={W}:h={seam}:force_original_aspect_ratio=decrease:flags=lanczos,scale=trunc(iw/2)*2:trunc(ih/2)*2[cam];"
