@@ -1,4 +1,4 @@
-# Prepared clips — 2026-11-22 (NOT uploaded anywhere)
+# Prepared clips — 2026-11-22 (uploaded to YouTube @Zeipan on 2026-11-22, see tools/uploaded.tsv)
 
 ZEIPAN-branded vertical clips (1080x1920, 30 fps, H.264/AAC) from creators who run paid clipping
 programs for their GTA 6 streams (Kai Cenat, Clix). The streamer's facecam stays visible the whole time,
