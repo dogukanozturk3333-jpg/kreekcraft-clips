@@ -1,0 +1,27 @@
+{
+ "D": 27.4,
+ "seam": 560,
+ "hook": "3 RARE GTA 6 CARS|YOU CAN GET FREE",
+ "runs": [
+  [0.0, 3.47, "Three rare cars in GTA 6 you can grab for free."],
+  [3.89, 4.54, "Number three:"],
+  [4.83, 6.63, "the Maibatsu Penumbra FF."],
+  [6.91, 10.52, "It's parked in a house garage on Vespucci Island, so steal it early."],
+  [10.93, 11.53, "Number two:"],
+  [11.84, 13.26, "Wyman's '70 Riata,"],
+  [13.38, 15.35, "sitting on Sunset Drive in Key Lento."],
+  [15.80, 16.61, "And number one:"],
+  [16.86, 18.60, "the Bravado Gauntlet Hellfire,"],
+  [18.74, 21.60, "hidden inside the M7 junkyard off Galerina Street,"],
+  [21.75, 22.91, "east of Boone Speedway."],
+  [23.30, 25.60, "Register them at a garage, or you'll lose them."],
+  [25.98, 27.14, "Follow Zeipan for more!"]
+ ],
+ "sections": [
+  {"t0": 0.0, "t1": 3.89, "img": "car1"},
+  {"t0": 3.89, "t1": 10.93, "img": "car3", "num": 3, "title": "MAIBATSU|PENUMBRA FF", "loc": "VESPUCCI ISLAND"},
+  {"t0": 10.93, "t1": 15.80, "img": "car2", "num": 2, "title": "WYMAN'S '70 RIATA", "loc": "KEY LENTO"},
+  {"t0": 15.80, "t1": 23.30, "img": "car1", "num": 1, "title": "GAUNTLET HELLFIRE", "loc": "HAMLET JUNKYARD"},
+  {"t0": 23.30, "t1": 27.4, "img": "car1", "title": "REGISTER IT|AT A GARAGE!"}
+ ]
+}
