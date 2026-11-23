@@ -15,9 +15,9 @@ FB = 'Inter Black'
 rnd = random.Random(SEED)
 
 PAIRS = {   # (majority, odd) look-alikes, grouped by how hard they are to tell apart
-    'easy':   ['❤️🧡', '🔵🟣', '🍊🍑', '🌕🌝', '📕📙', '⚽🏐', '🐻🐨', '🐮🐷', '🐟🐠', '🍓🍒', '🚗🚕', '💙💜'],
-    'medium': ['🍎🍅', '🦁🐯', '⭐🌟', '🌻🌼', '😴😪', '🐸🐢', '🍩🥯', '🐶🐕', '🌲🌳', '🙂🙃'],
-    'hard':   ['😀😃', '😄😁', '😐😑', '🙈🙊', '😺😸', '😮😯', '😟🙁', '😊🙂', '😃😄', '🌙🌛', '😗😙'],
+    'easy':   ['❤️🧡', '🔵🟣', '🍊🍑', '🌕🌝', '📕📙', '⚽🏐', '🐻🐨', '🐮🐷', '🐟🐠', '🍓🍒', '🚗🚕', '💙💜', '🍏🍎', '🐝🐞', '🍋🍊'],
+    'medium': ['🍎🍅', '🦁🐯', '⭐🌟', '🌻🌼', '😴😪', '🐸🐢', '🍩🥯', '🐶🐕', '🌲🌳', '🙂🙃', '🐭🐹', '😆😂', '🙄😒'],
+    'hard':   ['😀😃', '😄😁', '😐😑', '🙈🙊', '😺😸', '😮😯', '😟🙁', '😊🙂', '😃😄', '🌙🌛', '😗😙', '😶😐'],
 }
 LEVELS = [('easy', 5, 7, 5.0, (90, 220, 120)), ('medium', 6, 9, 6.0, (255, 205, 60)), ('hard', 7, 11, 7.0, (255, 80, 90))]
 REVEAL, END = 1.7, 2.6
@@ -103,7 +103,8 @@ def end_frame():
 puzzles = []
 for idx, lv in enumerate(LEVELS):
     name, cols, rows = lv[:3]
-    a, b = split2(rnd.choice(PAIRS[name]))
+    order = PAIRS[name][:]; random.Random(4242 + idx).shuffle(order)   # fixed order: consecutive seeds never repeat a pair
+    a, b = split2(order[(SEED - 1) % len(order)])
     if rnd.random() < 0.5: a, b = b, a
     odd = (rnd.randrange(1, rows - 1), rnd.randrange(cols - 1))   # never the right column: the Shorts buttons sit there
     cells = [[b if (r, c) == odd else a for c in range(cols)] for r in range(rows)]

@@ -17,3 +17,15 @@ Description: Find the odd one out in all three levels before time runs out! 🧠
 Comment 1, 2 or 3 👇  New brain puzzles every day. #puzzle #brainteaser #oddoneout
 Tags: find the odd one out, odd one out, emoji puzzle, brain teaser, puzzle, spot the difference, brain test
 Category 24 (Entertainment), not made for kids.
+
+## Starter pack — titles per video (description/tags as above, same for all)
+- 001: Find the Odd One Out 🧠 Can You Beat Level 3?
+- 002: Only Sharp Eyes Find All 3 👀 Odd One Out
+- 003: Find the Odd Emoji in 7 Seconds ⏱️
+- 004: Can You Spot It? 😳 Find the Odd One Out
+- 005: Test Your Eyes 👁️ Find the Odd One Out
+- 006: Level 3 Is Evil 😈 Find the Odd Emoji
+- 007: How Fast Are Your Eyes? Odd One Out ⚡
+- 008: Find It Before Time Runs Out ⏰ Odd One Out
+- 009: Your Brain vs Level 3 🧠 Find the Odd Emoji
+- 010: Can You Find All 3? 🔍 Odd One Out Challenge
