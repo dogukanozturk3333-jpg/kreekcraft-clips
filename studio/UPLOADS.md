@@ -29,9 +29,12 @@ Zeipan: compilations/2026-11-23-streamers-found-bigfoot.mp4 (last one; then paus
 Uploaded items are listed in tools/uploaded.tsv; skip anything already there.
 
 ## Instagram (@brainwarplab) via Metricool — brand blogId 7879434, timezone Europe/Istanbul
-Four Reels a day at 13:00, 16:00, 19:30 and 22:00 Istanbul time (Instagram has no 5-a-day limit), rotating
-formats; a video may go to Instagram before YouTube (raw.githubusercontent URL as media, type REEL,
-isAiGenerated false). Never post an Instagram video that is not yet pushed to GitHub.
+BUDGET: Metricool's free plan publishes at most 20 posts per CALENDAR MONTH (help.metricool.com; counter
+resets on the 1st). Count rows in studio/instagram.tsv for the month and never schedule past 20.
+November 2026: 13 Reels scheduled up to 11-25 → 7 left for 11-26…11-30 (about 1–2 a day, at 19:30).
+From December: 20 a month ≈ one Reel a day at 19:30 Istanbul, best formats first (math, color, diff).
+If the user connects Instagram in Zapier (Instagram for Business, publish_video), use that for extra Reels.
+Raw GitHub URL as media, type REEL, isAiGenerated false; never post a video that is not pushed yet.
 Caption: hook line with emojis (the YouTube title idea, no #shorts) / comment prompt / a share or tag prompt
 ("send this to a friend who…") / "Follow @brainwarplab for a new brain puzzle every day." / 12 hashtags:
 format-specific (e.g. #mathpuzzle #emojimath #orderofoperations) + broad (#brainteaser #puzzle #braingames
