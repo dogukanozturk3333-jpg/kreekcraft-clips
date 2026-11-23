@@ -13,3 +13,12 @@
   collage of the episode's own puzzles + red "CAN YOU SCORE …?" pill.
 - Voice of the titles: curious and playful ("Can you…?", "Stare at…", "Only sharp eyes…"); no invented
   statistics, no fake claims; always end Shorts titles with #shorts.
+
+## Quality gate (mandatory before anything is scheduled)
+1. `python3 -I tools/qa.py VIDEO --kind short|long|ambient` must say PASS (size, duration, loudness,
+   true peak, black frames, file size).
+2. Open the contact sheet it writes and check by eye: no watermark or text over the moment the puzzle or
+   illusion happens, nothing cut off, answers not shown before the reveal, logo/handle visible.
+3. A new format or a changed renderer: watch one full render frame by frame (8–12 stills) before batch use.
+Lesson (2026-11-24, flag illusion): the diagonal watermark crossed the blank screen where the afterimage
+appears — the user spotted it. Illusion moments are now kept clean (illusion.py CLEAN_KINDS).

@@ -168,8 +168,14 @@ def end_screen(t, a, b):
     return brand(over(base, im))
 
 
+LIGHT_KINDS = ('lilac', 'troxler', 'flagneg', 'flagwhite')       # light backgrounds: dark bottom tag
+CLEAN_KINDS = ('flagwhite', 'gray', 'photo', 'hermann', 'hermannrev', 'lines', 'linesrev')   # illusion moments: no diagonal watermark on top
 def frame(t):
-    return brandmark.apply_np(_frame(t))
+    kind = next(s for s in segs if s[1] <= t < s[2] or s is segs[-1])[0]
+    kw = {}
+    if kind in CLEAN_KINDS: kw['diag_alpha'] = 0
+    if kind in LIGHT_KINDS: kw['tag_col'] = (60, 40, 110)
+    return brandmark.apply_np(_frame(t), **kw)
 
 
 def _frame(t):
@@ -217,8 +223,6 @@ def _frame(t):
             if u > 1.0: f = ring(f, 1 - (u - 1.0) / STARE, math.ceil(STARE - (u - 1.0)))
         else:
             f = np.zeros((H, W, 3), np.float32) + LIGHT
-            im = Image.fromarray(f.astype(np.uint8)); ImageDraw.Draw(im).rectangle([FX, FY, FX + FA.shape[1], FY + FA.shape[0]], outline=(200, 200, 200), width=3)
-            f = np.asarray(im, np.float32)
             lines = ((300, 'KEEP LOOKING AT THE DOT', 62, (40, 24, 70)),) if u < 3.8 else ((300, 'WHAT FLAG DID YOU SEE?', 66, (40, 24, 70)),)
             f = over(f, text_layer(lines, dark=True)); f = fix_dot(f)
         return brand(f, dark=True)
