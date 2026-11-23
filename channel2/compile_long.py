@@ -111,8 +111,14 @@ for ri, r in enumerate(SPEC['rounds']):
     for p in r['items']:
         panel(i, f'ROUND {ri + 1} · {r["name"]}', p, pts).save(f'{TMP}/p{i}.png')
         o = f'{TMP}/s{i + 1:03d}.mp4'
+        # drop the Short's own end screen (it would repeat 30 times in an episode); keep a short tail
+        dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p],
+                                   capture_output=True, text=True).stdout)
+        keep = dur - (3.2 if kind_of(p) in ('lilac', 'spiral', 'troxler', 'afterimage') else 3.0) + 0.4
         run(['-loop', '1', '-i', f'{TMP}/p{i}.png', '-i', p, '-filter_complex',
-             '[1:v]scale=608:1080,setsar=1[s];[0:v][s]overlay=(W-w)/2:0:shortest=1[v]', '-map', '[v]', '-map', '1:a'] + ENC + [o])
+             f'[1:v]scale=608:1080,setsar=1,fade=out:st={keep - 0.35:.2f}:d=0.35[s];[0:v][s]overlay=(W-w)/2:0:shortest=1[v];'
+             f'[1:a]afade=out:st={keep - 0.4:.2f}:d=0.4,alimiter=limit=0.85:level=false[a]', '-map', '[v]', '-map', '[a]',
+             '-t', f'{keep:.2f}'] + ENC + [o])
         pts += KIND.get(kind_of(p), ILL)[3]; i += 1; add(o)
 tiers = [(0.0, 'Beginner'), (0.4, 'Sharp Eyes'), (0.7, 'Genius'), (0.9, 'Brain Warp Master')]
 lines = [f'{int(lo * MAXPTS)}{"+" if k == len(tiers) - 1 else "–" + str(int(tiers[k + 1][0] * MAXPTS) - 1)}  {name}' for k, (lo, name) in enumerate(tiers)]
@@ -121,7 +127,10 @@ card_video(f'{TMP}/outro.png', 9.0, f'Time to add it up! The maximum was {MAXPTS
            f'or a Brain Warp master? Comment your score, and subscribe for a new episode.', f'{TMP}/s999.mp4')
 chapters.append((t, 'Your score')); add(f'{TMP}/s999.mp4')
 open(f'{TMP}/list.txt', 'w').write(''.join(f"file '{s}'\n" for s in segs))
-run(['-f', 'concat', '-safe', '0', '-i', f'{TMP}/list.txt', '-c', 'copy', '-movflags', '+faststart', OUT])
+run(['-f', 'concat', '-safe', '0', '-i', f'{TMP}/list.txt', '-c', 'copy', f'{TMP}/joined.mp4'])
+# one final audio pass over the whole episode: even loudness and no peaks above ~-1.5 dBFS after AAC
+run(['-i', f'{TMP}/joined.mp4', '-c:v', 'copy', '-af', 'loudnorm=I=-15:TP=-2:LRA=7,aresample=48000,alimiter=limit=0.68:level=false',
+     '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', OUT])
 open(OUT + '.chapters.txt', 'w').write(''.join(f'{int(c // 60)}:{int(c % 60):02d} {n}\n' for c, n in chapters))
 # thumbnail (for when custom thumbnails are enabled on the channel)
 th = BG.copy().convert('RGBA'); d = ImageDraw.Draw(th)

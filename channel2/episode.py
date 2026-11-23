@@ -35,7 +35,7 @@ for gen, kind in BONUS:
     out = os.path.join(work, f'{kind}-ep{N}.mp4'); bonus.append(out)
     photo = os.path.join(REPO, 'ambient', 'img', ['short-fireplace.jpg', 'short-snow.jpg'][N % 2])
     jobs.append((['python3', '-I', os.path.join(HERE, gen), kind, out] + (['--photo', photo] if kind == 'spiral' else []), out))
-spec['rounds'].append({'name': 'BONUS: ILLUSIONS', 'items': bonus})
+spec['rounds'].append({'name': 'BONUS ILLUSIONS', 'items': bonus})
 
 
 def run(job):
