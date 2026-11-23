@@ -29,9 +29,12 @@ Zeipan: compilations/2026-11-23-streamers-found-bigfoot.mp4 (last one; then paus
 Uploaded items are listed in tools/uploaded.tsv; skip anything already there.
 
 ## Instagram (@brainwarplab) via Metricool — brand blogId 7879434, timezone Europe/Istanbul
-Two Reels a day at 13:00 and 19:30 Istanbul time, taking Brain Warp Lab videos in the same order they went
-to YouTube (raw.githubusercontent URL as media, instagramData type REEL, isAiGenerated false).
-Caption = YouTube title (without #shorts) + description lines + "follow @brainwarplab" + 8 hashtags
-(format hashtags + #braingames #eyetest #reels). Log scheduled Reels in studio/instagram.tsv.
+Four Reels a day at 13:00, 16:00, 19:30 and 22:00 Istanbul time (Instagram has no 5-a-day limit), rotating
+formats; a video may go to Instagram before YouTube (raw.githubusercontent URL as media, type REEL,
+isAiGenerated false). Never post an Instagram video that is not yet pushed to GitHub.
+Caption: hook line with emojis (the YouTube title idea, no #shorts) / comment prompt / a share or tag prompt
+("send this to a friend who…") / "Follow @brainwarplab for a new brain puzzle every day." / 12 hashtags:
+format-specific (e.g. #mathpuzzle #emojimath #orderofoperations) + broad (#brainteaser #puzzle #braingames
+#iqtest #challenge) + #explore #reels. No invented statistics. Log scheduled Reels in studio/instagram.tsv.
 Scheduled so far: odd-001 (2026-11-23 22:00), lilac-01 (11-24 13:00), odd-002 (11-24 19:30),
 spiral-01 (11-25 13:00), odd-003 (11-25 19:30).
