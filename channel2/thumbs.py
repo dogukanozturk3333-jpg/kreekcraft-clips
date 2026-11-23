@@ -76,8 +76,13 @@ def short(video, kind, out, line1=None, line2=None):
     for y in range(540, H): sd.line([(0, y), (W, y)], fill=(10, 6, 24, int(235 * ((y - 540) / 180) ** 0.6)))
     bg.alpha_composite(shade)
     d = ImageDraw.Draw(bg)
-    outlined(d, (W // 2, 92), a, font('Inter Black', 78), (255, 255, 255), 10)
+    outlined(d, (W // 2, 122), a, font('Inter Black', 78), (255, 255, 255), 10)
     outlined(d, (W // 2, 640), b, font('Inter Black', 78 if len(b) < 10 else 62), YEL, 10)
+    # brand: logo badge + name inside the 9:16 band, so every thumbnail reads as Brain Warp Lab
+    bg.alpha_composite(logo(46), (W // 2 - 128, 12))
+    d.text((W // 2 - 74, 35), 'BRAIN WARP LAB', font=font('Inter Black', 26), fill=(255, 255, 255), anchor='lm',
+           stroke_width=4, stroke_fill=(10, 6, 24))
+    bg.alpha_composite(logo(96), (24, H - 120))
     bg.convert('RGB').save(out, quality=90); print('thumb', out)
 
 
