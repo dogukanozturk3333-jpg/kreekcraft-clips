@@ -49,4 +49,4 @@ youtubeData: {title, type "short" | "video", privacy public, tags, category ENTE
 NOTE (2026-11-23): the Metricool connector here now logs in as account #2, so the Instagram brand 7879434
 (account #1) is not visible any more. Its 20 November Reels stay scheduled on Metricool's side. For
 December Instagram posting the user shares brand 7879434 with account #2 (or reconnects account #1).
-Metricool YouTube log: math-001 scheduled 2026-11-23 22:55 Istanbul (post 439328948) as the first test.
+Metricool YouTube log: math-001 published 2026-11-23 22:55 Istanbul as vzQNZnXVZsY (test OK, 1/20 for November).
