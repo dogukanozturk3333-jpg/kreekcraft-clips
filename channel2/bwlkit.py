@@ -103,6 +103,18 @@ def ring(d, cx, cy, R, u, col=MAGENTA):
 
 
 # ---------------------------------------------------------------- audio
+def kokoro(threads=2):
+    """Kokoro TTS with a small, non-spinning thread pool: several renders can run side by side without the
+    ONNX threads burning every core while they wait for each other."""
+    import onnxruntime as ort
+    from kokoro_onnx import Kokoro
+    so = ort.SessionOptions(); so.intra_op_num_threads = threads; so.inter_op_num_threads = 1
+    so.add_session_config_entry('session.intra_op.allow_spinning', '0')
+    so.add_session_config_entry('session.inter_op.allow_spinning', '0')
+    sess = ort.InferenceSession(f'{KOKORO}/kokoro.onnx', sess_options=so, providers=['CPUExecutionProvider'])
+    return Kokoro.from_session(sess, f'{KOKORO}/voices.bin')
+
+
 class Audio:
     def __init__(self, T):
         self.T = T; n = int((T + 1) * SR)
@@ -117,9 +129,7 @@ class Audio:
     def sfx_at(self, at, s, g=1.0): self._put(self.sfx, at, s, g)
 
     def say(self, at, txt, speed=1.1, voice='am_michael'):
-        if self._k is None:
-            from kokoro_onnx import Kokoro
-            self._k = Kokoro(f'{KOKORO}/kokoro.onnx', f'{KOKORO}/voices.bin')
+        if self._k is None: self._k = kokoro()
         s, sr = self._k.create(txt, voice=voice, speed=speed, lang='en-us')
         s = cv2.resize(s.astype(np.float32)[None, :], (int(len(s) * SR / sr), 1), interpolation=cv2.INTER_LINEAR)[0]
         self._put(self.voice, at, s); return len(s) / SR

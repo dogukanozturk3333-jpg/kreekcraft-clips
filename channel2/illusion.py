@@ -196,7 +196,7 @@ def shimmer():
 for k, a, b in segs:
     if k in ('photo', 'gray', 'end'): put(a, shimmer())
 from kokoro_onnx import Kokoro
-kk = Kokoro(f'{KOKORO}/kokoro.onnx', f'{KOKORO}/voices.bin')
+import bwlkit; kk = bwlkit.kokoro()
 for at, txt in voice_lines + [(end_a + 0.1, 'Did it work? Tell us in the comments!')]:
     s, sr = kk.create(txt, voice='am_michael', speed=1.02, lang='en-us')
     s = cv2.resize(s.astype(np.float32)[None, :], (int(len(s) * SR / sr), 1), interpolation=cv2.INTER_LINEAR)[0]; put(at, s)

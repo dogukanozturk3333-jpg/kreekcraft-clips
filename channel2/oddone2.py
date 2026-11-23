@@ -305,7 +305,7 @@ def heartbeat(g=0.5):
     return tone(55, 0.18, 18, g) + np.concatenate([np.zeros(int(0.14 * SR)), tone(50, 0.16, 20, g * 0.7)])[:int(0.18 * SR)]
 
 from kokoro_onnx import Kokoro
-kk = Kokoro(f'{KOKORO}/kokoro.onnx', f'{KOKORO}/voices.bin')
+import bwlkit; kk = bwlkit.kokoro()
 voice = np.zeros_like(mix)
 def say(at, txt):
     s, sr = kk.create(txt, voice='am_michael', speed=1.1, lang='en-us')
