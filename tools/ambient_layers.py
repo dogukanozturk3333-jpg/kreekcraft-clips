@@ -7,7 +7,7 @@ compressor + limiter before mixing, so nothing startles a sleeping listener.
   python3 -I tools/ambient_layers.py OUT.m4a SECONDS 'rain:0:a.mp3,b.mp3' 'fire:-4:c.mp3,d.mp3:tame'
   layer spec = name:gain_dB:comma-separated loops[:tame]
 """
-import sys, subprocess, numpy as np
+import sys, os, subprocess, numpy as np
 
 SR = 44100; XF = int(6 * SR); RMS = 0.12; MASTER = 10 ** (-5.5 / 20)   # ~ -20 LUFS, calm for sleep
 out, secs = sys.argv[1], float(sys.argv[2])
@@ -55,7 +55,8 @@ layers = [Layer(s, 42 + i) for i, s in enumerate(sys.argv[3:])]
 enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-',
                         '-af', 'highshelf=f=7000:g=-4,lowpass=f=14000,alimiter=limit=0.7:level=false,'
                                'afade=t=in:d=4,afade=t=out:st=%.2f:d=6' % (secs - 6),
-                        ] + (['-c:a', 'pcm_s16le'] if out.endswith('.wav') else ['-c:a', 'aac', '-b:a', '128k']) + [out], stdin=subprocess.PIPE)
+                        ] + (['-c:a', 'pcm_s16le'] if out.endswith('.wav') else ['-c:a', 'libopus', '-b:a', os.environ.get('OPUS_KBPS', '80') + 'k'] if out.endswith('.opus')
+                             else ['-c:a', 'aac', '-b:a', '128k']) + [out], stdin=subprocess.PIPE)
 total = int(secs * SR); done = 0; CH = SR * 10
 while done < total:
     n = min(CH, total - done)

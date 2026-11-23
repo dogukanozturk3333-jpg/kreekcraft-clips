@@ -3,7 +3,8 @@
 Layers: a gusting broadband body (time-varying band-pass), a soft howl that only rises in strong gusts
 (two narrow resonances drifting in pitch), and a low rumble. Each stereo side gets its own noise; the gusts
 are shared with a small delay so the wind moves across the room.
-  python3 -I tools/wind_synth.py OUT.wav SECONDS SEED [--howl 0.5] [--strength 1.0] [--indoor]
+  python3 -I tools/wind_synth.py OUT.wav SECONDS SEED [--howl 0.5] [--strength 1.0] [--depth 0.65] [--indoor]
+For a snowfall 'hush' (no wind character): --howl 0 --depth 0.2 --indoor
 --indoor muffles the highs (wind heard through cabin walls and glass)."""
 import sys, argparse, numpy as np, soundfile as sf
 from numba import njit
@@ -11,7 +12,9 @@ from scipy.signal import butter, sosfilt
 
 ap = argparse.ArgumentParser(); ap.add_argument('out'); ap.add_argument('secs', type=float); ap.add_argument('seed', type=int)
 ap.add_argument('--howl', type=float, default=0.5); ap.add_argument('--strength', type=float, default=1.0)
-ap.add_argument('--indoor', action='store_true'); a = ap.parse_args()
+ap.add_argument('--indoor', action='store_true')
+ap.add_argument('--depth', type=float, default=0.65, help='how much the gusts swell (0 = steady hush)')
+a = ap.parse_args()
 SR = 44100; XF = 8 * SR; N = int(a.secs * SR) + XF
 rng = np.random.default_rng(a.seed)
 
@@ -40,7 +43,7 @@ def svf_bp(x, fc, q):
 # gusts: slow swell + medium gusts, mapped to 0..1
 g = 0.55 * smooth_noise(N, 14, a.seed) + 0.45 * smooth_noise(N, 3.5, a.seed + 1)
 lo, hi = np.percentile(g, [3, 97]); g = np.clip((g - lo) / (hi - lo), 0, 1)
-g = (0.35 + 0.65 * g) * a.strength          # gusts swell and fade, but never jump out of a sleeping ear's range
+g = (1 - a.depth + a.depth * g) * a.strength          # gusts swell and fade, but never jump out of a sleeping ear's range
 wob = smooth_noise(N, 1.2, a.seed + 2)
 
 chans = []

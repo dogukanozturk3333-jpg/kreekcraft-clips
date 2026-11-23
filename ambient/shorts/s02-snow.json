@@ -1,0 +1,36 @@
+{
+ "fps": 24,
+ "loop": 40,
+ "crf": 21,
+ "glow": 0.0,
+ "snow": {
+  "mask": "ambient/img/short-snow-mask.png",
+  "wind": 0.6,
+  "layers": [
+   {
+    "n": 420,
+    "r": 2.6,
+    "blur": 0.9,
+    "alpha": 0.75,
+    "fall": 3,
+    "sway": 14
+   },
+   {
+    "n": 200,
+    "r": 5.0,
+    "blur": 1.6,
+    "alpha": 0.9,
+    "fall": 5,
+    "sway": 26
+   },
+   {
+    "n": 22,
+    "r": 13.0,
+    "blur": 6.0,
+    "alpha": 0.55,
+    "fall": 8,
+    "sway": 44
+   }
+  ]
+ }
+}

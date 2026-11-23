@@ -1,1 +1,4 @@
 __pycache__/
+# synthesised loops are reproducible from tools/wind_synth.py + seed (see ambient/POSTING.md)
+ambient/loops/*.wav
+ambient/*.opus

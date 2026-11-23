@@ -68,3 +68,51 @@ Sound effects created with ElevenLabs.
 #rainsounds #fireplace #sleep
 
 **Tags:** rain sounds, fireplace, cozy, sleep sounds, rain and fireplace, relaxing, shorts
+
+---
+
+## 02 — Heavy snowfall at night, cabin window (45 minutes)
+File: `ambient/02-snowy-night-window-45m.mkv` (1920x1080, 15 fps H.264 + Opus 64k, -20 LUFS, < 95 MB)
+Picture: `img/snow-window.jpg` (ElevenLabs image, upscaled) · Snow: tools/ambient_loop.py with
+`ambient/snow-window.json` (3 depth layers, only behind the glass via img/snow-window-mask.png).
+Sound: our own soft "snowy night hush" (no wind character), tools/wind_synth.py
+`snow-hush-a.wav 180 31 --howl 0 --depth 0.2 --indoor --strength 0.7` and `snow-hush-b.wav 180 47 --howl 0
+--depth 0.25 --indoor --strength 0.7`, mixed with ambient_layers.py (`hush:3:…`, OPUS_KBPS=64).
+Why 45 min: heavy, smooth snowfall needs more bitrate; 45 minutes keeps the file under GitHub's 100 MB.
+
+**Title:** Heavy Snowfall at Night ❄️ Cozy Cabin Window | Soft Snow Ambience for Sleep & Relaxation
+
+**Description:**
+Heavy snowfall at night, seen from a warm cabin window: snow drifting over a frozen lake and pine forest
+under the full moon, a lantern glowing on the windowsill. ❄️🌙
+Soft, steady snowy-night ambience for sleep, study, reading and calm.
+
+✔ Gentle, steady sound, no music, no talking
+✔ Even volume, no sudden noises
+
+Subscribe to Lantern Rain Room for new cozy ambience every week.
+
+Image created with ElevenLabs.
+
+snowfall ambience, snow falling, snowy night, cozy cabin, winter ambience, sleep sounds, relaxing snow,
+snowfall for sleep, winter window, calm ambience
+
+#snowfall #winterambience #sleepsounds
+
+**Tags:** snowfall ambience, snow falling, heavy snowfall, snowy night, cozy cabin window, winter ambience,
+sleep sounds, relaxing, snow for sleep, calm
+
+---
+
+## S02 — Short: snowfall over the frozen lake (40 s, seamless loop, no on-screen text)
+File: `ambient/shorts/s02-snowfall.mp4` — upload AFTER video 02 and put its link first.
+
+**Title:** Snow falling at night ❄️ breathe out… #snowfall #winter #sleep
+
+**Description:**
+Full snowfall video 👉 {LINK TO VIDEO 02}
+Heavy snow falling over a frozen lake under the full moon. ❄️🌙
+Image created with ElevenLabs.
+#snowfall #winter #sleep
+
+**Tags:** snowfall, snow falling, winter, cozy, sleep sounds, relaxing, shorts

@@ -1,0 +1,44 @@
+{
+ "fps": 15,
+ "loop": 150,
+ "crf": 38,
+ "glow": 0.0,
+ "lights": [
+  [
+   300,
+   690,
+   90,
+   0.07
+  ]
+ ],
+ "snow": {
+  "mask": "ambient/img/snow-window-mask.png",
+  "wind": 0.6,
+  "layers": [
+   {
+    "n": 220,
+    "r": 1.8,
+    "blur": 1.0,
+    "alpha": 0.7,
+    "fall": 3,
+    "sway": 10
+   },
+   {
+    "n": 190,
+    "r": 3.2,
+    "blur": 1.2,
+    "alpha": 0.9,
+    "fall": 5,
+    "sway": 18
+   },
+   {
+    "n": 24,
+    "r": 8.0,
+    "blur": 4.0,
+    "alpha": 0.55,
+    "fall": 8,
+    "sway": 30
+   }
+  ]
+ }
+}
