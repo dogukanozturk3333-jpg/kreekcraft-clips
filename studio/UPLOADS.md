@@ -18,7 +18,9 @@ send_later at the end of each run. Stop at the first "throttled" answer; what is
 
 ## Queue (oldest first; take the first unused item per channel)
 Lantern Rain Room: ambient/01-cozy-cabin-rain-fireplace-1h.mp4, ambient/shorts/s01-rain-outside-fire-inside.mp4
-Brain Warp Lab: channel2/oddone2/odd-001.mp4 … odd-010.mp4 (titles in channel2/POSTING.md)
+Brain Warp Lab: alternate formats — odd-001, lilac-01, odd-002, spiral-01, odd-003, afterimage-01, odd-004,
+  troxler-01, then odd-005 … odd-010 (oddone files in channel2/oddone2/, illusions in channel2/illusions/;
+  titles in channel2/POSTING.md)
 Zeipan: compilations/2026-11-23-streamers-found-bigfoot.mp4 (last one; then paused — the other prepared
   GTA clips stay in the repo unused)
 Uploaded items are listed in tools/uploaded.tsv; skip anything already there.

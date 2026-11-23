@@ -30,3 +30,16 @@ Category 24 (Entertainment), not made for kids.
 - 008: Find It Before Time Runs Out ⏰ Odd One Out
 - 009: Your Brain vs Level 3 🧠 Find the Odd Emoji
 - 010: Can You Find All 3? 🔍 Odd One Out Challenge
+
+## Format 2 — Optical illusions (`channel2/illusion.py TYPE OUT.mp4`)
+Classic perception effects (public scientific phenomena) in our own designs: spiral (motion aftereffect),
+lilac (lilac chaser), troxler (Troxler fading), afterimage (colour afterimage). Ends with "Did it work?
+YES / NO — tell us in the comments". Category 24, not made for kids.
+Description: Try it with sound on and don't move your eyes 👀 Did it work? Comment YES or NO!
+New brain puzzles and illusions every day. #opticalillusion #illusion #brain
+Tags: optical illusion, illusion, brain trick, eye test, mind blowing, perception, brain teaser
+
+- lilac-01: Stare at the Cross… a GREEN Dot Appears 🟢 (Optical Illusion)
+- spiral-01: Stare for 15 Seconds, Then Look at the Fire 🌀 Your Brain Will Melt It
+- troxler-01: Stare at the Dot and Watch the Colors DISAPPEAR 👀
+- afterimage-01: This Black & White Photo Turns to COLOR 🤯 (Stare at the Dot)
