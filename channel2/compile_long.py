@@ -124,7 +124,7 @@ tiers = [(0.0, 'Beginner'), (0.4, 'Sharp Eyes'), (0.7, 'Genius'), (0.9, 'Brain W
 lines = [f'{int(lo * MAXPTS)}{"+" if k == len(tiers) - 1 else "–" + str(int(tiers[k + 1][0] * MAXPTS) - 1)}  {name}' for k, (lo, name) in enumerate(tiers)]
 card_png(['WHAT WAS', 'YOUR SCORE?'], f'max {MAXPTS} points', f'{TMP}/outro.png', small=lines)
 card_video(f'{TMP}/outro.png', 9.0, f'Time to add it up! The maximum was {MAXPTS} points. Are you a beginner, sharp eyes, a genius, '
-           f'or a Brain Warp master? Comment your score, and subscribe for a new episode.', f'{TMP}/s999.mp4')
+           f'or a Brain Warp master? Comment your score, and subscribe: a new episode every Tuesday and Friday.', f'{TMP}/s999.mp4')
 chapters.append((t, 'Your score')); add(f'{TMP}/s999.mp4')
 open(f'{TMP}/list.txt', 'w').write(''.join(f"file '{s}'\n" for s in segs))
 run(['-f', 'concat', '-safe', '0', '-i', f'{TMP}/list.txt', '-c', 'copy', f'{TMP}/joined.mp4'])

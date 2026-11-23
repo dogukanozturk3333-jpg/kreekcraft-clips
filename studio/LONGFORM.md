@@ -51,3 +51,11 @@ Instagram brand 7879434 is on Metricool account #1 (20/month, November used up).
 cut 60–90 s highlights from each episode (best round + bonus illusion, 9:16 crop of the centre Short with
 "full episode on YouTube" end card) and post them as Reels next to the best Shorts (illusions first —
 they got the most reactions). Needs account #1's brand shared with account #2, or the connector switched.
+
+## Series rule (user, 2026-11-24)
+Shorts may be frequent and attention-grabbing; long-form is a SERIES with a fixed rhythm:
+- New episode every **Tuesday and Friday at 20:00 Istanbul** (US lunchtime), numbered "Brain Warp Lab Ep. N".
+- Ep.1 Tue 2026-11-24 (out) · Ep.2 Fri 11-27 · Ep.3 Tue 12-01 · Ep.4 Fri 12-04 · Ep.5 Tue 12-08 · Ep.6 Fri 12-11 …
+- Every episode description links the previous one; every episode goes into the "Brain Warp Lab Episodes"
+  playlist (PLA0sAqxxCuGA); the outro voice says "new episode every Tuesday and Friday".
+- One Short per episode (best puzzle or bonus illusion) the day before, ending with "Full episode tomorrow".
