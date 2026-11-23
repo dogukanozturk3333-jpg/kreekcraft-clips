@@ -8,7 +8,10 @@ CFG: {"fps":15,"loop":20,"fire":[cx,cy,rx,ry],"lights":[[cx,cy,r,amp],...],
 fire, lights and snow are all optional. Snow flakes fall in depth layers (far = small, slow, sharp; near = big,
 soft bokeh), sway, and drift with the wind; every flake path is periodic in LOOP, so the loop is seamless.
 "fall" = how many times a flake crosses the frame per loop (integer)."""
+import os as _os
+for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'): _os.environ.setdefault(_v, '1')   # parallel renders must not spin-wait on each other
 import sys, json, subprocess, numpy as np, cv2
+cv2.setNumThreads(1)
 img = cv2.imread(sys.argv[1]).astype(np.float32); cfg = json.load(open(sys.argv[2])); OUT = sys.argv[3]
 H, W = img.shape[:2]; FPS = cfg.get('fps', 15); T = cfg.get('loop', 20); N = FPS * T
 rng = np.random.default_rng(7)

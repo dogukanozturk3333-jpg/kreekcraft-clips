@@ -7,7 +7,10 @@ TYPE:
   troxler    Troxler fading: stare at the dot and the soft colours disappear
   afterimage stare at a colour-inverted photo, then the black-and-white photo looks coloured
 Voice: Kokoro (Apache 2.0, offline). Music/sounds: generated here."""
+import os as _os
+for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'): _os.environ.setdefault(_v, '1')   # parallel renders must not spin-wait on each other
 import sys, os, math, argparse, functools, subprocess, numpy as np, soundfile as sf, cv2
+cv2.setNumThreads(1)
 from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageFilter
 
 ap = argparse.ArgumentParser(); ap.add_argument('type'); ap.add_argument('out')

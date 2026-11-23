@@ -1,7 +1,10 @@
 """Brain Warp Lab shared kit: brand look, animated background, emoji/text glyphs, easing, original music bed,
 sound effects, Kokoro voice and the encoder. Every new puzzle format builds on this so the channel keeps
 one professional look (and the watermark) without copying code around."""
+import os as _os
+for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'): _os.environ.setdefault(_v, '1')   # parallel renders must not spin-wait on each other
 import os, math, functools, subprocess, unicodedata, numpy as np, soundfile as sf, cv2
+cv2.setNumThreads(1)
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import brandmark
 

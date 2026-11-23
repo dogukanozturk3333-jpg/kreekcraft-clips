@@ -6,7 +6,10 @@ an end screen with 1/2/3 buttons — plus an original music bed composed here (n
   python3 -I channel2/oddone2.py SEED OUT.mp4 [MODE]
 MODE: emoji (default) | text (hidden letter/number, e.g. 81 among 18s) | color (one tile a slightly different shade)
 Emoji art: Noto Color Emoji (SIL OFL). Voice: Kokoro (Apache 2.0), offline."""
+import os as _os
+for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'): _os.environ.setdefault(_v, '1')   # parallel renders must not spin-wait on each other
 import sys, os, math, random, functools, subprocess, unicodedata, numpy as np, soundfile as sf, cv2
+cv2.setNumThreads(1)
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 SEED, OUT = int(sys.argv[1]), sys.argv[2]
