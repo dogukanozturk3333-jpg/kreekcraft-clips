@@ -18,9 +18,11 @@ send_later at the end of each run. Stop at the first "throttled" answer; what is
 Lantern Rain Room: ambient/01-cozy-cabin-rain-fireplace-1h.mp4, ambient/shorts/s01-rain-outside-fire-inside.mp4,
   ambient/02-snowy-night-window-45m.mkv, ambient/shorts/s02-snowfall.mp4
 Brain Warp Lab (uploaded: odd-001, lilac-01, odd-002, spiral-01, odd-003). Next, in this order:
-  col-001, afterimage-01, txt-001, odd-004, math-001, diff-001, col-002, spiral-02, txt-002, math-002,
-  diff-002, odd-005, col-003, troxler-01, math-003, diff-003, txt-003, odd-006, col-004, afterimage-02,
-  math-004, diff-004, txt-004, odd-007, then keep rotating math / diff / col / txt / odd (lowest number first).
+  ZAPIER pool (formats odd / col / txt + the first illusion set): col-001, afterimage-01, txt-001, odd-004,
+  col-002, spiral-02, txt-002, odd-005, col-003, troxler-01, txt-003, odd-006, col-004, afterimage-02,
+  txt-004, odd-007, then keep rotating col / txt / odd (lowest number first).
+  METRICOOL #2 pool (never via Zapier): emoji math, spot the difference, the new illusions (flag-*,
+  hermann-01, lines-01) and the long-form episodes — see the Metricool #2 schedule below.
   Files: channel2/oddone2/odd-NNN.mp4, channel2/text/txt-NNN.mp4, channel2/color/col-NNN.mp4,
   channel2/math/math-NNN.mp4, channel2/spotdiff/diff-NNN.mp4,
   channel2/illusions/*.mp4; titles in channel2/POSTING.md (add #shorts to every title).
@@ -50,3 +52,9 @@ NOTE (2026-11-23): the Metricool connector here now logs in as account #2, so th
 (account #1) is not visible any more. Its 20 November Reels stay scheduled on Metricool's side. For
 December Instagram posting the user shares brand 7879434 with account #2 (or reconnects account #1).
 Metricool YouTube log: math-001 published 2026-11-23 22:55 Istanbul as vzQNZnXVZsY (test OK, 1/20 for November).
+
+### Metricool #2 schedule, November 2026 (20/20 planned)
+math-001 published 11-23 · Ep.1 11-24 20:00 · math-002 11-24 14:00 · diff-001 11-24 23:30 · math-003 11-25 23:30 ·
+diff-002 11-26 14:00 · math-004 11-27 14:00 · diff-003 11-28 14:00 · math-005 11-29 14:00 · diff-004 11-30 14:00 ·
+Ep.2 11-27 20:00 · Ep.3 11-30 20:00 · illusions (flag-us, hermann-01, lines-01, flag-tr, flag-br, flag-jp, flag-gb,
+flag-de) in the free 14:00 / 23:30 slots 11-25 … 11-30 — scheduled once rendered and pushed.
