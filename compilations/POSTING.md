@@ -5,7 +5,7 @@ Sources: twitch.tv/clix/clip/BlitheWonderfulBulgogiJebaited-TLwK_rdicpypxCY_ ,
 twitch.tv/clix/clip/JollyObeseApeBigBrother-iLeo_6jckIEFQGGq ,
 twitch.tv/kaicenat/clip/SincereMoldyGaragePartyTime-C2fuK1XJ2UtVfHel
 
-**Title:** Top 3 GTA 6 Streamer FAILS 😭 (Clix, Kai Cenat) #shorts
+**Title:** Wait for #1 – Kai Cenat Got 6 STARS in GTA 6 😭 #shorts
 **Description:**
 #3 Clix wrecks his Porsche, #2 Clix tries to fly a plane, #1 Kai Cenat gets SIX STARS 😭
 Clips from https://twitch.tv/clix and https://twitch.tv/kaicenat — go follow them!
