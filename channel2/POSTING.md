@@ -43,3 +43,53 @@ Tags: optical illusion, illusion, brain trick, eye test, mind blowing, perceptio
 - spiral-01: Stare for 15 Seconds, Then Look at the Fire 🌀 Your Brain Will Melt It
 - troxler-01: Stare at the Dot and Watch the Colors DISAPPEAR 👀
 - afterimage-01: This Black & White Photo Turns to COLOR 🤯 (Stare at the Dot)
+Extra illusion titles:
+- spiral-02: Stare at the Spiral, Then Look at the Snow ❄️ It Starts Moving!
+- afterimage-02: This Snowy Night Is Black & White… or Is It? 🤯 (Stare at the Dot)
+
+## Watermark (all videos from 2026-11-23 evening on)
+channel2/brandmark.py: faint diagonal @brainwarplab across the centre + logo/handle tag at the bottom,
+so re-uploads can't simply crop the brand away.
+
+## Format 3 — Hidden letter / number (`oddone2.py SEED OUT.mp4 text`) → channel2/text/txt-NNN.mp4
+Same motion design; grids of letters/numbers with one look-alike (W/M, q/p, O/0, 81/18 …).
+Description: Find the odd one out in all three levels before time runs out! 🔍 How many did you get?
+Comment 1, 2 or 3 👇  New brain puzzles every day. #puzzle #brainteaser #findthedifference
+Tags: find the odd one out, hidden letter, find the number, brain teaser, puzzle, eye test, brain test
+- txt-001: Find the Odd Letter 🔍 Level 3 Is Brutal
+- txt-002: Only 3 Seconds to Spot It 👀 Find the Odd Letter
+- txt-003: Can You Find the Hidden Number? 🔢
+- txt-004: Your Eyes vs Level 3 🔍 Odd Letter Challenge
+- txt-005: Spot the Odd Character Before Time Runs Out ⏱️
+- txt-006: Find the Hidden Letter 🧠 3 Levels
+- txt-007: Sharp Eyes Only 👁️ Find the Odd One Out
+- txt-008: Find It in 7 Seconds 🔍 Letters Edition
+- txt-009: Level 1 Easy… Level 3? 😳 Find the Odd Letter
+- txt-010: Hidden Number Challenge 🔢 Can You Find All 3?
+- txt-011: This Puzzle Tricks Your Eyes 👀 Odd Letter
+- txt-012: Find the Odd One Out 🔍 Letters & Numbers
+
+## Format 4 — Color vision test (`oddone2.py SEED OUT.mp4 color`) → channel2/color/col-NNN.mp4
+One tile is a slightly different shade; the gap shrinks every level (16% → 8.5% → 4.5% lightness).
+Description: Find the tile with a different color before time runs out! 🎨 How many did you get?
+Comment 1, 2 or 3 👇  New brain puzzles every day. #colortest #eyetest #puzzle
+Tags: color test, color vision test, find the different color, eye test, brain teaser, puzzle, brain test
+- col-001: Find the Different Color 🎨 Level 3 Is Almost Impossible
+- col-002: How Good Are Your Eyes? 🎨 Color Test
+- col-003: Spot the Different Shade 👁️ 3 Levels
+- col-004: Color Vision Test 🎨 Can You Pass Level 3?
+- col-005: Find the Odd Color in 7 Seconds ⏱️
+- col-006: Your Eyes vs Level 3 🎨 Color Challenge
+- col-007: Only Sharp Eyes See This Color 👀
+- col-008: Find the Different Tile 🎨 Before Time Runs Out
+- col-009: Color Test: Easy, Medium… Impossible? 😳
+- col-010: Which Square Is Different? 🎨
+- col-011: Test Your Color Vision 👁️ 3 Levels
+- col-012: Find the Odd Shade 🎨 Can You Beat It?
+
+## Emoji titles 011–015
+- 011: Find the Odd Emoji 🧠 Level 3 Is Sneaky
+- 012: Spot It in 5 Seconds 👀 Odd One Out
+- 013: Emoji Challenge: Find the Odd One 🔍
+- 014: Your Brain vs 3 Levels 🧠 Odd Emoji
+- 015: Find the Odd One Out ⏱️ Beat the Timer

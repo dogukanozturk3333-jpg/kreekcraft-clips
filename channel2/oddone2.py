@@ -3,12 +3,16 @@
 Animated background, title drop, emoji grid popping in, circular countdown with a heartbeat in the last
 3 seconds, card slides between levels, the answer zooms out of the grid with a drawn ring and sparkles,
 an end screen with 1/2/3 buttons — plus an original music bed composed here (no samples, no licences).
-  python3 -I channel2/oddone2.py SEED OUT.mp4
+  python3 -I channel2/oddone2.py SEED OUT.mp4 [MODE]
+MODE: emoji (default) | text (hidden letter/number, e.g. 81 among 18s) | color (one tile a slightly different shade)
 Emoji art: Noto Color Emoji (SIL OFL). Voice: Kokoro (Apache 2.0), offline."""
 import sys, os, math, random, functools, subprocess, unicodedata, numpy as np, soundfile as sf, cv2
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 SEED, OUT = int(sys.argv[1]), sys.argv[2]
+MODE = sys.argv[3] if len(sys.argv) > 3 else 'emoji'
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import brandmark
+import colorsys
 W, H, FPS, SR = 1080, 1920, 30, 44100
 EMOJI = '/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf'
 KOKORO = os.environ.get('KOKORO_DIR', '/tmp/claude-0/-home-user/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/kokoro')
@@ -19,7 +23,17 @@ PAIRS = {
     'medium': ['🍎🍅', '🦁🐯', '⭐🌟', '🌻🌼', '😴😪', '🐸🐢', '🍩🥯', '🐶🐕', '🌲🌳', '🙂🙃', '🐭🐹', '😆😂', '🙄😒'],
     'hard':   ['😀😃', '😄😁', '😐😑', '🙈🙊', '😺😸', '😮😯', '😟🙁', '😊🙂', '😃😄', '🌙🌛', '😗😙', '😶😐'],
 }
+TEXT_PAIRS = {   # (majority, odd) in Inter Black
+    'easy':   ['OQ', 'EF', 'PR', '8B', 'CG', 'MW', 'KX', 'VY', '5S', 'IT', 'UV', 'HN'],
+    'medium': ['81|18', '69|96', 'NM', '38', '2Z', 'bd', 'pq', '17|71', 'DO', 'Ww', 'CO', '6b'],
+    'hard':   ['O0', 'rn|m', 'VV|W', 'cl|d', '1l', 'nm', 'ce', 'il|li', 'ij', 'B8', 'S5', 'G6'],
+}
 LEVELS = [('easy', 5, 7, 5.0, (88, 220, 130)), ('medium', 6, 9, 6.0, (255, 200, 60)), ('hard', 7, 11, 7.0, (255, 80, 100))]
+if MODE == 'text':
+    LEVELS = [('easy', 6, 8, 5.0, (88, 220, 130)), ('medium', 7, 10, 6.0, (255, 200, 60)), ('hard', 8, 12, 7.0, (255, 80, 100))]
+COLOR_DELTA = {'easy': 0.16, 'medium': 0.085, 'hard': 0.045}   # lightness gap of the odd tile
+TITLE = {'emoji': 'FIND THE ODD ONE OUT', 'text': 'FIND THE ODD ONE OUT', 'color': 'FIND THE DIFFERENT COLOR'}[MODE]
+TITLE_SIZE = 76 if MODE != 'color' else 66
 INTRO, REVEAL, SWAP, END = 0.9, 1.9, 0.45, 3.0
 CARD = (70, 450, 1010, 1400)                      # card box; the grid sits inside with a margin
 ACCENT, MAGENTA = (46, 230, 214), (255, 60, 200)
@@ -43,6 +57,16 @@ def font(name, s):
 
 @functools.lru_cache(None)
 def glyph(e, size):
+    if MODE == 'text':
+        f = font('Inter Black', 200); im = Image.new('RGBA', (520, 260), (0, 0, 0, 0))
+        ImageDraw.Draw(im).text((260, 130), e, font=f, fill=(44, 26, 84, 255), anchor='mm')
+        im = im.crop(im.getbbox()); k = size / max(im.width, im.height)
+        return im.resize((max(2, int(im.width * k)), max(2, int(im.height * k))), Image.LANCZOS)
+    if MODE == 'color':
+        rgb = tuple(int(v) for v in e.split(','))
+        im = Image.new('RGBA', (4 * size, 4 * size), (0, 0, 0, 0))
+        ImageDraw.Draw(im).rounded_rectangle([0, 0, 4 * size - 1, 4 * size - 1], int(0.9 * size), fill=rgb + (255,))
+        return im.resize((max(2, size), max(2, size)), Image.LANCZOS)
     f = ImageFont.truetype(EMOJI, 109)
     im = Image.new('RGBA', (160, 160), (0, 0, 0, 0))
     ImageDraw.Draw(im).text((80, 80), e, font=f, embedded_color=True, anchor='mm')
@@ -73,12 +97,18 @@ def background(t):
 puzzles = []
 for idx, lv in enumerate(LEVELS):
     name, cols, rows = lv[:3]
-    order = PAIRS[name][:]; random.Random(4242 + idx).shuffle(order)
-    a, b = split2(order[(SEED - 1) % len(order)])
+    if MODE == 'color':
+        h = random.Random(SEED * 7 + idx).random(); sat = 0.55 + 0.25 * rnd.random(); v = 0.62 + 0.18 * rnd.random()
+        base = colorsys.hsv_to_rgb(h, sat, v); oddc = colorsys.hsv_to_rgb(h, sat * 0.92, min(1, v + COLOR_DELTA[name]))
+        a, b = ','.join(str(int(c * 255)) for c in base), ','.join(str(int(c * 255)) for c in oddc)
+    else:
+        src = TEXT_PAIRS if MODE == 'text' else PAIRS
+        order = src[name][:]; random.Random(4242 + idx).shuffle(order); pick = order[(SEED - 1) % len(order)]
+        a, b = (pick.split('|') if '|' in pick else list(pick)) if MODE == 'text' else split2(pick)
     if rnd.random() < 0.5: a, b = b, a
     odd = (rnd.randrange(1, rows - 1), rnd.randrange(cols - 1))
     x0, y0, x1, y1 = CARD[0] + 40, CARD[1] + 40, CARD[2] - 40, CARD[3] - 40
-    cw, ch = (x1 - x0) / cols, (y1 - y0) / rows; s = int(min(cw, ch) * 0.8)
+    cw, ch = (x1 - x0) / cols, (y1 - y0) / rows; s = int(min(cw, ch) * (0.86 if MODE == 'color' else 0.8))
     cells = [((x0 + (c + .5) * cw, y0 + (r + .5) * ch), b if (r, c) == odd else a, (r, c) == odd) for r in range(rows) for c in range(cols)]
     puzzles.append(dict(lv=lv, idx=idx, cells=cells, size=s, odd=next(p for p, e, o in cells if o), a=a, b=b))
 
@@ -96,8 +126,8 @@ def header(d, p, swap_in=1.0):
 
 def title_layer(scale=1.0, alpha=255):
     im = Image.new('RGBA', (W, 200), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    d.text((W // 2 + 4, 108), 'FIND THE ODD ONE OUT', font=font('Inter Black', 76), fill=(0, 0, 0, 110), anchor='mm')
-    d.text((W // 2, 104), 'FIND THE ODD ONE OUT', font=font('Inter Black', 76), fill=(255, 255, 255, alpha), anchor='mm')
+    d.text((W // 2 + 4, 108), TITLE, font=font('Inter Black', TITLE_SIZE), fill=(0, 0, 0, 110), anchor='mm')
+    d.text((W // 2, 104), TITLE, font=font('Inter Black', TITLE_SIZE), fill=(255, 255, 255, alpha), anchor='mm')
     if scale != 1.0:
         im = im.resize((int(W * scale), int(200 * scale)), Image.LANCZOS)
         out = Image.new('RGBA', (W, 200), (0, 0, 0, 0)); out.alpha_composite(im, ((W - im.width) // 2, (200 - im.height) // 2)); im = out
@@ -160,6 +190,10 @@ segs.append(('end', t, t + END, None)); T = t + END
 
 
 def frame(t):
+    return brandmark.apply_pil(_frame(t))
+
+
+def _frame(t):
     kind, a, b, i = next(s for s in segs if s[1] <= t < s[2] or s is segs[-1]); u = (t - a) / (b - a)
     bg = Image.fromarray(background(t)).convert('RGBA')
     if kind == 'end':
@@ -278,6 +312,7 @@ def say(at, txt):
     s = cv2.resize(s.astype(np.float32)[None, :], (int(len(s) * SR / sr), 1), interpolation=cv2.INTER_LINEAR)[0]
     put(voice, at, s, 1.0)
 lines = {0: 'Find the odd one out!', 1: 'Level two.', 2: 'Level three. This one is tricky.'}
+if MODE == 'color': lines = {0: 'Find the different color!', 1: 'Level two. Harder.', 2: 'Level three. Only sharp eyes see this one.'}
 for kind, a, b, i in segs:
     if kind == 'intro':
         say(a + 0.15, lines[0]); put(sfx, a, whoosh(0.5, 0.3))
@@ -307,4 +342,4 @@ enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_f
 for n in range(int(T * FPS)):
     enc.stdin.write(frame(n / FPS).convert('RGB').tobytes())
 enc.stdin.close(); enc.wait(); os.remove(wav)
-print('oddone2', OUT, round(T, 1), 's', [(p['lv'][0], p['a'] + p['b']) for p in puzzles])
+print('oddone2', MODE, OUT, round(T, 1), 's', [(p['lv'][0], p['a'], p['b']) for p in puzzles])

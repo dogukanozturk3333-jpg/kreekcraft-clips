@@ -11,8 +11,10 @@ import sys, os, math, argparse, functools, subprocess, numpy as np, soundfile as
 from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageFilter
 
 ap = argparse.ArgumentParser(); ap.add_argument('type'); ap.add_argument('out')
+ap.add_argument('--disc', default='214,112,222', help='lilac: disc colour r,g,b')
 ap.add_argument('--photo', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'ambient', 'img', 'short-fireplace.jpg'))
 A = ap.parse_args()
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import brandmark
 W, H, FPS, SR = 1080, 1920, 30, 44100
 KOKORO = os.environ.get('KOKORO_DIR', '/tmp/claude-0/-home-user/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/kokoro')
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -89,7 +91,7 @@ elif A.type == 'lilac':
                    (14.5, 'Do you see a green dot running around? And where did the pink dots go?')]
     GRAYV = np.array([196, 196, 196], np.float32)
     spr = np.zeros((241, 241), np.float32); cv2.circle(spr, (120, 120), 52, 1.0, -1); spr = cv2.GaussianBlur(spr, (0, 0), 17)
-    LIL = np.array([214, 112, 222], np.float32)
+    LIL = np.array([int(v) for v in A.disc.split(',')], np.float32)
 elif A.type == 'troxler':
     plan = [(24.0, 'troxler'), (3.2, 'end')]
     voice_lines = [(0.2, 'Stare at the black dot. Do not move your eyes, and try not to blink.'),
@@ -133,6 +135,10 @@ def end_screen(t, a, b):
 
 
 def frame(t):
+    return brandmark.apply_np(_frame(t))
+
+
+def _frame(t):
     kind, a, b = next(s for s in segs if s[1] <= t < s[2] or s is segs[-1]); u = t - a
     if kind == 'end': return end_screen(t, a, b)
     if kind == 'spiral':

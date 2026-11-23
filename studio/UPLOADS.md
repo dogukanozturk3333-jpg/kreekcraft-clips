@@ -9,19 +9,20 @@ send_later at the end of each run. Stop at the first "throttled" answer; what is
 - Lantern Rain Room (ambience) — 0288fac3-da80-8ed6-8011-d7ad183241cf ("YouTube #3"), category 10
 - Brain Warp Lab (puzzles) — 02b64918-4742-8527-9d26-eacc99111817 ("YouTube #4"), category 24
 
-## Daily mix (5 slots) — Zeipan (GTA) is PAUSED after the Bigfoot compilation (user's decision, 2026-11-23)
-1. Lantern Rain Room: new long video (on long-video days) — otherwise a Short
-2. Lantern Rain Room: Short (links to its long video)
-3. Brain Warp Lab: puzzle / illusion Short
-4. Brain Warp Lab: puzzle / illusion Short
-5. Brain Warp Lab: puzzle / illusion Short (or a 3rd ambience item when one is ready)
+## Daily mix (5 slots) — Brain Warp Lab is the PRIORITY (user, 2026-11-23); Zeipan paused
+1–4. Brain Warp Lab: rotate formats so no two in a row are the same:
+     emoji → color → illusion → text → emoji → color → text → …
+5. Lantern Rain Room: next long video or Short (one per day)
 
 ## Queue (oldest first; take the first unused item per channel)
 Lantern Rain Room: ambient/01-cozy-cabin-rain-fireplace-1h.mp4, ambient/shorts/s01-rain-outside-fire-inside.mp4,
   ambient/02-snowy-night-window-45m.mkv, ambient/shorts/s02-snowfall.mp4
-Brain Warp Lab: alternate formats — odd-001, lilac-01, odd-002, spiral-01, odd-003, afterimage-01, odd-004,
-  troxler-01, then odd-005 … odd-010 (oddone files in channel2/oddone2/, illusions in channel2/illusions/;
-  titles in channel2/POSTING.md)
+Brain Warp Lab (uploaded: odd-001, lilac-01, odd-002, spiral-01, odd-003). Next, in this order:
+  col-001, afterimage-01, txt-001, odd-004, col-002, txt-002, spiral-02, odd-005, col-003, txt-003,
+  troxler-01, odd-006, col-004, txt-004, afterimage-02, odd-007, col-005, txt-005, odd-008, col-006,
+  txt-006, odd-009, col-007, txt-007, odd-010 … then the rest of col/txt/odd 011–015 alternating.
+  Files: channel2/oddone2/odd-NNN.mp4, channel2/text/txt-NNN.mp4, channel2/color/col-NNN.mp4,
+  channel2/illusions/*.mp4; titles in channel2/POSTING.md (add #shorts to every title).
 Zeipan: compilations/2026-11-23-streamers-found-bigfoot.mp4 (last one; then paused — the other prepared
   GTA clips stay in the repo unused)
 Uploaded items are listed in tools/uploaded.tsv; skip anything already there.
