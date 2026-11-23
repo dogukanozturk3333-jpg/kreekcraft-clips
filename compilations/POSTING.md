@@ -11,3 +11,16 @@ twitch.tv/kaicenat/clip/SincereMoldyGaragePartyTime-C2fuK1XJ2UtVfHel
 Clips from https://twitch.tv/clix and https://twitch.tv/kaicenat — go follow them!
 GTA 6 funny moments, GTA 6 fails, GTA 6 streamers, GTA 6 highlights
 #GTA6 #GTAVI #GrandTheftAutoVI #Clix #KaiCenat #gaming #shorts
+
+## 2026-11-23 — `2026-11-23-streamers-found-bigfoot.mp4` (68 s)
+Sources: twitch.tv/kaicenat/clip/BoldEncouragingHamJonCarnage-pe0Q59lJ1Zj-4lUY ,
+twitch.tv/kreekcraft/clip/VibrantAgreeableDonkeyKlappa-96N8073vmGFLBEQC
+
+**Title:** Streamers Found BIGFOOT in GTA 6… It Didn't End Well 😱 #shorts
+**Description:**
+Kai Cenat goes hunting for the Skunk Ape in the swamp at night… then KreekCraft gets a little too close to Bigfoot's creepy effigy 😱
+Clips from https://twitch.tv/kaicenat and https://twitch.tv/kreekcraft — go follow them!
+
+GTA 6 Bigfoot, GTA 6 Skunk Ape, GTA 6 easter eggs, GTA 6 secrets, GTA 6 funny moments, Grand Theft Auto VI.
+#GTA6 #GTA6Bigfoot #GTAVI #GrandTheftAutoVI #KaiCenat #KreekCraft #GTA6EasterEggs #shorts
+**Tags:** GTA 6 Bigfoot, GTA 6 Skunk Ape, GTA 6 easter eggs, GTA 6 secrets, GTA 6, Grand Theft Auto VI, Kai Cenat, KreekCraft, Bigfoot, shorts
