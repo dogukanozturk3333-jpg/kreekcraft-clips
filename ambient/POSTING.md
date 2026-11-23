@@ -13,6 +13,8 @@ SEO rules for this channel
 - 3 hashtags at the end (YouTube shows the first three above the title).
 - Category 10 (Music), not made for kids, English.
 - Every Short links to its full-length video in the first line of the description.
+- No text on the picture (user's rule): only the small faded LANTERN RAIN ROOM tag at the bottom
+  (ambient/shorts/brand-tag.ass). Hooks go in the title, not on the video.
 
 Audio QA (run before every upload): no clipping (true peak below -1 dBFS), no click-like jumps,
 no tonal whine in a high-resolution spectrum, steady level (no per-second jumps over 4 dB),
@@ -47,7 +49,7 @@ crackling fire, rain on window, study ambience, relaxing sounds, ambience, 1 hou
 
 ---
 
-## S01 — Short: "Rain outside. Fire inside." (40 s, seamless loop)
+## S01 — Short: fireplace close-up (40 s, seamless loop, no on-screen text)
 File: `ambient/shorts/s01-rain-outside-fire-inside.mp4` (1080x1920, 30 fps, -16 LUFS; audio tail
 crossfades into the head, so replays loop without a seam). Upload AFTER video 01 and put its link first.
 
