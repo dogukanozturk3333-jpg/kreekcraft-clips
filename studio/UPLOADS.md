@@ -58,3 +58,11 @@ math-001 published 11-23 · Ep.1 11-24 20:00 · math-002 11-24 14:00 · diff-001
 diff-002 11-26 14:00 · math-004 11-27 14:00 · diff-003 11-28 14:00 · math-005 11-29 14:00 · diff-004 11-30 14:00 ·
 Ep.2 11-27 20:00 · Ep.3 11-30 20:00 · illusions (flag-us, hermann-01, lines-01, flag-tr, flag-br, flag-jp, flag-gb,
 flag-de) in the free 14:00 / 23:30 slots 11-25 … 11-30 — scheduled once rendered and pushed.
+
+## Selection rule (user, 2026-11-24): fewer, better — "don't break what works"
+- Before each daily batch: pull the last 7 days of stats (videos.list statistics for tools/uploaded.tsv IDs:
+  views, likes, comments) and rank formats by views per video and comments per 1k views.
+- Upload only what passed tools/qa.py AND the visual check, and prefer the formats/variants that are
+  winning; mix in at most one new or experimental idea per day, never a near-copy of yesterday's video.
+- Don't flood: 3–5 Brain Warp Lab Shorts a day, spaced at least 2 hours apart; one episode every 3–4 days.
+- Never re-upload or near-duplicate a video; vary flags/scenes/colours/puzzles.
