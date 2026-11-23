@@ -32,3 +32,10 @@ puzzle compilation, iq test, brain games, optical illusions, eye test
 
 ## Instagram
 Cut the bonus illusion or one strong round (60–90 s) as a Reel that says "full episode on YouTube".
+
+## Pending: custom thumbnails (blocked until phone verification)
+Zapier "Update Video Thumbnail" returns "The authenticated user doesn't have permissions to upload and set
+custom video thumbnails" (tested 2026-11-23 on QqTZ881H9MU). The user will verify the Brain Warp Lab
+account later from another phone (youtube.com/verify). After that: apply studio/thumbs/*.jpg and every
+channel2/episodes/*.thumb.jpg to their uploaded videos (IDs in tools/uploaded.tsv), and add a thumbnail
+step to the daily upload routine.
