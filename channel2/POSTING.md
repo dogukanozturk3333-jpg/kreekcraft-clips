@@ -12,6 +12,9 @@
     emoji odd-one-out → PLfptmS3q7Yic        illusions → PLOodmHfHNYPw
     color test → PLddGkAWopl60               hidden letter/number → PLMmNY7SqOeyQ
     emoji math → PLB_B8aQbcGEg               spot the difference → PLa634PXFH_-M
+    long-form episodes → PLA0sAqxxCuGA
+- Thumbnails: python3 -I channel2/thumbs.py short VIDEO KIND studio/thumbs/NAME.jpg (episodes: thumbs.py episode N),
+  apply with Zapier youtube_update_video_thumbnail using a commit-SHA raw URL (avoids GitHub's raw cache).
 - Instagram (when connected): post the same file as a Reel with the same caption (title + description).
 
 Not connected yet: the user opens the channel with a new Google account and adds it in Zapier with
