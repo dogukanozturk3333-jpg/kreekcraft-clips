@@ -11,6 +11,8 @@
   (or the raw API playlistItems POST), connection 02b64918-4742-8527-9d26-eacc99111817:
     emoji odd-one-out → PLfptmS3q7Yic        illusions → PLOodmHfHNYPw
     color test → PLddGkAWopl60               hidden letter/number → PLMmNY7SqOeyQ
+    emoji math → PLB_B8aQbcGEg               spot the difference → PLa634PXFH_-M
+- Instagram (when connected): post the same file as a Reel with the same caption (title + description).
 
 Not connected yet: the user opens the channel with a new Google account and adds it in Zapier with
 "Add connection" (YouTube), then uploads use that connection_id. Zapier's ~5 uploads per 24 h are
@@ -109,3 +111,42 @@ Tags: color test, color vision test, find the different color, eye test, brain t
 - 013: Emoji Challenge: Find the Odd One 🔍
 - 014: Your Brain vs 3 Levels 🧠 Odd Emoji
 - 015: Find the Odd One Out ⏱️ Beat the Timer
+
+## Format 5 — Emoji math (`channel2/emojimath.py SEED OUT.mp4`) → channel2/math/math-NNN.mp4
+Three clue equations, a final line mixing + and × (order of operations), 8-second countdown, step-by-step
+solution. ~22 s. Ends with "Did you get it? YES / NO".
+Description: Can you solve this emoji math puzzle? 🧮 Work out each emoji, then solve the last line.
+Comment your answer before the reveal 👇  New brain puzzles every day.
+#shorts #mathpuzzle #brainteaser #emojipuzzle
+Tags: emoji math, math puzzle, brain teaser, riddle, order of operations, iq test, puzzle
+- math-001: Can You Solve This Emoji Math? 🧮 Watch the Last Line
+- math-002: Can You Get the Last Line Right? 🤔
+- math-003: Emoji Math Puzzle 🍎 Watch the Order of Operations
+- math-004: Solve It Before the Timer Ends ⏱️ Emoji Math
+- math-005: This Emoji Equation Splits the Comments 😳
+- math-006: Can You Find the Answer? 🧠 Emoji Math
+- math-007: Emoji Math: Easy… Until the Last Line 🤯
+- math-008: Comment Your Answer! 🧮 Emoji Puzzle
+- math-009: Brain Teaser: What's the Final Number? 🔢
+- math-010: Emoji Math Challenge 🧠 Can You Beat It?
+- math-011: Quick Math With Emojis ⏱️ Try It
+- math-012: Do You Know What Comes First? ✖️➕ Emoji Math
+(No made-up statistics in titles: never quote a % or claim "most people fail".)
+
+## Format 6 — Spot the difference (`channel2/spotdiff.py SEED OUT.mp4`) → channel2/spotdiff/diff-NNN.mp4
+Two emoji scenes (garden / ocean / space / kitchen / farm), 3 differences (missing, swapped, shrunk),
+12-second countdown, differences circled one by one. ~21 s.
+Description: Find 3 differences between the two pictures before time runs out! 🔎 How many did you find?
+Comment 1, 2 or 3 👇  New brain puzzles every day.
+#shorts #spotthedifference #puzzle #brainteaser
+Tags: spot the difference, find the difference, find 3 differences, puzzle, brain teaser, eye test
+- diff-001: Find 3 Differences in 12 Seconds 🔎 Garden
+- diff-002: Spot the Difference 🌊 Ocean Edition
+- diff-003: Find 3 Differences 🚀 Space Edition
+- diff-004: Spot 3 Differences Before Time Runs Out 🍳
+- diff-005: Find the Difference 🐄 Farm Edition
+- diff-006: Can You Spot All 3? 🔎 Garden
+- diff-007: Sharp Eyes Only 👀 Ocean Spot the Difference
+- diff-008: Find 3 Differences 🪐 Can You Beat the Timer?
+- diff-009: Spot the Difference 🧀 Kitchen Edition
+- diff-010: 3 Differences, 12 Seconds 🔎 Farm

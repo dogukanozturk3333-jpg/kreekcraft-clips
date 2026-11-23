@@ -18,10 +18,11 @@ send_later at the end of each run. Stop at the first "throttled" answer; what is
 Lantern Rain Room: ambient/01-cozy-cabin-rain-fireplace-1h.mp4, ambient/shorts/s01-rain-outside-fire-inside.mp4,
   ambient/02-snowy-night-window-45m.mkv, ambient/shorts/s02-snowfall.mp4
 Brain Warp Lab (uploaded: odd-001, lilac-01, odd-002, spiral-01, odd-003). Next, in this order:
-  col-001, afterimage-01, txt-001, odd-004, col-002, txt-002, spiral-02, odd-005, col-003, txt-003,
-  troxler-01, odd-006, col-004, txt-004, afterimage-02, odd-007, col-005, txt-005, odd-008, col-006,
-  txt-006, odd-009, col-007, txt-007, odd-010 … then the rest of col/txt/odd 011–015 alternating.
+  col-001, afterimage-01, txt-001, odd-004, math-001, diff-001, col-002, spiral-02, txt-002, math-002,
+  diff-002, odd-005, col-003, troxler-01, math-003, diff-003, txt-003, odd-006, col-004, afterimage-02,
+  math-004, diff-004, txt-004, odd-007, then keep rotating math / diff / col / txt / odd (lowest number first).
   Files: channel2/oddone2/odd-NNN.mp4, channel2/text/txt-NNN.mp4, channel2/color/col-NNN.mp4,
+  channel2/math/math-NNN.mp4, channel2/spotdiff/diff-NNN.mp4,
   channel2/illusions/*.mp4; titles in channel2/POSTING.md (add #shorts to every title).
 Zeipan: compilations/2026-11-23-streamers-found-bigfoot.mp4 (last one; then paused — the other prepared
   GTA clips stay in the repo unused)
