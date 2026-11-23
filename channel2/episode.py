@@ -17,7 +17,9 @@ ROUNDS = [  # (round name, generator, mode/arg, count) — easy formats first, t
     ('SPOT THE DIFFERENCE', 'spotdiff.py', None, 5),
     ('BRAIN MATH', 'emojimath.py', None, 5),
 ]
-BONUS = [('illusion.py', 'lilac'), ('illusion.py', 'spiral')]
+_POOL = [('illusion.py', 'lilac'), ('illusion.py', 'spiral'), ('illusion.py', 'hermann'), ('illusion.py', 'lines'),
+         ('illusion.py', 'troxler'), ('illusion.py', 'flag')]
+BONUS = [_POOL[(2 * (N - 1)) % len(_POOL)], _POOL[(2 * (N - 1) + 1) % len(_POOL)]]   # different illusions every episode
 PREFIX = {'emoji': 'odd', 'color': 'col', 'text': 'txt', 'spotdiff.py': 'diff', 'emojimath.py': 'math'}
 
 jobs, spec = [], {'title': [f'{sum(r[3] for r in ROUNDS) + len(BONUS)} BRAIN PUZZLES', 'HOW MANY CAN YOU SOLVE?'],
@@ -34,7 +36,8 @@ bonus = []
 for gen, kind in BONUS:
     out = os.path.join(work, f'{kind}-ep{N}.mp4'); bonus.append(out)
     photo = os.path.join(REPO, 'ambient', 'img', ['short-fireplace.jpg', 'short-snow.jpg'][N % 2])
-    jobs.append((['python3', '-I', os.path.join(HERE, gen), kind, out] + (['--photo', photo] if kind == 'spiral' else []), out))
+    extra = ['--photo', photo] if kind == 'spiral' else (['--flag', '🇮🇹', '--flagname', 'Italian'] if kind == 'flag' else [])
+    jobs.append((['python3', '-I', os.path.join(HERE, gen), kind, out] + extra, out))
 spec['rounds'].append({'name': 'BONUS ILLUSIONS', 'items': bonus})
 
 

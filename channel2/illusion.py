@@ -14,6 +14,7 @@ cv2.setNumThreads(1)
 from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageFilter
 
 ap = argparse.ArgumentParser(); ap.add_argument('type'); ap.add_argument('out')
+ap.add_argument('--flag', default='🇺🇸', help='flag: flag emoji'); ap.add_argument('--flagname', default='American')
 ap.add_argument('--disc', default='214,112,222', help='lilac: disc colour r,g,b')
 ap.add_argument('--photo', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'ambient', 'img', 'short-fireplace.jpg'))
 A = ap.parse_args()
@@ -56,7 +57,7 @@ def brand(base, dark=False):
     l = text_layer(((120, 'BRAIN WARP LAB', 30, (60, 50, 90) if dark else (210, 200, 255)),), dark); return over(base, l)
 
 def ring(base, frac, left, dark=False):
-    im = Image.new('RGBA', (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im); cx, cy, R = W // 2, 1660, 62
+    im = Image.new('RGBA', (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im); cx, cy, R = W // 2, 1530, 62
     d.ellipse([cx - R, cy - R, cx + R, cy + R], fill=(20, 12, 44, 220))
     d.arc([cx - R, cy - R, cx + R, cy + R], -90, -90 + 360 * frac, fill=YEL, width=11)
     d.text((cx, cy + 2), str(left), font=font('Inter Black', 58), fill=YEL, anchor='mm')
@@ -113,6 +114,36 @@ elif A.type == 'afterimage':
     voice_lines = [(0.2, 'Stare at the dot for fifteen seconds. Do not move your eyes.'),
                    (STARE + 1.15, 'Keep looking at the dot. What colours do you see?'),
                    (STARE + 5.0, 'This picture is black and white.')]
+elif A.type == 'flag':
+    STARE = 15.0
+    fi = Image.new('RGBA', (200, 200), (0, 0, 0, 0))
+    ImageDraw.Draw(fi).text((100, 100), A.flag, font=ImageFont.truetype('/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf', 109), embedded_color=True, anchor='mm')
+    fi = fi.crop(fi.getbbox()); fw = 880; fh = int(fi.height * fw / fi.width); fi = fi.resize((fw, fh), Image.LANCZOS)
+    FX, FY = CX - fw // 2, CY - fh // 2
+    fa = np.asarray(fi, np.float32); FA = fa[..., 3:4] / 255.0; FNEG = 255 - fa[..., :3]
+    LIGHT = np.array([236, 236, 236], np.float32)
+    plan = [(STARE + 1.0, 'flagneg'), (7.0, 'flagwhite'), (3.2, 'end')]
+    voice_lines = [(0.2, 'Stare at the dot in the middle of this flag for fifteen seconds. Do not move your eyes.'),
+                   (STARE + 1.15, 'Now keep looking at the dot. What flag do you see?'),
+                   (STARE + 5.0, f'It is the {A.flagname} flag, in its real colours. Your brain painted it.')]
+elif A.type == 'hermann':
+    plan = [(13.0, 'hermann'), (5.5, 'hermannrev'), (3.2, 'end')]
+    voice_lines = [(0.2, 'Count the black dots. You have ten seconds.'),
+                   (13.1, 'There are no black dots at all. Your brain is making them up.')]
+    GRID = np.zeros((H, W, 3), np.float32) + 18
+    step, lw, r = 118, 16, 11
+    xs = [CX + k * step for k in range(-3, 4)]; ys = [CY + k * step for k in range(-4, 5)]   # grid stays clear of the title
+    gi = Image.fromarray(GRID.astype(np.uint8)); gd = ImageDraw.Draw(gi)
+    for x in xs: gd.rectangle([x - lw // 2, ys[0] - 60, x + lw // 2, ys[-1] + 60], fill=(128, 128, 128))
+    for y in ys: gd.rectangle([xs[0] - 60, y - lw // 2, xs[-1] + 60, y + lw // 2], fill=(128, 128, 128))
+    for x in xs:
+        for y in ys: gd.ellipse([x - r, y - r, x + r, y + r], fill=(255, 255, 255))
+    GRID = np.asarray(gi, np.float32)
+elif A.type == 'lines':
+    plan = [(8.0, 'lines'), (6.5, 'linesrev'), (3.2, 'end')]
+    voice_lines = [(0.2, 'Which line is longer? The top one, or the bottom one? Decide now!'),
+                   (8.1, 'Look again. They are exactly the same length.')]
+    L0, L1, Y1, Y2, FIN = CX - 300, CX + 300, 820, 1180, 110
 else:
     sys.exit('unknown type')
 
@@ -177,6 +208,53 @@ def _frame(t):
         f = over(f, text_layer(((300, 'STARE AT THE DOT', 74, (255, 255, 255)), (390, 'FOR 15 SECONDS', 54, YEL))))
         f = fix_dot(f)
         if u > 1.0: f = ring(f, 1 - (u - 1.0) / STARE, math.ceil(STARE - (u - 1.0)))
+    elif kind in ('flagneg', 'flagwhite'):
+        if kind == 'flagneg':
+            f = np.zeros((H, W, 3), np.float32) + LIGHT
+            reg = f[FY:FY + FA.shape[0], FX:FX + FA.shape[1]]; f[FY:FY + FA.shape[0], FX:FX + FA.shape[1]] = reg * (1 - FA) + FNEG * FA
+            f = over(f, text_layer(((300, 'STARE AT THE DOT', 74, (40, 24, 70)), (390, 'FOR 15 SECONDS', 54, (120, 60, 200))), dark=True))
+            f = fix_dot(f)
+            if u > 1.0: f = ring(f, 1 - (u - 1.0) / STARE, math.ceil(STARE - (u - 1.0)))
+        else:
+            f = np.zeros((H, W, 3), np.float32) + LIGHT
+            im = Image.fromarray(f.astype(np.uint8)); ImageDraw.Draw(im).rectangle([FX, FY, FX + FA.shape[1], FY + FA.shape[0]], outline=(200, 200, 200), width=3)
+            f = np.asarray(im, np.float32)
+            lines = ((300, 'KEEP LOOKING AT THE DOT', 62, (40, 24, 70)),) if u < 3.8 else ((300, 'WHAT FLAG DID YOU SEE?', 66, (40, 24, 70)),)
+            f = over(f, text_layer(lines, dark=True)); f = fix_dot(f)
+        return brand(f, dark=True)
+    elif kind in ('hermann', 'hermannrev'):
+        f = GRID.copy()
+        if kind == 'hermann':
+            f = over(f, text_layer(((260, 'COUNT THE BLACK DOTS', 70, (255, 255, 255)), (350, 'you have 10 seconds', 50, YEL))))
+            if u > 1.0: f = ring(f, 1 - (u - 1.0) / 10.0, max(0, math.ceil(10.0 - (u - 1.0))))
+        else:
+            k = ease_out_back(u * 3)
+            f = over(f, text_layer(((260, 'THERE ARE 0', 84, (255, 255, 255)), (360, 'BLACK DOTS!', 84, YEL))))
+            f = over(f, text_layer(((1700, 'your brain made them up', 50, (220, 210, 255)),)))
+    elif kind in ('lines', 'linesrev'):
+        f = BG.copy() + np.array([20, 6, 40], np.float32) * (yy / H)[..., None]
+        im = Image.fromarray(np.clip(f, 0, 255).astype(np.uint8)).convert('RGBA'); d = ImageDraw.Draw(im)
+        fin_a = 255 if kind == 'lines' else int(255 * max(0, 1 - u / 1.2))
+        fins = Image.new('RGBA', (W, H), (0, 0, 0, 0)); fd = ImageDraw.Draw(fins)
+        for y, outward in ((Y1, False), (Y2, True)):
+            for x, sgn in ((L0, -1), (L1, 1)):
+                dx = FIN * 0.75 * (sgn if outward else -sgn)
+                for dy in (-FIN * 0.6, FIN * 0.6):
+                    fd.line([(x, y), (x + dx, y + dy)], fill=(255, 214, 60, 255), width=12)
+        if fin_a < 255: fins.putalpha(fins.getchannel('A').point(lambda v: v * fin_a // 255))
+        im.alpha_composite(fins); d = ImageDraw.Draw(im)
+        for y in (Y1, Y2): d.line([(L0, y), (L1, y)], fill=(255, 255, 255, 255), width=14)
+        d.text((W // 2, Y1 - 140), 'A', font=font('Inter Black', 70), fill=(200, 190, 255), anchor='mm')
+        d.text((W // 2, Y2 + 150), 'B', font=font('Inter Black', 70), fill=(200, 190, 255), anchor='mm')
+        if kind == 'linesrev' and u > 1.2:
+            g = min(1, (u - 1.2) * 2)
+            for x in (L0, L1):
+                d.line([(x, Y1 - 60), (x, Y1 - 60 + (Y2 - Y1 + 120) * g)], fill=(46, 230, 214, 255), width=6)
+        f = np.asarray(im.convert('RGB'), np.float32)
+        lines = ((300, 'WHICH LINE IS LONGER?', 72, (255, 255, 255)), (390, 'A or B?', 56, YEL)) if kind == 'lines' else \
+                ((300, 'THEY ARE THE', 78, (255, 255, 255)), (395, 'SAME LENGTH!', 84, YEL))
+        f = over(f, text_layer(lines))
+        if kind == 'lines' and u > 1.0: f = ring(f, 1 - (u - 1.0) / 7.0, max(0, math.ceil(7.0 - (u - 1.0))))
     elif kind == 'gray':
         lines = ((300, 'KEEP LOOKING AT THE DOT', 64, (255, 255, 255)),) if u < 3.8 else \
                 ((300, 'THIS PHOTO IS', 70, (255, 255, 255)), (395, 'BLACK & WHITE', 84, YEL))
@@ -197,7 +275,7 @@ def shimmer():
     n = int(1.6 * SR); x = np.arange(n) / SR
     return sum(np.sin(2 * np.pi * f * x) * np.exp(-x * 2.5) / (i + 1) for i, f in enumerate((1318, 1760, 2093, 2637))) * 0.12
 for k, a, b in segs:
-    if k in ('photo', 'gray', 'end'): put(a, shimmer())
+    if k in ('photo', 'gray', 'end', 'flagwhite', 'hermannrev', 'linesrev'): put(a, shimmer())
 from kokoro_onnx import Kokoro
 import bwlkit; kk = bwlkit.kokoro()
 for at, txt in voice_lines + [(end_a + 0.1, 'Did it work? Tell us in the comments!')]:
