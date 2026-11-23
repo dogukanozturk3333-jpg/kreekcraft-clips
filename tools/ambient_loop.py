@@ -8,6 +8,7 @@ import sys, json, subprocess, numpy as np, cv2
 img = cv2.imread(sys.argv[1]).astype(np.float32); cfg = json.load(open(sys.argv[2])); OUT = sys.argv[3]
 H, W = img.shape[:2]; FPS = cfg.get('fps', 15); T = cfg.get('loop', 20); N = FPS * T
 rng = np.random.default_rng(7)
+SC = cfg.get('scale', 1.0)                               # >1 when the picture was upscaled (vertical Shorts crop)
 yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
 
 def tile_noise(h, w, scale):           # periodic smooth noise via filtered FFT
@@ -26,9 +27,9 @@ cx, cy, rx, ry = cfg['fire']
 fmask = np.clip(1 - ((xx - cx) / rx) ** 2 - ((yy - cy) / ry) ** 2, 0, 1) ** 0.7
 up = np.clip((cy + ry - yy) / (2 * ry), 0, 1)            # flames move more near the tips
 lum = cv2.cvtColor(img.astype(np.uint8), cv2.COLOR_BGR2GRAY).astype(np.float32)
-flame = cv2.GaussianBlur(np.clip((lum - 120) / 80, 0, 1), (0, 0), 6)[..., None]   # only bright flame pixels move, logs stay put
-TH = 256; nx = tile_noise(TH, TH, 18); ny = tile_noise(TH, TH, 18)
-glow = np.exp(-(((xx - cx) / 700) ** 2 + ((yy - cy) / 520) ** 2))[..., None]
+flame = cv2.GaussianBlur(np.clip((lum - 120) / 80, 0, 1), (0, 0), 6 * SC)[..., None]   # only bright flame pixels move, logs stay put
+TH = 256; nx = tile_noise(TH, TH, 18 * SC); ny = tile_noise(TH, TH, 18 * SC)
+glow = np.exp(-(((xx - cx) / (700 * SC)) ** 2 + ((yy - cy) / (520 * SC)) ** 2))[..., None]
 fire_f = flicker(1, 0.09); glow_f = flicker(2, cfg.get('glow', 0.02), 0.6)   # room glow breathes slowly (cheap to encode)
 lights = [(np.exp(-(((xx - lx) ** 2 + (yy - ly) ** 2) / (r ** 2)))[..., None], flicker(10 + i, a, 4))
           for i, (lx, ly, r, a) in enumerate(cfg.get('lights', []))]
@@ -47,7 +48,7 @@ for i in range(N):
     tx = np.tile(np.roll(nx, -sh, axis=0), (H // TH + 1, W // TH + 1))[:H, :W]
     ty = np.tile(np.roll(ny, -sh, axis=0), (H // TH + 1, W // TH + 1))[:H, :W]
     m = fmask * (0.35 + 0.65 * up)
-    fr = cv2.remap(img, xx + tx * 5 * m, yy + (ty * 4 + 3) * m, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    fr = cv2.remap(img, xx + tx * 5 * SC * m, yy + (ty * 4 + 3) * SC * m, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
     fr = img + (fr - img) * flame * fmask[..., None]
     gain = 1 + (fire_f[i] - 1) * fmask[..., None] + (glow_f[i] - 1) * glow * warm
     for g, f in lights: gain = gain + (f[i] - 1) * g * warm

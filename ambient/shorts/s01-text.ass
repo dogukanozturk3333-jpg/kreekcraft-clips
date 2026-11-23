@@ -1,0 +1,18 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Brand,Inter Display Medium,30,&H33FFFFFF,&H33FFFFFF,&H00000000,&H99000000,0,0,0,0,100,100,9,0,1,0,2,8,0,0,0,1
+Style: Hook,Inter Display Light,92,&H00F4FAFF,&H00F4FAFF,&H00000000,&HA0000000,0,0,0,0,100,100,1,0,1,0,4,8,0,0,0,1
+Style: Cta,Inter Display,46,&H00F4FAFF,&H00F4FAFF,&H00000000,&H70000000,0,0,0,0,100,100,1,0,1,0,5,8,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 1,0:00:00.00,0:00:40.00,Brand,,0,0,0,,{\pos(540,190)}LANTERN RAIN ROOM
+Dialogue: 1,0:00:00.00,0:00:40.00,Hook,,0,0,0,,{\pos(540,270)\blur1}Rain outside.\NFire inside.
+Dialogue: 1,0:00:00.00,0:00:40.00,Cta,,0,0,0,,{\pos(540,1330)\blur0.6}the full 1-hour version is on the channel

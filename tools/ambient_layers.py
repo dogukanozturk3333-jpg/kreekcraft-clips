@@ -55,7 +55,7 @@ layers = [Layer(s, 42 + i) for i, s in enumerate(sys.argv[3:])]
 enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-',
                         '-af', 'highshelf=f=7000:g=-4,lowpass=f=14000,alimiter=limit=0.7:level=false,'
                                'afade=t=in:d=4,afade=t=out:st=%.2f:d=6' % (secs - 6),
-                        '-c:a', 'aac', '-b:a', '128k', out], stdin=subprocess.PIPE)
+                        ] + (['-c:a', 'pcm_s16le'] if out.endswith('.wav') else ['-c:a', 'aac', '-b:a', '128k']) + [out], stdin=subprocess.PIPE)
 total = int(secs * SR); done = 0; CH = SR * 10
 while done < total:
     n = min(CH, total - done)
