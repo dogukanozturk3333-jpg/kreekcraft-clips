@@ -39,3 +39,15 @@ custom video thumbnails" (tested 2026-11-23 on QqTZ881H9MU). The user will verif
 account later from another phone (youtube.com/verify). After that: apply studio/thumbs/*.jpg and every
 channel2/episodes/*.thumb.jpg to their uploaded videos (IDs in tools/uploaded.tsv), and add a thumbnail
 step to the daily upload routine.
+
+## Status 2026-11-24 (02:15 Istanbul)
+- Ep.1 built (12.2 min, 30 puzzles) and scheduled on Metricool #2 for 02:20; thumbnail goes on right after
+  publishing (channel phone-verified 2026-11-24, custom thumbnails now work — tested on QqTZ881H9MU).
+- Ep.2 rendering, Ep.3 rendering in parallel; each is published the same night once ready (user wants
+  everything out now). November Metricool #2 budget: 20/20 (episodes + math/diff Shorts + new illusions).
+
+## Instagram for the episodes (next step, user asked)
+Instagram brand 7879434 is on Metricool account #1 (20/month, November used up). From December 1:
+cut 60–90 s highlights from each episode (best round + bonus illusion, 9:16 crop of the centre Short with
+"full episode on YouTube" end card) and post them as Reels next to the best Shorts (illusions first —
+they got the most reactions). Needs account #1's brand shared with account #2, or the connector switched.
