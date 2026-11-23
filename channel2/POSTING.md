@@ -1,5 +1,17 @@
 # Brain Warp Lab — puzzles & illusions (Shorts)
 
+## SEO + Shorts rules (apply to every upload)
+- Every video is 1080x1920 and under 60 s, so YouTube files it under Shorts automatically; still put
+  " #shorts" at the end of the title and #shorts first in the description hashtags.
+- Title: hook + the searched phrase ("find the odd one out", "optical illusion", "color test",
+  "hidden letter"), max ~60 characters before " #shorts", one or two emojis.
+- Description line 1 repeats the main keyword in a sentence; line 2 is the comment prompt; then 4 hashtags
+  (#shorts + three topic tags). Tags: the format's tag list.
+- After uploading, add the video to its playlist with Zapier "Add Video to Playlist"
+  (or the raw API playlistItems POST), connection 02b64918-4742-8527-9d26-eacc99111817:
+    emoji odd-one-out → PLfptmS3q7Yic        illusions → PLOodmHfHNYPw
+    color test → PLddGkAWopl60               hidden letter/number → PLMmNY7SqOeyQ
+
 Not connected yet: the user opens the channel with a new Google account and adds it in Zapier with
 "Add connection" (YouTube), then uploads use that connection_id. Zapier's ~5 uploads per 24 h are
 shared with the other channels.
@@ -15,7 +27,8 @@ Title (rotate):
 - Only Sharp Eyes Find All 3 👀 Odd One Out
 - Find the Odd Emoji in 7 Seconds ⏱️
 Description: Find the odd one out in all three levels before time runs out! 🧠 How many did you get?
-Comment 1, 2 or 3 👇  New brain puzzles every day. #puzzle #brainteaser #oddoneout
+Comment 1, 2 or 3 👇  New brain puzzles every day.
+#shorts #puzzle #brainteaser #oddoneout
 Tags: find the odd one out, odd one out, emoji puzzle, brain teaser, puzzle, spot the difference, brain test
 Category 24 (Entertainment), not made for kids.
 
@@ -36,7 +49,8 @@ Classic perception effects (public scientific phenomena) in our own designs: spi
 lilac (lilac chaser), troxler (Troxler fading), afterimage (colour afterimage). Ends with "Did it work?
 YES / NO — tell us in the comments". Category 24, not made for kids.
 Description: Try it with sound on and don't move your eyes 👀 Did it work? Comment YES or NO!
-New brain puzzles and illusions every day. #opticalillusion #illusion #brain
+New brain puzzles and illusions every day.
+#shorts #opticalillusion #illusion #brain
 Tags: optical illusion, illusion, brain trick, eye test, mind blowing, perception, brain teaser
 
 - lilac-01: Stare at the Cross… a GREEN Dot Appears 🟢 (Optical Illusion)
@@ -54,7 +68,8 @@ so re-uploads can't simply crop the brand away.
 ## Format 3 — Hidden letter / number (`oddone2.py SEED OUT.mp4 text`) → channel2/text/txt-NNN.mp4
 Same motion design; grids of letters/numbers with one look-alike (W/M, q/p, O/0, 81/18 …).
 Description: Find the odd one out in all three levels before time runs out! 🔍 How many did you get?
-Comment 1, 2 or 3 👇  New brain puzzles every day. #puzzle #brainteaser #findthedifference
+Comment 1, 2 or 3 👇  New brain puzzles every day.
+#shorts #puzzle #brainteaser #findthedifference
 Tags: find the odd one out, hidden letter, find the number, brain teaser, puzzle, eye test, brain test
 - txt-001: Find the Odd Letter 🔍 Level 3 Is Brutal
 - txt-002: Only 3 Seconds to Spot It 👀 Find the Odd Letter
@@ -72,7 +87,8 @@ Tags: find the odd one out, hidden letter, find the number, brain teaser, puzzle
 ## Format 4 — Color vision test (`oddone2.py SEED OUT.mp4 color`) → channel2/color/col-NNN.mp4
 One tile is a slightly different shade; the gap shrinks every level (16% → 8.5% → 4.5% lightness).
 Description: Find the tile with a different color before time runs out! 🎨 How many did you get?
-Comment 1, 2 or 3 👇  New brain puzzles every day. #colortest #eyetest #puzzle
+Comment 1, 2 or 3 👇  New brain puzzles every day.
+#shorts #colortest #eyetest #puzzle
 Tags: color test, color vision test, find the different color, eye test, brain teaser, puzzle, brain test
 - col-001: Find the Different Color 🎨 Level 3 Is Almost Impossible
 - col-002: How Good Are Your Eyes? 🎨 Color Test
