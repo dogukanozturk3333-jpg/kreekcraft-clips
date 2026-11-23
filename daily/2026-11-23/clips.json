@@ -1,0 +1,114 @@
+[
+ {
+  "name": "14-kreekcraft-insurance-fraud",
+  "src": "SRC/src/B1.mp4",
+  "tx": "B1",
+  "start": 0,
+  "end": 44,
+  "seam": 700,
+  "cam": [
+   0,
+   0.06,
+   0.22,
+   0.42
+  ],
+  "game": [
+   0.308,
+   0.03,
+   0.383,
+   0.77
+  ],
+  "hook": "HE WANTS TO DO|INSURANCE FRAUD IN GTA 6"
+ },
+ {
+  "name": "15-kreekcraft-plane-hijack",
+  "src": "SRC/src/B2.mp4",
+  "tx": "B2",
+  "start": 0,
+  "end": 40,
+  "seam": 700,
+  "cam": [
+   0,
+   0.06,
+   0.22,
+   0.42
+  ],
+  "game": [
+   0.308,
+   0.03,
+   0.383,
+   0.77
+  ],
+  "hook": "COPS SAY HE HIJACKED|A PLANE IN GTA 6"
+ },
+ {
+  "name": "c2-s1",
+  "src": "SRC/src/A4.mp4",
+  "tx": "A4",
+  "start": 0,
+  "end": 12.9,
+  "trim_silence": false,
+  "seam": 600,
+  "cam": [
+   0,
+   0.4,
+   0.205,
+   0.205
+  ],
+  "game": [
+   0.323,
+   0.03,
+   0.354,
+   0.77
+  ],
+  "tag": "KAI CENAT \u2022 TWITCH.TV/KAICENAT",
+  "hook": "TOP 3 GTA 6 MOMENTS|#3 KAI'S FIRST SHOT"
+ },
+ {
+  "name": "c2-s2",
+  "src": "SRC/src/C3.mp4",
+  "tx": "C3",
+  "start": 18,
+  "end": 33,
+  "trim_silence": false,
+  "seam": 600,
+  "cam": [
+   0,
+   0.4,
+   0.25,
+   0.25
+  ],
+  "game": [
+   0.323,
+   0.03,
+   0.354,
+   0.77
+  ],
+  "grade": "eq=gamma=1.3:brightness=0.03",
+  "tag": "CLIX \u2022 TWITCH.TV/CLIX",
+  "hook": "#2 CLIX'S POLICE STATION|GETS ATTACKED"
+ },
+ {
+  "name": "c2-s3",
+  "src": "SRC/src/B1.mp4",
+  "tx": "B1",
+  "start": 17,
+  "end": 38,
+  "trim_silence": false,
+  "seam": 600,
+  "cam": [
+   0,
+   0.06,
+   0.22,
+   0.42
+  ],
+  "game": [
+   0.323,
+   0.03,
+   0.354,
+   0.77
+  ],
+  "tag": "KREEKCRAFT \u2022 TWITCH.TV/KREEKCRAFT",
+  "hook": "#1 KREEK PLANS|INSURANCE FRAUD"
+ }
+]
