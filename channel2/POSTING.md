@@ -4,8 +4,9 @@ Not connected yet: the user opens the channel with a new Google account and adds
 "Add connection" (YouTube), then uploads use that connection_id. Zapier's ~5 uploads per 24 h are
 shared with the other channels.
 
-## Format 1 — Find the odd one out (`channel2/oddone.py SEED OUT.mp4`)
-26 s: three levels (easy / medium / hard), countdown with ticks, the answer circled, then
+## Format 1 — Find the odd one out (`channel2/oddone2.py SEED OUT.mp4`, v2; v1 oddone.py is retired)
+28 s, motion-designed (animated background, popping grid, circular countdown with heartbeat,
+sliding level changes, zoom-and-ring reveal, end screen with 1/2/3 buttons + logo, original music bed): three levels (easy / medium / hard), countdown with ticks, the answer circled, then
 "How many did you find? Comment 1, 2 or 3" (comments push the Short). Every seed is a new video.
 Emoji art: Noto Color Emoji (SIL OFL). Voice: Kokoro am_michael (offline). Sounds: generated.
 

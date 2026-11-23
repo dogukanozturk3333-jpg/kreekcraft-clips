@@ -18,7 +18,7 @@ send_later at the end of each run. Stop at the first "throttled" answer; what is
 
 ## Queue (oldest first; take the first unused item per channel)
 Lantern Rain Room: ambient/01-cozy-cabin-rain-fireplace-1h.mp4, ambient/shorts/s01-rain-outside-fire-inside.mp4
-Brain Warp Lab: channel2/oddone/odd-001.mp4 … odd-010.mp4 (titles in channel2/POSTING.md)
+Brain Warp Lab: channel2/oddone2/odd-001.mp4 … odd-010.mp4 (v2, motion-designed) (titles in channel2/POSTING.md)
 Zeipan: compilations/2026-11-22-top3-gta6-fails.mp4, daily/2026-11-23/14-kreekcraft-insurance-fraud.mp4,
   compilations/2026-11-23-streamers-found-bigfoot.mp4, daily/2026-11-23/16-top3-gta6-moments.mp4,
   daily/2026-11-23/15-kreekcraft-plane-hijack.mp4
