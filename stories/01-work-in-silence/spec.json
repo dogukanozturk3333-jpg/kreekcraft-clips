@@ -1,8 +1,8 @@
 {"hook": "THEY LAUGHED AT HIM...",
  "scenes": [
-  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s1.png", "dur": 5.0, "caption": "They partied every night.", "move": "in"},
-  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s2.png", "dur": 4.6, "caption": "They laughed at him.", "move": "left"},
-  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s3.png", "dur": 4.6, "caption": "He kept working. Quietly.", "move": "out"},
-  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s4.png", "dur": 4.6, "caption": "Years later...", "move": "up"},
-  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s5.png", "dur": 5.2, "caption": "Now they finally noticed.", "move": "in"}],
+  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s1.png", "depth": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/d1.png", "dur": 5.0, "caption": "They partied every night.", "move": "in", "fx": ["dust","flicker"], "rain": [[0.43,0.0,1.0,0.42]]},
+  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s2.png", "depth": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/d2.png", "dur": 4.6, "caption": "They laughed at him.", "move": "left", "fx": ["dust"]},
+  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s3.png", "depth": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/d3.png", "dur": 4.6, "caption": "He kept working. Quietly.", "move": "in", "fx": ["dust","flicker"], "rain": [[0.56,0.0,1.0,0.42]]},
+  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s4.png", "depth": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/d4.png", "dur": 4.6, "caption": "Years later...", "move": "right", "fx": ["dust"]},
+  {"img": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/s5.png", "depth": "/home/user/kreekcraft-clips/stories/01-work-in-silence/img/d5.png", "dur": 5.2, "caption": "Now they finally noticed.", "move": "out", "fx": ["bokeh","dust"]}],
  "end": {"lines": ["WORK IN SILENCE.", "Let success make the noise."], "dur": 4.5}}

@@ -21,20 +21,63 @@ T_END0 = t + XF                      # end card begins after last scene
 T = T_END0 + end['dur']
 
 def ease(x): return 0.5 - 0.5 * math.cos(math.pi * max(0, min(1, x)))
+import cv2
+DEP = []
+for s_ in scenes:
+    dp = s_.get('depth')
+    DEP.append(cv2.GaussianBlur(np.asarray(Image.open(dp).convert('L').resize((W, H)), np.float32) / 255, (0, 0), 5) if dp and os.path.exists(dp) else None)
+ARR = [np.asarray(im) for im in imgs]
+YY, XX = np.mgrid[0:H, 0:W].astype(np.float32)
+VEC = {'left': (-1, 0), 'right': (1, 0), 'up': (0, -1), 'down': (0, 1), 'in': (0.35, -0.25), 'out': (-0.35, 0.25)}
 def cam(i, p):
-    m = scenes[i].get('move', 'in'); z0, z1 = (1.0, 1.12) if m != 'out' else (1.12, 1.0)
-    z = z0 + (z1 - z0) * ease(p)
-    dx = {'left': -1, 'right': 1}.get(m, 0) * 0.04 * (p - 0.5)
-    dy = {'up': -1, 'down': 1}.get(m, 0) * 0.04 * (p - 0.5)
-    sw, sh = W / z, H / z; cx, cy = W / 2 + dx * W, H / 2 + dy * H
-    return imgs[i].transform((W, H), Image.EXTENT, (cx - sw / 2, cy - sh / 2, cx + sw / 2, cy + sh / 2), Image.BICUBIC)
+    """2.5D camera: zoom plus depth-dependent shift (near things move more = parallax)."""
+    m = scenes[i].get('move', 'in'); e = ease(p)
+    z = (1.06 + 0.10 * e) if m != 'out' else (1.16 - 0.10 * e)
+    D = DEP[i] if DEP[i] is not None else np.full((H, W), 0.5, np.float32)
+    vx, vy = VEC.get(m, (0, 0)); amp = 80 * (e - 0.5)
+    zd = z * (1 + 0.07 * (D - 0.3) * (e if m != 'out' else 1 - e))
+    mx = W / 2 + (XX - W / 2) / zd - vx * amp * (D - 0.3)
+    my = H / 2 + (YY - H / 2) / zd - vy * amp * (D - 0.3)
+    out = cv2.remap(ARR[i], mx, my, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    return fx(i, p, out)
+
+def fx(i, p, a):
+    """Small living details: dust motes, rain on windows, bokeh, flickering lamp light."""
+    effs = scenes[i].get('fx', []); t = p * scenes[i]['dur']
+    if not effs: return Image.fromarray(a)
+    rng = np.random.default_rng(100 + i); f = a.astype(np.float32)
+    if 'flicker' in effs:
+        luma = f.mean(axis=2, keepdims=True) / 255
+        f *= 1 + (0.035 * math.sin(t * 9) + 0.02 * math.sin(t * 23)) * luma ** 2
+    lay = np.zeros((H, W, 3), np.float32)
+    if 'dust' in effs:
+        n = 70; x0 = rng.uniform(0, W, n); y0 = rng.uniform(0, H, n); sp = rng.uniform(8, 25, n); r = rng.uniform(1.5, 4, n); ph = rng.uniform(0, 6.28, n); al = rng.uniform(.25, .7, n)
+        for k in range(n):
+            x = (x0[k] + 18 * math.sin(t * .7 + ph[k])) % W; y = (y0[k] - sp[k] * t) % H
+            cv2.circle(lay, (int(x), int(y)), int(r[k]), (255 * al[k], 230 * al[k], 180 * al[k]), -1, cv2.LINE_AA)
+    if 'bokeh' in effs:
+        n = 16; x0 = rng.uniform(0, W, n); y0 = rng.uniform(0, H * .7, n); r = rng.uniform(14, 40, n); ph = rng.uniform(0, 6.28, n)
+        for k in range(n):
+            a_ = .18 + .12 * math.sin(t * 1.3 + ph[k])
+            cv2.circle(lay, (int(x0[k] + 10 * math.sin(t * .4 + ph[k])), int(y0[k] - 6 * t)), int(r[k]), (255 * a_, 190 * a_, 110 * a_), -1, cv2.LINE_AA)
+    if lay.any():
+        lay = cv2.GaussianBlur(lay, (0, 0), 2.2); f += lay
+    for box in scenes[i].get('rain', []):
+        x0b, y0b, x1b, y1b = int(box[0] * W), int(box[1] * H), int(box[2] * W), int(box[3] * H)
+        rl = np.zeros((H, W, 3), np.float32); n = 140
+        xs = rng.uniform(x0b, x1b, n); ys = rng.uniform(y0b, y1b, n); sp = rng.uniform(900, 1500, n)
+        for k in range(n):
+            y = y0b + (ys[k] - y0b + sp[k] * t) % max(1, (y1b - y0b)); x = xs[k] + 0.12 * (y - y0b)
+            cv2.line(rl, (int(x), int(y)), (int(x + 4), int(y + 26)), (150, 170, 200), 1, cv2.LINE_AA)
+        f[y0b:y1b, x0b:x1b] += rl[y0b:y1b, x0b:x1b] * 0.45
+    return Image.fromarray(np.clip(f, 0, 255).astype(np.uint8))
 
 def text_layer(lines, size, y, alpha, font=SERIF, spacing=1.25):
     lay = Image.new('RGBA', (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(lay); f = ImageFont.truetype(font, size)
     for k, ln in enumerate(lines):
         yy = y + k * size * spacing
-        d.text((W / 2 + 3, yy + 3), ln, font=f, fill=(0, 0, 0, int(160 * alpha)), anchor='mm')
-        d.text((W / 2, yy), ln, font=f, fill=(255, 248, 235, int(255 * alpha)), anchor='mm')
+        d.text((W / 2 + 3, yy + 4), ln, font=f, fill=(0, 0, 0, int(170 * alpha)), anchor='mm', stroke_width=6, stroke_fill=(0, 0, 0, int(120 * alpha)))
+        d.text((W / 2, yy), ln, font=f, fill=(255, 248, 235, int(255 * alpha)), anchor='mm', stroke_width=3, stroke_fill=(20, 12, 6, int(230 * alpha)))
     return lay
 
 badge = Image.open(os.path.join(os.path.dirname(__file__), '..', 'brand', 'art', 'logo.png')).convert('RGBA').resize((64, 64), Image.LANCZOS)
