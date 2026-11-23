@@ -41,3 +41,12 @@ format-specific (e.g. #mathpuzzle #emojimath #orderofoperations) + broad (#brain
 #iqtest #challenge) + #explore #reels. No invented statistics. Log scheduled Reels in studio/instagram.tsv.
 Scheduled so far: odd-001 (2026-11-23 22:00), lilac-01 (11-24 13:00), odd-002 (11-24 19:30),
 spiral-01 (11-25 13:00), odd-003 (11-25 19:30).
+
+## Metricool account #2 (YouTube) — brand blogId 8317957, YouTube = Brain Warp Lab (UCBTjlne2r4zjd9zkFuIPQ6g)
+Free plan: 20 published posts per calendar month on this account too. Use it for the long-form episodes
+(studio/LONGFORM.md) first, then extra Brain Warp Lab Shorts — so Zapier's 5 a day stay for Shorts.
+youtubeData: {title, type "short" | "video", privacy public, tags, category ENTERTAINMENT, madeForKids false}.
+NOTE (2026-11-23): the Metricool connector here now logs in as account #2, so the Instagram brand 7879434
+(account #1) is not visible any more. Its 20 November Reels stay scheduled on Metricool's side. For
+December Instagram posting the user shares brand 7879434 with account #2 (or reconnects account #1).
+Metricool YouTube log: math-001 scheduled 2026-11-23 22:55 Istanbul (post 439328948) as the first test.
