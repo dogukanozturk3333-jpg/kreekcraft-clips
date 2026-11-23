@@ -27,3 +27,11 @@ Brain Warp Lab (uploaded: odd-001, lilac-01, odd-002, spiral-01, odd-003). Next,
 Zeipan: compilations/2026-11-23-streamers-found-bigfoot.mp4 (last one; then paused — the other prepared
   GTA clips stay in the repo unused)
 Uploaded items are listed in tools/uploaded.tsv; skip anything already there.
+
+## Instagram (@brainwarplab) via Metricool — brand blogId 7879434, timezone Europe/Istanbul
+Two Reels a day at 13:00 and 19:30 Istanbul time, taking Brain Warp Lab videos in the same order they went
+to YouTube (raw.githubusercontent URL as media, instagramData type REEL, isAiGenerated false).
+Caption = YouTube title (without #shorts) + description lines + "follow @brainwarplab" + 8 hashtags
+(format hashtags + #braingames #eyetest #reels). Log scheduled Reels in studio/instagram.tsv.
+Scheduled so far: odd-001 (2026-11-23 22:00), lilac-01 (11-24 13:00), odd-002 (11-24 19:30),
+spiral-01 (11-25 13:00), odd-003 (11-25 19:30).
