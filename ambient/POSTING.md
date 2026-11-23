@@ -4,6 +4,10 @@ Channel: Lantern Rain Room (@lanternrainroom), Zapier YouTube connection "YouTub
 (connection_id 0288fac3-da80-8ed6-8011-d7ad183241cf). The Zapier upload limit (~5 per 24 h) is shared
 by ALL YouTube connections, so channels share one daily budget.
 Everything is our own: AI-made picture (Canva), AI sound effects (ElevenLabs SFX v3, seamless loops),
+LICENSE NOTE: the loops were made on the ElevenLabs FREE plan, which has no commercial licence and requires
+crediting ElevenLabs. Every description carries "Sound effects created with ElevenLabs." Before the channel
+applies for monetization, regenerate the loops on a paid ElevenLabs month (or replace them with CC0 audio).
+
 mixed into a non-repeating hour with tools/ambient_layers.py, fire animated with tools/ambient_loop.py.
 
 SEO rules for this channel
@@ -39,6 +43,8 @@ cabin and a gently crackling fire beside a warm lantern.
 
 Subscribe to Lantern Rain Room for new cozy rain and fire ambience every week.
 
+Sound effects created with ElevenLabs.
+
 rain sounds for sleeping, fireplace sounds, rain and fireplace, cozy cabin ambience, rain on window,
 crackling fire, sleep sounds, study ambience, relaxing sounds, white noise for sleep
 
@@ -58,6 +64,7 @@ crossfades into the head, so replays loop without a seam). Upload AFTER video 01
 **Description:**
 Full 1-hour version 👉 {LINK TO VIDEO 01}
 Rain and fireplace sounds in a cozy log cabin. Put it on, breathe out, and rest. 🌧️🔥
+Sound effects created with ElevenLabs.
 #rainsounds #fireplace #sleep
 
 **Tags:** rain sounds, fireplace, cozy, sleep sounds, rain and fireplace, relaxing, shorts
