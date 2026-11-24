@@ -123,13 +123,13 @@ for seed in range(SEED, SEED + 80):
     frames, events, order = simulate(seed)
     t_first = next((e[0] for e in events if e[1] == 'finish'), None); t_last = frames[-1]['t']
     if os.environ.get('SIMDEBUG'): print('try', seed, round(t_first or -1, 1), round(t_last, 1), [NAMES[i] for i in order], flush=True)
-    pref_ok = True
-    if '--prefer' in sys.argv:
-        pn = sys.argv[sys.argv.index('--prefer') + 1]; top = int(sys.argv[sys.argv.index('--top') + 1]) if '--top' in sys.argv else 1
-        pref_ok = len(order) == NB and [NAMES[i] for i in order].index(pn) < top
-    if len(order) == NB and t_first and 18 <= t_first <= 48 and t_last <= 62 and pref_ok: break
+    if len(order) == NB and t_first and 18 <= t_first <= 48 and t_last <= 62: break
 else:
     sys.exit('no seed gives a race of the right length')
+if '--prefer' in sys.argv:          # physics does not depend on the flag: put the preferred team on a top-K ball
+    pn = sys.argv[sys.argv.index('--prefer') + 1]; top = int(sys.argv[sys.argv.index('--top') + 1]) if '--top' in sys.argv else 1
+    b_ = order[seed % top]; p_ = NAMES.index(pn)
+    NAMES[b_], NAMES[p_] = NAMES[p_], NAMES[b_]; FLAGS[b_], FLAGS[p_] = FLAGS[p_], FLAGS[b_]
 print('seed', seed, 'first %.1f s, all %.1f s' % (t_first, t_last), [NAMES[i] for i in order], flush=True)
 winner = NAMES[order[0]]
 

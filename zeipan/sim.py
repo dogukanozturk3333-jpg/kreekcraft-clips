@@ -230,8 +230,6 @@ for seed in range(SEED, SEED + 120):                      # accept the first see
     end_t = frames[-1]['t']
     if os.environ.get('SIMDEBUG'): print('try', seed, round(end_t, 1), {k: v for k, v in info.items() if k != 'order'}, flush=True)
     if EVENT:
-        if '--prefer' in sys.argv and info.get('order') and len(info['order']) == 6 and \
-           info['order'].index(sys.argv[sys.argv.index('--prefer') + 1]) >= int(sys.argv[sys.argv.index('--top') + 1]): continue
         if info.get('t_last') and len(info['order']) == 6 and (info['t_win'] >= (2 if KIND == 'escape' else 6)) and \
            (15 if KIND == 'escape' else 8) <= info['t_last'] <= (60 if KIND == 'escape' else 50): break
         continue
@@ -239,6 +237,14 @@ for seed in range(SEED, SEED + 120):                      # accept the first see
     if KIND != 'grow' and info.get('winner') and lo <= info['t_win'] <= hi - 4: break
 else:
     sys.exit('no seed fits the time window')
+if '--prefer' in sys.argv and info.get('order'):     # physics does not depend on the flag: relabel two balls
+    pn = sys.argv[sys.argv.index('--prefer') + 1]; top = int(sys.argv[sys.argv.index('--top') + 1]) if '--top' in sys.argv else 1
+    other = info['order'][seed % top]
+    if other != pn:
+        sw = lambda n: pn if n == other else other if n == pn else n
+        ia, ib = TEAM6.index(other), TEAM6.index(pn); TEAM6[ia], TEAM6[ib] = TEAM6[ib], TEAM6[ia]   # index-based panels
+        for fr_ in frames: fr_['balls'] = [(x, y, r, sw(n)) for x, y, r, n in fr_['balls']]; fr_['winner'] = sw(fr_['winner']) if fr_.get('winner') else fr_.get('winner')
+        info['order'] = [sw(n) for n in info['order']]; info['winner'] = sw(info['winner'])
 print('seed', seed, 'info', info, 'sim length %.1f s' % end_t)
 
 # ------------------------------------------------------------------ titles
