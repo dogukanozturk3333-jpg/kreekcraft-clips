@@ -114,3 +114,10 @@ Whichever account the Zapier connector currently reaches, upload only to the cha
   Keep Zeipan at ~4-5 public Shorts a day, spaced ≥3 h (YouTube stops a channel at ~10 uploads per 24 h).
 - Lantern Rain Room Shorts S01/S02 are on HOLD (plain loops, no hook). Upload only the long videos until better
   Shorts exist (slow camera push-in, Christmas scenes).
+- 04:47 UTC: account 3 also reaches Lantern Rain Room (connection 0292b9b8-766d-8b98-9192-b82d140b6c86, channel
+  UCXxDecH5F8NWlNe6vd7ENBQ) and Zeipan (02c5920f-65dc-8804-a62c-c5dce286a5ae). Uploaded 03 Christmas Fireplace (public,
+  i1c3qCFgjzk) and 04 Christmas Village (fW1OKxDB_nU, publishAt 11-24 22:00Z). A rejected call (default_audio_language
+  "zxx" is invalid — leave it out) also counted, so account 3 is throttled until ~04:45 UTC 11-25.
+- Lantern Rain Room custom thumbnails are refused: the channel is not phone-verified. Once the user verifies it, set
+  studio/thumbs/lrr-03.jpg and lrr-04.jpg on those two videos.
+- Zeipan Color Cup Ep.1 upload attempt was throttled; it stays first in the Saturday 11-28 batch.
