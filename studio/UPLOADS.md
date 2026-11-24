@@ -64,5 +64,10 @@ flag-de) in the free 14:00 / 23:30 slots 11-25 … 11-30 — scheduled once rend
   views, likes, comments) and rank formats by views per video and comments per 1k views.
 - Upload only what passed tools/qa.py AND the visual check, and prefer the formats/variants that are
   winning; mix in at most one new or experimental idea per day, never a near-copy of yesterday's video.
-- Don't flood: 3–5 Brain Warp Lab Shorts a day, spaced at least 2 hours apart; one episode every 3–4 days.
+- Don't flood: at most 3 Brain Warp Lab Shorts go public per day, Zapier + Metricool together, spaced 3–4 hours
+  apart (day 1: the first two Shorts got ~1000 views each, the burst after them got 0–8; YouTube also refused the
+  channel after ~10 uploads in 24 h). Episodes are extra: Tuesday and Friday 20:00 Istanbul.
+- Watermark (user, 2026-11-24): no big diagonal handle; only the small faint logo tag at the very bottom.
+  Only files committed after 2026-11-24T00:10Z carry it; older renders are re-made before upload.
+- Open: thumbnail for math-002 (MfKCdoVFQAo) got 429 on 11-24; retry with studio/thumbs/math-002.jpg.
 - Never re-upload or near-duplicate a video; vary flags/scenes/colours/puzzles.
