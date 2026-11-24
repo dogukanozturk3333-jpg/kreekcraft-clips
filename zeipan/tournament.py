@@ -11,7 +11,7 @@ cv2.setNumThreads(1)
 from PIL import Image, ImageDraw, ImageFont
 
 EP = int(sys.argv[1]); OUT = sys.argv[2]
-NEV = int(sys.argv[sys.argv.index('--events') + 1]) if '--events' in sys.argv else 12
+NEV = int(sys.argv[sys.argv.index('--events') + 1]) if '--events' in sys.argv else 14
 WORKERS = int(sys.argv[sys.argv.index('--workers') + 1]) if '--workers' in sys.argv else 2
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 SCR = os.environ.get('ZP_SCRATCH', '/tmp/claude-0/-home-user/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/cup')
@@ -33,7 +33,8 @@ def font(name, s):
 
 
 def say(n):
-    return ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'][n]
+    w = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen']
+    return w[n] if 0 <= n < len(w) else str(n)
 
 
 # ------------------------------------------------------------------ 1) simulate + render every event clip
@@ -94,11 +95,11 @@ def table(im, totals, gained=None, title='STANDINGS', top=200):
     rows = sorted(TEAMS, key=lambda t: (-totals[t], TEAMS.index(t)))
     for i, t in enumerate(rows):
         y = top + 30 + i * 112; c = RGB[t]
-        d.rounded_rectangle([460, y - 46, 1460, y + 46], 26, fill=(28, 24, 40) if i else (52, 44, 12))
+        d.rounded_rectangle([440, y - 46, 1500, y + 46], 26, fill=(28, 24, 40) if i else (52, 44, 12))
         d.text((520, y), str(i + 1), font=font('Inter Black', 54), fill=YEL, anchor='mm')
         d.ellipse([580, y - 28, 636, y + 28], fill=c); d.text((670, y), t, font=font('Inter Black', 52), fill=(255, 255, 255), anchor='lm')
-        if gained: d.text((1180, y), f'+{gained[t]}', font=font('Inter Black', 46), fill=(130, 230, 150), anchor='mm')
-        d.text((1380, y), f'{totals[t]} PTS', font=font('Inter Black', 50), fill=(255, 255, 255), anchor='mm')
+        if gained: d.text((1150, y), f'+{gained[t]}', font=font('Inter Black', 46), fill=(130, 230, 150), anchor='mm')
+        d.text((1470, y), f'{totals[t]} PTS', font=font('Inter Black', 50), fill=(255, 255, 255), anchor='rm')
     return im
 
 
