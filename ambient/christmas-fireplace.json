@@ -1,0 +1,7 @@
+{"fps": 15, "loop": 150, "crf": 30, "glow": 0.015,
+ "fire": [1702, 660, 160, 125],
+ "lights": [[573, 600, 40, 0.08], [90, 840, 45, 0.08], [1332, 150, 40, 0.07], [1207, 435, 35, 0.07], [1885, 40, 40, 0.06]],
+ "twinkle": {"box": [0, 0, 440, 730], "thresh": 215, "amp": 0.35, "groups": 10, "speed": 1.2},
+ "snow": {"mask": "ambient/img/christmas-fireplace-snowmask.png", "wind": 0.0,
+          "layers": [{"n": 160, "r": 1.5, "blur": 0.8, "alpha": 0.65, "fall": 2, "sway": 6},
+                     {"n": 110, "r": 2.6, "blur": 1.1, "alpha": 0.8, "fall": 3, "sway": 10}]}}

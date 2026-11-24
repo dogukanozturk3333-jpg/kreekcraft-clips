@@ -5,7 +5,7 @@ Everything is periodic in LOOP seconds, so the clip can be stream-copied end to 
   python3 -I tools/ambient_loop.py IMG.jpg CFG.json OUT.mp4
 CFG: {"fps":15,"loop":20,"fire":[cx,cy,rx,ry],"lights":[[cx,cy,r,amp],...],
       "snow":{"mask":"mask.png","wind":0.4,"layers":[{"n":300,"r":1.6,"blur":0.6,"alpha":0.85,"fall":2,"sway":6},...]}}
-fire, lights and snow are all optional. Snow flakes fall in depth layers (far = small, slow, sharp; near = big,
+fire, lights, twinkle and snow are all optional. Snow flakes fall in depth layers (far = small, slow, sharp; near = big,
 soft bokeh), sway, and drift with the wind; every flake path is periodic in LOOP, so the loop is seamless.
 "fall" = how many times a flake crosses the frame per loop (integer)."""
 import os as _os
@@ -42,6 +42,18 @@ fire_f = flicker(1, 0.09); glow_f = flicker(2, cfg.get('glow', 0.02), 0.6)   # r
 lights = [(np.exp(-(((xx - lx) ** 2 + (yy - ly) ** 2) / (r ** 2)))[..., None], flicker(10 + i, a, 4))
           for i, (lx, ly, r, a) in enumerate(cfg.get('lights', []))]
 warm = np.array([0.80, 0.93, 1.0], np.float32)   # BGR: glow leans orange
+
+# fairy lights: every small bright point inside "box" twinkles on its own (points split into groups,
+# each group with its own periodic flicker) -> {"twinkle":{"box":[x0,y0,x1,y1],"thresh":215,"amp":0.35,"groups":10}}
+TW = cfg.get('twinkle'); tw = []
+if TW:
+    x0, y0, x1, y1 = TW['box']; pts = np.zeros((H, W), np.uint8)
+    pts[y0:y1, x0:x1] = (lum[y0:y1, x0:x1] > TW.get('thresh', 215)).astype(np.uint8)
+    nlab, lab = cv2.connectedComponents(pts); grp = np.random.default_rng(5).integers(0, TW.get('groups', 10), nlab)
+    for k in range(TW.get('groups', 10)):
+        mk = ((grp[lab] == k) & (lab > 0)).astype(np.float32)
+        mk = cv2.GaussianBlur(mk, (0, 0), 2.5 * SC); mk = (mk / max(mk.max(), 1e-6))[..., None]
+        tw.append((mk, flicker(40 + k, TW.get('amp', 0.35), TW.get('speed', 1.2))))
 
 SNOW = cfg.get('snow'); flakes = []
 if SNOW:
@@ -83,6 +95,7 @@ for i in range(N):
     fr = img + (fr - img) * flame * fmask[..., None]
     gain = 1 + (fire_f[i] - 1) * fmask[..., None] + (glow_f[i] - 1) * glow * warm
     for g, f in lights: gain = gain + (f[i] - 1) * g * warm
+    for g, f in tw: gain = gain + (f[i] - 1) * g
     out = fr * gain
     if SNOW:
         a = snow_layer(i); out = out * (1 - a) + np.array(SNOW.get('color', [255, 250, 245]), np.float32) * a
