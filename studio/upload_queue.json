@@ -10,47 +10,169 @@
   "When every item is done (or by 2026-11-25 09:00 UTC), create the playlists listed under 'playlists' and add the videos, then message the user a short Turkish summary with the links."
  ],
  "items": [
-  {"key": "zeipan-countrycup-ep01", "channel": "Zeipan", "publish": "now", "category_id": "24",
+  {
+   "key": "zeipan-countrycup-ep01",
+   "channel": "Zeipan",
+   "publish": "now",
+   "category_id": "24",
    "video": "https://raw.githubusercontent.com/dogukanozturk3333-jpg/kreekcraft-clips/4e8cc165ca36597606c4106d87dcaa33354f46f7/zeipan/episodes/zeipan-countrycup-ep01.mp4",
    "title": "Which Country Wins the Cup? 🏆 Turkey vs USA vs Brazil & More | Country Cup Ep. 1",
    "description": "Six countries, 10 events, one champion! 🇹🇷🇺🇸🇧🇷🇮🇳🇲🇽🇮🇩 Long-track marble races through zig-zag ramps, a peg forest, spinners and the final funnel, plus ball escapes. Points after every event — pick your country and cheer until the end!\n\n⏱ Chapters\n0:00 Intro: pick your country\n0:14 Event 1: Marble Race\n1:16 Event 2: Ball Escape\n2:22 Event 3: Marble Race\n3:21 Event 4: Ball Escape\n4:08 Event 5: Marble Race\n5:08 Event 6: Marble Race\n6:07 Event 7: Ball Escape\n7:00 Event 8: Marble Race\n7:59 Event 9: Ball Escape\n8:31 Event 10: Marble Race\n9:30 Champion\n9:38 Season table\n9:44 Outro\n\nWhere are you from? Comment your country — it could race in the next cup!\nNew Country Cup every Saturday on Zeipan. Everything is simulated and drawn by Zeipan.\n\ncountry marble race, marble race countries, which country wins, country vs country, countryballs marble race, satisfying marble run, physics simulation\n\n#marblerace #countryballs #satisfying",
-   "tags": ["country marble race", "marble race", "which country wins", "country vs country", "countries", "flags", "marble run", "satisfying", "physics simulation", "turkey", "usa", "brazil", "india", "mexico", "indonesia", "country cup", "marble race countries"],
-   "status": "todo"},
-  {"key": "lrr-03-christmas-fireplace", "channel": "Lantern Rain Room", "publish": "now", "category_id": "10",
+   "tags": [
+    "country marble race",
+    "marble race",
+    "which country wins",
+    "country vs country",
+    "countries",
+    "flags",
+    "marble run",
+    "satisfying",
+    "physics simulation",
+    "turkey",
+    "usa",
+    "brazil",
+    "india",
+    "mexico",
+    "indonesia",
+    "country cup",
+    "marble race countries"
+   ],
+   "status": "todo"
+  },
+  {
+   "key": "lrr-03-christmas-fireplace",
+   "channel": "Lantern Rain Room",
+   "publish": "now",
+   "category_id": "10",
    "video": "https://raw.githubusercontent.com/dogukanozturk3333-jpg/kreekcraft-clips/7e2b3ba515f8d167c43eb5a23e28e7582e6a9f21/ambient/03-christmas-fireplace-1h.mp4",
    "title": "Christmas Fireplace 🎄🔥 Crackling Fire & Twinkling Tree Lights | Cozy Christmas Ambience 1 Hour",
    "description": "Christmas fireplace ambience for a cozy, calm evening: a gently crackling log fire, twinkling Christmas tree lights and soft snow falling outside the window of a warm living room. 🎄🔥\n\n✔ Crackling fire only: no music, no talking, no wind\n✔ Even volume, softened crackles, nothing sudden\n✔ Perfect for sleep, reading, studying, holiday dinners, Christmas parties or just relaxing\n\nPut it on your TV for a cozy Christmas living room all evening. Subscribe to Lantern Rain Room for a new cozy Christmas ambience every few days this December.\n\nImage created with ElevenLabs. Sound effects created with ElevenLabs.\n\nchristmas fireplace, christmas fireplace 1 hour, christmas ambience, crackling fireplace, cozy christmas, fireplace sounds, christmas tree lights, yule log, winter ambience, fireplace for sleep, holiday ambience, relaxing fire sounds, fireplace tv background\n\n#christmasfireplace #christmasambience #fireplace",
-   "tags": ["christmas fireplace", "christmas fireplace 1 hour", "christmas ambience", "fireplace sounds", "crackling fire", "cozy christmas", "yule log", "christmas tree", "fireplace 1 hour", "christmas living room", "winter ambience", "sleep sounds", "holiday ambience", "fireplace tv"],
-   "status": "todo"},
-  {"key": "lrr-04-christmas-village", "channel": "Lantern Rain Room", "publish": "+4h", "category_id": "10",
+   "tags": [
+    "christmas fireplace",
+    "christmas fireplace 1 hour",
+    "christmas ambience",
+    "fireplace sounds",
+    "crackling fire",
+    "cozy christmas",
+    "yule log",
+    "christmas tree",
+    "fireplace 1 hour",
+    "christmas living room",
+    "winter ambience",
+    "sleep sounds",
+    "holiday ambience",
+    "fireplace tv"
+   ],
+   "status": "cancelled (2026-11-24 15:15 UTC: user turns the channel into a quiz channel — no ambience uploads)"
+  },
+  {
+   "key": "lrr-04-christmas-village",
+   "channel": "Lantern Rain Room",
+   "publish": "+4h",
+   "category_id": "10",
    "video": "https://raw.githubusercontent.com/dogukanozturk3333-jpg/kreekcraft-clips/7e2b3ba515f8d167c43eb5a23e28e7582e6a9f21/ambient/04-christmas-village-snowfall-1h.mp4",
    "title": "Snowy Christmas Village at Night ❄️🎄 Gentle Snowfall Ambience for Sleep & Relaxation | 1 Hour",
    "description": "Gentle snowfall over a quiet Christmas village at night: warm glowing cottages, a twinkling Christmas tree in the square, mountains in the moonlight and soft snow falling without a breath of wind. ❄️🎄\n\n✔ Soft, calm snow hush: no music, no talking, no wind\n✔ Even volume all the way through\n✔ Great for sleep, study, reading and Christmas relaxation\n\nSubscribe to Lantern Rain Room for a new cozy Christmas ambience every few days this December.\n\nImage created with ElevenLabs.\n\nchristmas village, christmas snowfall, snowfall ambience, snowy night, christmas ambience, falling snow, winter village, snow for sleep, christmas lights, peaceful winter night, relaxing snow, christmas tv background\n\n#christmasambience #snowfall #christmasvillage",
-   "tags": ["christmas village", "christmas snowfall", "snowfall", "snowy night", "christmas ambience", "falling snow", "winter ambience", "snow sounds", "christmas lights", "sleep ambience", "relaxing", "1 hour", "christmas tv background"],
-   "status": "todo"},
-  {"key": "lrr-01-rain-fireplace", "channel": "Lantern Rain Room", "publish": "+4h", "category_id": "10",
+   "tags": [
+    "christmas village",
+    "christmas snowfall",
+    "snowfall",
+    "snowy night",
+    "christmas ambience",
+    "falling snow",
+    "winter ambience",
+    "snow sounds",
+    "christmas lights",
+    "sleep ambience",
+    "relaxing",
+    "1 hour",
+    "christmas tv background"
+   ],
+   "status": "cancelled (2026-11-24 15:15 UTC: user turns the channel into a quiz channel — no ambience uploads)"
+  },
+  {
+   "key": "lrr-01-rain-fireplace",
+   "channel": "Lantern Rain Room",
+   "publish": "+4h",
+   "category_id": "10",
    "video": "https://raw.githubusercontent.com/dogukanozturk3333-jpg/kreekcraft-clips/7e2b3ba515f8d167c43eb5a23e28e7582e6a9f21/ambient/01-cozy-cabin-rain-fireplace-1h.mp4",
    "title": "Rain and Fireplace Sounds for Sleeping 🌧️🔥 Cozy Cabin Ambience | 1 Hour",
    "description": "Rain and fireplace sounds for sleeping, studying and relaxing: soft rain on the windows of a quiet log cabin and a gently crackling fire beside a warm lantern. 🌧️🔥\n\n✔ Gentle rain + soft fire crackle, no music, no talking\n✔ Even volume, no sudden loud sounds\n✔ Great for sleep, study, reading, focus and stress relief\n\nSubscribe to Lantern Rain Room for new cozy rain and fire ambience every week.\n\nSound effects created with ElevenLabs.\n\nrain sounds for sleeping, fireplace sounds, rain and fireplace, cozy cabin ambience, rain on window, crackling fire, sleep sounds, study ambience, relaxing sounds, white noise for sleep, rain sounds 1 hour\n\n#rainsounds #fireplace #sleepsounds",
-   "tags": ["rain and fireplace sounds", "rain sounds for sleeping", "fireplace sounds", "cozy cabin", "sleep sounds", "crackling fire", "rain on window", "study ambience", "relaxing sounds", "ambience", "1 hour", "rain sounds 1 hour"],
-   "status": "todo"},
-  {"key": "lrr-02-snowy-window", "channel": "Lantern Rain Room", "publish": "+4h", "category_id": "10",
+   "tags": [
+    "rain and fireplace sounds",
+    "rain sounds for sleeping",
+    "fireplace sounds",
+    "cozy cabin",
+    "sleep sounds",
+    "crackling fire",
+    "rain on window",
+    "study ambience",
+    "relaxing sounds",
+    "ambience",
+    "1 hour",
+    "rain sounds 1 hour"
+   ],
+   "status": "cancelled (2026-11-24 15:15 UTC: user turns the channel into a quiz channel — no ambience uploads)"
+  },
+  {
+   "key": "lrr-02-snowy-window",
+   "channel": "Lantern Rain Room",
+   "publish": "+4h",
+   "category_id": "10",
    "video": "https://raw.githubusercontent.com/dogukanozturk3333-jpg/kreekcraft-clips/7e2b3ba515f8d167c43eb5a23e28e7582e6a9f21/ambient/02-snowy-night-window-45m.mp4",
    "title": "Heavy Snowfall at Night ❄️ Cozy Cabin Window | Soft Snow Ambience for Sleep & Relaxation",
    "description": "Heavy snowfall at night, seen from a warm cabin window: snow drifting over a frozen lake and pine forest under the full moon, a lantern glowing on the windowsill. ❄️🌙\nSoft, steady snowy-night ambience for sleep, study, reading and calm.\n\n✔ Gentle, steady sound, no music, no talking\n✔ Even volume, no sudden noises\n\nSubscribe to Lantern Rain Room for new cozy ambience every week.\n\nImage created with ElevenLabs.\n\nsnowfall ambience, snow falling, snowy night, cozy cabin, winter ambience, sleep sounds, relaxing snow, snowfall for sleep, winter window, calm ambience\n\n#snowfall #winterambience #sleepsounds",
-   "tags": ["snowfall ambience", "snow falling", "heavy snowfall", "snowy night", "cozy cabin window", "winter ambience", "sleep sounds", "relaxing", "snow for sleep", "calm"],
-   "status": "todo"},
-  {"key": "lrr-s02-snowfall-short", "channel": "Lantern Rain Room", "publish": "+3h", "category_id": "10",
+   "tags": [
+    "snowfall ambience",
+    "snow falling",
+    "heavy snowfall",
+    "snowy night",
+    "cozy cabin window",
+    "winter ambience",
+    "sleep sounds",
+    "relaxing",
+    "snow for sleep",
+    "calm"
+   ],
+   "status": "cancelled (2026-11-24 15:15 UTC: user turns the channel into a quiz channel — no ambience uploads)"
+  },
+  {
+   "key": "lrr-s02-snowfall-short",
+   "channel": "Lantern Rain Room",
+   "publish": "+3h",
+   "category_id": "10",
    "video": "https://raw.githubusercontent.com/dogukanozturk3333-jpg/kreekcraft-clips/7e2b3ba515f8d167c43eb5a23e28e7582e6a9f21/ambient/shorts/s02-snowfall.mp4",
    "title": "Snow falling at night ❄️ breathe out… #snowfall #winter #sleep",
    "description": "Full snowfall video 👉 https://www.youtube.com/watch?v={ID OF lrr-02-snowy-window}\nHeavy snow falling over a frozen lake under the full moon. ❄️🌙\nImage created with ElevenLabs.\n#snowfall #winter #sleep",
-   "tags": ["snowfall", "snow falling", "winter", "cozy", "sleep sounds", "relaxing", "shorts"],
-   "status": "todo"}
+   "tags": [
+    "snowfall",
+    "snow falling",
+    "winter",
+    "cozy",
+    "sleep sounds",
+    "relaxing",
+    "shorts"
+   ],
+   "status": "cancelled (2026-11-24 15:15 UTC: user turns the channel into a quiz channel — no ambience uploads)"
+  }
  ],
  "playlists": [
-  {"channel": "Zeipan", "title": "Zeipan Country Cup 🏆 Country Marble Races", "description": "Six countries, one cup. Long-track marble races and ball escapes every Saturday. Pick your country!", "videos": ["zeipan-countrycup-ep01"]},
-  {"channel": "Zeipan", "title": "Which Country Wins? 🌍 Country Ball Races (Shorts)", "description": "Quick country races and ball escapes. Comment your country!", "videos": ["0YHOGHNIpEM", "5W1teleB2YI"]},
-  {"channel": "Lantern Rain Room", "title": "Christmas Ambience 🎄 Fireplace & Snow", "description": "Cozy Christmas fireplace and snowfall ambience for sleep, study and holiday evenings.", "videos": ["lrr-03-christmas-fireplace", "lrr-04-christmas-village"]},
-  {"channel": "Lantern Rain Room", "title": "Rain & Snow Sounds for Sleep 🌧️❄️", "description": "Long, even rain and snow ambience for sleep and study. No music, no talking.", "videos": ["lrr-01-rain-fireplace", "lrr-02-snowy-window"]}
+  {
+   "channel": "Zeipan",
+   "title": "Zeipan Country Cup 🏆 Country Marble Races",
+   "description": "Six countries, one cup. Long-track marble races and ball escapes every Saturday. Pick your country!",
+   "videos": [
+    "zeipan-countrycup-ep01"
+   ]
+  },
+  {
+   "channel": "Zeipan",
+   "title": "Which Country Wins? 🌍 Country Ball Races (Shorts)",
+   "description": "Quick country races and ball escapes. Comment your country!",
+   "videos": [
+    "0YHOGHNIpEM",
+    "5W1teleB2YI"
+   ]
+  }
  ]
 }

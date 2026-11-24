@@ -129,3 +129,6 @@ Whichever account the Zapier connector currently reaches, upload only to the cha
 - 07:23 UTC: queue run — account 4 answered "throttled without retry" (its failed attempts earlier counted). Nothing
   was created. Next queue runs: 18:00 UTC 11-24 (works if the user has switched the connector to the old account,
   which frees ~17:55 UTC) and 06:20 UTC 11-25 (all accounts free). Queue: studio/upload_queue.json.
+## 2026-11-24 15:15 UTC — Lantern Rain Room becomes a QUIZ channel (user decision)
+No more ambience uploads there (queue items cancelled). New concept: global geography/trivia quizzes ("Guess the
+Flag" Shorts + 8–12 min long quizzes), English, made with quiz/quiz.py. The user renames the channel.
