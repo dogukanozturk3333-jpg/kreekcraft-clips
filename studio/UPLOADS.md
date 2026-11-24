@@ -15,10 +15,12 @@ send_later at the end of each run. Stop at the first "throttled" answer; what is
 5. Lantern Rain Room: next long video or Short (one per day)
 
 ## Queue (oldest first; take the first unused item per channel)
-Lantern Rain Room: ambient/01-cozy-cabin-rain-fireplace-1h.mp4, ambient/shorts/s01-rain-outside-fire-inside.mp4,
-  ambient/02-snowy-night-window-45m.mkv, ambient/shorts/s02-snowfall.mp4
+Lantern Rain Room: ambient/01-cozy-cabin-rain-fireplace-1h.mp4, ambient/03-christmas-fireplace-1h.mkv (Christmas
+  season: Christmas videos go first from now on), ambient/shorts/s01-rain-outside-fire-inside.mp4,
+  ambient/02-snowy-night-window-45m.mkv, ambient/04-christmas-village-snowfall-1h.mkv (when rendered), ambient/shorts/s02-snowfall.mp4
 Brain Warp Lab (uploaded: odd-001, lilac-01, odd-002, spiral-01, odd-003). Next, in this order:
-  ZAPIER pool (formats odd / col / txt + the first illusion set): col-001, afterimage-01, txt-001, odd-004,
+  ZAPIER pool (formats odd / col / txt + illusions): NEW ILLUSIONS FIRST, one a day — checker-01, cafe-01,
+  ebbinghaus-01 (2026-11-24, new watermark) — then col-001, afterimage-01, txt-001, odd-004,
   col-002, spiral-02, txt-002, odd-005, col-003, troxler-01, txt-003, odd-006, col-004, afterimage-02,
   txt-004, odd-007, then keep rotating col / txt / odd (lowest number first).
   METRICOOL #2 pool (never via Zapier): emoji math, spot the difference, the new illusions (flag-*,
@@ -53,7 +55,7 @@ NOTE (2026-11-23): the Metricool connector here now logs in as account #2, so th
 December Instagram posting the user shares brand 7879434 with account #2 (or reconnects account #1).
 Metricool YouTube log: math-001 published 2026-11-23 22:55 Istanbul as vzQNZnXVZsY (test OK, 1/20 for November).
 
-### Metricool #2 schedule, November 2026 (20/20 planned)
+### Metricool #2 schedule, November 2026 — superseded 11-24 (see below)
 math-001 published 11-23 · Ep.1 11-24 20:00 · math-002 11-24 14:00 · diff-001 11-24 23:30 · math-003 11-25 23:30 ·
 diff-002 11-26 14:00 · math-004 11-27 14:00 · diff-003 11-28 14:00 · math-005 11-29 14:00 · diff-004 11-30 14:00 ·
 Ep.2 11-27 20:00 · Ep.3 11-30 20:00 · illusions (flag-us, hermann-01, lines-01, flag-tr, flag-br, flag-jp, flag-gb,
@@ -71,3 +73,8 @@ flag-de) in the free 14:00 / 23:30 slots 11-25 … 11-30 — scheduled once rend
   Only files committed after 2026-11-24T00:10Z carry it; older renders are re-made before upload.
 - Open: thumbnail for math-002 (MfKCdoVFQAo) got 429 on 11-24; retry with studio/thumbs/math-002.jpg.
 - Never re-upload or near-duplicate a video; vary flags/scenes/colours/puzzles.
+
+### Metricool #2 schedule (2026-11-24, new watermark; 17:00 and 01:00 Istanbul, Zapier's Short in between ~21:05)
+flag-tr 11-24 17:00 · math-003 11-25 01:00 · lines-01 11-25 17:00 · diff-002 11-26 01:00 · flag-br 11-26 17:00 ·
+math-004 11-27 01:00 · diff-003 11-27 17:00 · Ep.2 11-27 20:00 (when rendered) · flag-jp 11-28 01:00 ·
+math-005 11-28 17:00 · diff-004 11-29 01:00 · diff-001 11-29 17:00. November count: 5 published + 11 + Ep.2 = 17/20.
