@@ -1,0 +1,105 @@
+{
+ "teams": [
+  "TURKEY",
+  "USA",
+  "BRAZIL",
+  "INDIA",
+  "MEXICO",
+  "INDONESIA"
+ ],
+ "episodes": {
+  "1": {
+   "points": {
+    "TURKEY": 74,
+    "USA": 21,
+    "BRAZIL": 40,
+    "INDIA": 53,
+    "MEXICO": 52,
+    "INDONESIA": 40
+   },
+   "champion": "TURKEY",
+   "events": [
+    [
+     "INDONESIA",
+     "INDIA",
+     "BRAZIL",
+     "USA",
+     "MEXICO",
+     "TURKEY"
+    ],
+    [
+     "BRAZIL",
+     "INDIA",
+     "MEXICO",
+     "USA",
+     "TURKEY",
+     "INDONESIA"
+    ],
+    [
+     "INDONESIA",
+     "TURKEY",
+     "MEXICO",
+     "INDIA",
+     "USA",
+     "BRAZIL"
+    ],
+    [
+     "TURKEY",
+     "MEXICO",
+     "INDIA",
+     "BRAZIL",
+     "INDONESIA",
+     "USA"
+    ],
+    [
+     "INDONESIA",
+     "TURKEY",
+     "MEXICO",
+     "BRAZIL",
+     "INDIA",
+     "USA"
+    ],
+    [
+     "TURKEY",
+     "BRAZIL",
+     "INDIA",
+     "MEXICO",
+     "INDONESIA",
+     "USA"
+    ],
+    [
+     "MEXICO",
+     "TURKEY",
+     "INDIA",
+     "BRAZIL",
+     "USA",
+     "INDONESIA"
+    ],
+    [
+     "TURKEY",
+     "INDIA",
+     "MEXICO",
+     "USA",
+     "BRAZIL",
+     "INDONESIA"
+    ],
+    [
+     "TURKEY",
+     "MEXICO",
+     "INDIA",
+     "USA",
+     "INDONESIA",
+     "BRAZIL"
+    ],
+    [
+     "TURKEY",
+     "INDIA",
+     "BRAZIL",
+     "MEXICO",
+     "USA",
+     "INDONESIA"
+    ]
+   ]
+  }
+ }
+}
