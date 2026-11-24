@@ -121,3 +121,8 @@ Whichever account the Zapier connector currently reaches, upload only to the cha
 - Lantern Rain Room custom thumbnails are refused: the channel is not phone-verified. Once the user verifies it, set
   studio/thumbs/lrr-03.jpg and lrr-04.jpg on those two videos.
 - Zeipan Color Cup Ep.1 upload attempt was throttled; it stays first in the Saturday 11-28 batch.
+- 06:10–06:19 UTC: Zeipan Country Cup Ep.1 (zeipan/episodes/zeipan-countrycup-ep01.mp4, QA PASS, Turkey champion 74 pts,
+  points recomputed) could NOT be uploaded via account 4: first call rejected (title > 100 characters — keep YouTube
+  titles under 100), then 429 Too Many Requests twice and one 60 s timeout (nothing reached the channel; checked with
+  search forMine). Zeipan had 7 uploads in the last 24 h, so the channel/app limit is the likely cause. The file was
+  sent to the user to upload by hand from the YouTube app; otherwise retry ONCE after 04:15 UTC on 11-25.
