@@ -6,6 +6,9 @@ TYPE:
   lilac      the "lilac chaser": stare at the cross, the pink dots vanish and a green dot runs around
   troxler    Troxler fading: stare at the dot and the soft colours disappear
   afterimage stare at a colour-inverted photo, then the black-and-white photo looks coloured
+  checker    A and B look different but are the same grey (shadow)
+  cafe       cafe-wall: straight parallel lines look tilted
+  ebbinghaus two equal orange circles look different sizes
 Voice: Kokoro (Apache 2.0, offline). Music/sounds: generated here."""
 import os as _os
 for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'): _os.environ.setdefault(_v, '1')   # parallel renders must not spin-wait on each other
@@ -182,6 +185,48 @@ elif A.type == 'feet':
                    (10.1, 'Now without the stripes. They were moving smoothly, at the same speed, the whole time.')]
     STR = np.zeros((H, W, 3), np.float32) + 255
     for x in range(0, W, 48): STR[:, x:x + 24] = 0
+elif A.type == 'checker':
+    # checker-shadow illusion (the principle is classic vision science; our own drawing): a dark square in the light
+    # and a light square in the shadow are painted with EXACTLY the same grey
+    plan = [(10.0, 'checker'), (7.0, 'checkerrev'), (3.2, 'end')]
+    voice_lines = [(0.2, 'Look at square A and square B. Which one is darker? Decide now!'),
+                   (10.1, 'They are exactly the same colour. Watch. Your brain corrects for the shadow.')]
+    N8, TS = 6, 150; BX, BY = CX - N8 * TS // 2, CY - N8 * TS // 2 + 40
+    board = np.zeros((H, W), np.float32) + 40
+    for i in range(N8):
+        for j in range(N8):
+            board[BY + j * TS:BY + (j + 1) * TS, BX + i * TS:BX + (i + 1) * TS] = 205 if (i + j) % 2 == 0 else 92
+    shadow = 1 - 0.56 * np.exp(-(((xx - (BX + 4.5 * TS)) ** 2 + ((yy - (BY + 4.5 * TS)) ** 2)) / (2 * 330.0 ** 2)))   # deep, wide shadow centred on B: light tiles there are ~92 too
+    board = board * shadow
+    TA = (1, 2); TB = (4, 4)                                  # A: dark tile in the light, B: light tile in the shadow
+    SAME = 92.0
+    for (i, j) in (TA, TB): board[BY + j * TS:BY + (j + 1) * TS, BX + i * TS:BX + (i + 1) * TS] = SAME
+    # cylinder that "casts" the shadow
+    ci = Image.new('RGBA', (W, H), (0, 0, 0, 0)); cd = ImageDraw.Draw(ci)
+    cx0, cy0 = int(BX + 5.5 * TS), int(BY + 3.3 * TS)
+    cd.rectangle([cx0 - 70, cy0 - 230, cx0 + 70, cy0], fill=(46, 170, 120, 255)); cd.ellipse([cx0 - 70, cy0 - 30, cx0 + 70, cy0 + 30], fill=(46, 170, 120, 255))
+    cd.ellipse([cx0 - 70, cy0 - 260, cx0 + 70, cy0 - 200], fill=(90, 215, 160, 255))
+    CYL = ci
+    CHK = np.repeat(board[..., None], 3, 2)
+elif A.type == 'cafe':
+    # cafe-wall illusion: rows of black/white tiles shifted by half a tile, thin grey mortar -> the straight,
+    # parallel lines look tilted
+    plan = [(10.0, 'cafe'), (7.0, 'caferev'), (3.2, 'end')]
+    voice_lines = [(0.2, 'Are these grey lines straight, or are they tilted? Look closely.'),
+                   (10.1, 'Every line is perfectly straight and parallel. Your brain bends them.')]
+    TW_, TH_, MORT = 220, 104, 6; Y0 = 520; NR = 9          # brick = 110 px black + 110 px white, rows shifted
+    CAFE = np.zeros((H, W, 3), np.float32) + 128                # mortar = mid grey
+    for r in range(NR):
+        y = Y0 + r * (TH_ + MORT); off = [0, 55, 110, 55][r % 4]
+        for x in range(-2 * TW_, W + TW_, TW_):
+            CAFE[y:y + TH_, max(0, x + off):max(0, min(W, x + off + TW_ // 2))] = 12
+            CAFE[y:y + TH_, max(0, x + off + TW_ // 2):max(0, min(W, x + off + TW_))] = 248
+    CAFE_Y = [Y0 + r * (TH_ + MORT) - MORT // 2 for r in range(NR + 1)]
+elif A.type == 'ebbinghaus':
+    plan = [(9.0, 'ebb'), (7.5, 'ebbrev'), (3.2, 'end')]
+    voice_lines = [(0.2, 'Which orange circle is bigger? The left one, or the right one?'),
+                   (9.1, 'They are exactly the same size. The circles around them fool your brain.')]
+    EL, ER, EY, ERAD = CX - 250, CX + 250, CY, 62
 else:
     sys.exit('unknown type')
 
@@ -316,6 +361,68 @@ def _frame(t):
                 ((300, 'THEY ARE THE', 78, (255, 255, 255)), (395, 'SAME LENGTH!', 84, YEL))
         f = over(f, text_layer(lines))
         if kind == 'lines' and u > 1.0: f = ring(f, 1 - (u - 1.0) / 7.0, max(0, math.ceil(7.0 - (u - 1.0))))
+    elif kind in ('checker', 'checkerrev'):
+        f = CHK.copy()
+        im = Image.fromarray(np.clip(f, 0, 255).astype(np.uint8)).convert('RGBA'); im.alpha_composite(CYL); d = ImageDraw.Draw(im)
+        for lab, (i, j) in (('A', TA), ('B', TB)):
+            d.text((BX + i * TS + TS // 2, BY + j * TS + TS // 2), lab, font=font('Inter Black', 76), fill=(255, 214, 60, 255), anchor='mm',
+                   stroke_width=5, stroke_fill=(20, 12, 40))
+        f = np.asarray(im.convert('RGB'), np.float32)
+        if kind == 'checkerrev':
+            g = min(1, max(0, (u - 0.6) / 1.2))              # everything except A and B fades to plain grey: the two match
+            keep = np.zeros((H, W, 1), np.float32)
+            for (i, j) in (TA, TB): keep[BY + j * TS:BY + (j + 1) * TS, BX + i * TS:BX + (i + 1) * TS] = 1
+            x0, x1 = BX + TA[0] * TS + 40, BX + TA[0] * TS + TS - 40          # a bridge of the same grey links A to B
+            bridge = np.zeros((H, W, 1), np.float32)
+            bridge[BY + TA[1] * TS + TS:BY + TB[1] * TS + TS // 2, x0:x1] = 1
+            bridge[BY + TB[1] * TS + 40:BY + TB[1] * TS + TS - 40, x0:BX + TB[0] * TS] = 1
+            bg = np.zeros((H, W, 3), np.float32) + 200
+            f = f * (1 - g * (1 - keep)) + bg * g * (1 - keep)
+            f = f * (1 - g * bridge) + SAME * g * bridge
+        lines = ((280, 'WHICH IS DARKER?', 76, (255, 255, 255)), (370, 'A or B?', 56, YEL)) if kind == 'checker' else \
+                ((280, 'THEY ARE THE', 78, (255, 255, 255)), (370, 'SAME COLOR!', 84, YEL))
+        f[200:440] *= 0.35 if kind == 'checker' else 1.0
+        if kind == 'checkerrev': f[200:440] = f[200:440] * 0 + np.array([20, 12, 44], np.float32)
+        f = over(f, text_layer(lines))
+        if kind == 'checker' and u > 1.0: f = ring(f, 1 - (u - 1.0) / 8.0, max(0, math.ceil(8.0 - (u - 1.0))))
+    elif kind in ('cafe', 'caferev'):
+        f = CAFE.copy()
+        if kind == 'caferev':
+            g = min(1, max(0, (u - 0.5) / 1.5))
+            f = f * (1 - 0.75 * g) + 128 * 0.75 * g        # tiles fade -> the mortar lines show as straight
+            im = Image.fromarray(np.clip(f, 0, 255).astype(np.uint8)).convert('RGBA'); d = ImageDraw.Draw(im)
+            for y in CAFE_Y[1:-1]: d.line([(0, y), (int(W * min(1, max(0, (u - 1.5) / 1.5))), y)], fill=(46, 230, 214, 255), width=5)
+            f = np.asarray(im.convert('RGB'), np.float32)
+        f[200:440] = np.array([20, 12, 44], np.float32)
+        lines = ((280, 'ARE THESE LINES', 70, (255, 255, 255)), (370, 'STRAIGHT?', 84, YEL)) if kind == 'cafe' else \
+                ((280, 'PERFECTLY STRAIGHT', 70, (255, 255, 255)), (370, '& PARALLEL!', 84, YEL))
+        f = over(f, text_layer(lines))
+        if kind == 'cafe' and u > 1.0: f = ring(f, 1 - (u - 1.0) / 8.0, max(0, math.ceil(8.0 - (u - 1.0))))
+    elif kind in ('ebb', 'ebbrev'):
+        f = BG.copy() + np.array([20, 6, 40], np.float32) * (yy / H)[..., None]
+        im = Image.fromarray(np.clip(f, 0, 255).astype(np.uint8)).convert('RGBA')
+        ring_l = Image.new('RGBA', (W, H), (0, 0, 0, 0)); rd = ImageDraw.Draw(ring_l)
+        for k in range(6):                                   # big circles around the left one
+            a_ = k / 6 * 2 * math.pi; x, y = EL + 175 * math.cos(a_), EY + 175 * math.sin(a_)
+            rd.ellipse([x - 82, y - 82, x + 82, y + 82], fill=(150, 150, 175, 255))
+        for k in range(8):                                   # small circles around the right one
+            a_ = k / 8 * 2 * math.pi; x, y = ER + 98 * math.cos(a_), EY + 98 * math.sin(a_)
+            rd.ellipse([x - 22, y - 22, x + 22, y + 22], fill=(150, 150, 175, 255))
+        fade = 255 if kind == 'ebb' else int(255 * max(0, 1 - u / 1.2))
+        if fade < 255: ring_l.putalpha(ring_l.getchannel('A').point(lambda v: v * fade // 255))
+        im.alpha_composite(ring_l); d = ImageDraw.Draw(im)
+        sl = 0 if kind == 'ebb' else min(1, max(0, (u - 1.5) / 1.5))
+        sl = sl * sl * (3 - 2 * sl)
+        xl, xr = EL + (CX - 75 - EL) * sl, ER + (CX + 75 - ER) * sl          # the two orange circles slide side by side
+        for x in (xl, xr): d.ellipse([x - ERAD, EY - ERAD, x + ERAD, EY + ERAD], fill=(255, 140, 30, 255))
+        if kind == 'ebbrev' and sl > 0.99:
+            d.line([(xl - ERAD - 30, EY - ERAD), (xr + ERAD + 30, EY - ERAD)], fill=(46, 230, 214, 255), width=5)
+            d.line([(xl - ERAD - 30, EY + ERAD), (xr + ERAD + 30, EY + ERAD)], fill=(46, 230, 214, 255), width=5)
+        f = np.asarray(im.convert('RGB'), np.float32)
+        lines = ((300, 'WHICH ORANGE CIRCLE', 66, (255, 255, 255)), (390, 'IS BIGGER?', 84, YEL)) if kind == 'ebb' else \
+                ((300, 'THEY ARE THE', 78, (255, 255, 255)), (395, 'SAME SIZE!', 84, YEL))
+        f = over(f, text_layer(lines))
+        if kind == 'ebb' and u > 1.0: f = ring(f, 1 - (u - 1.0) / 7.0, max(0, math.ceil(7.0 - (u - 1.0))))
     elif kind == 'gray':
         lines = ((300, 'KEEP LOOKING AT THE DOT', 64, (255, 255, 255)),) if u < 3.8 else \
                 ((300, 'THIS PHOTO IS', 70, (255, 255, 255)), (395, 'BLACK & WHITE', 84, YEL))
@@ -336,7 +443,7 @@ def shimmer():
     n = int(1.6 * SR); x = np.arange(n) / SR
     return sum(np.sin(2 * np.pi * f * x) * np.exp(-x * 2.5) / (i + 1) for i, f in enumerate((1318, 1760, 2093, 2637))) * 0.12
 for k, a, b in segs:
-    if k in ('photo', 'gray', 'end', 'flagwhite', 'hermannrev', 'linesrev', 'feetrev'): put(a, shimmer())
+    if k in ('photo', 'gray', 'end', 'flagwhite', 'hermannrev', 'linesrev', 'feetrev', 'checkerrev', 'caferev', 'ebbrev'): put(a, shimmer())
 from kokoro_onnx import Kokoro
 import bwlkit; kk = bwlkit.kokoro()
 for at, txt in voice_lines + [(end_a + 0.1, 'Did it work? Tell us in the comments!')]:
