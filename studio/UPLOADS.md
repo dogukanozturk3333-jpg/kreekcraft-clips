@@ -103,3 +103,6 @@ the new account). Always resolve connections at run time: list_zapier_connection
 find_channel per connection, and match by channel id (Brain Warp Lab UCBTjlne2r4zjd9zkFuIPQ6g, Zeipan
 UCyg04V0DLhMYyEoX9TEvqIA, Lantern Rain Room = the remaining one). The new account has its own 5-a-day quota:
 used ALL 5 at 04:12–04:14 UTC on 11-24 (zp-004 public, zp-001 07:15Z, zp-003 10:15Z, zp-002 13:15Z, zp-005 16:15Z); free again from 04:15 UTC on 11-25.
+Account roles (user, 2026-11-24): NEW Zapier account = Zeipan only (all 5 daily uploads go to Zeipan).
+OLD Zapier account = Brain Warp Lab + Lantern Rain Room (the user reconnects it for the evening batches).
+Whichever account the Zapier connector currently reaches, upload only to the channels that belong to it.
