@@ -151,7 +151,39 @@ def sim_race(seed):
     return frames, events, dict(winner=names[order[0]] if order else None, order=[names[i] for i in order], t_win=t_first)
 
 
-SIMS = {'grow': (sim_grow, 15, 45), 'escape': (sim_escape, 10, 45), 'race': (sim_race, 7, 40)}
+def sim_rings(seed):
+    rng = np.random.default_rng(seed); g = 1100.0; r = 17.0; NR = 8; GAP = math.radians(38)
+    RAD = [150.0 + k * 46 for k in range(NR)]
+    SPD = [(0.7 + 0.12 * k) * (1 if k % 2 == 0 else -1) * rng.uniform(0.85, 1.15) for k in range(NR)]
+    PH = [rng.uniform(0, 2 * math.pi) for _ in range(NR)]
+    p = np.array([CX + rng.uniform(-30, 30), CY - 40.0]); v = np.array([rng.uniform(-400, 400), -200.0])
+    k, frames, events, t, t_done = 0, [], [], 0.0, None
+    while t < 70:
+        for _ in range(SUB):
+            t += DT; v[1] += g * DT; p += v * DT
+            if k >= NR: continue
+            R = RAD[k]; d = p - [CX, CY]; dist = np.linalg.norm(d)
+            if dist + r > R:
+                gc = (PH[k] + SPD[k] * t) % (2 * math.pi); ang = math.atan2(d[1], d[0]) % (2 * math.pi)
+                off = (ang - gc + math.pi) % (2 * math.pi) - math.pi
+                if abs(off) < GAP / 2 - math.asin(min(1, r / R)):
+                    if dist > R + r:
+                        events.append((t, 'ring', k)); k += 1
+                        if k == NR: t_done = t
+                    continue
+                n = d / dist; vn = v @ n
+                if vn > 0:
+                    v = v - 2 * vn * n; sp = np.linalg.norm(v); v = v / sp * min(max(sp, 950.0), 1500.0)
+                    events.append((t, 'wall', 0))
+                p = np.array([CX, CY]) + n * (R - r)
+            if dist > 900: v *= 0
+        frames.append(dict(t=t, balls=[(p[0], p[1], r, 'YELLOW')], k=k, rings=[(RAD[j], (PH[j] + SPD[j] * t) % (2 * math.pi)) for j in range(k, NR)],
+                           GAP=GAP, NR=NR))
+        if t_done is not None and t > t_done + 2.0: break
+    return frames, events, dict(winner='YELLOW' if t_done else None, t_win=t_done, rings=NR)
+
+
+SIMS = {'grow': (sim_grow, 15, 45), 'escape': (sim_escape, 10, 45), 'race': (sim_race, 7, 40), 'rings': (sim_rings, 14, 48)}
 fn, lo, hi = SIMS[KIND]
 for seed in range(SEED, SEED + 60):                      # accept the first seed whose run fits a Short
     frames, events, info = fn(seed)
@@ -166,7 +198,8 @@ print('seed', seed, 'info', info, 'sim length %.1f s' % end_t)
 # ------------------------------------------------------------------ titles
 TITLE = {'grow': ((250, 'EVERY BOUNCE', 84, (255, 255, 255)), (350, 'IT GETS BIGGER', 84, YEL)),
          'escape': ((250, 'WHICH COLOR', 84, (255, 255, 255)), (350, 'ESCAPES FIRST?', 84, YEL)),
-         'race': ((250, 'WHICH MARBLE', 84, (255, 255, 255)), (350, 'WINS THE RACE?', 84, YEL))}[KIND]
+         'race': ((250, 'WHICH MARBLE', 84, (255, 255, 255)), (350, 'WINS THE RACE?', 84, YEL)),
+         'rings': ((250, 'CAN IT ESCAPE', 84, (255, 255, 255)), (350, 'ALL 8 RINGS?', 84, YEL))}[KIND]
 ENDS = 2.8                                                # end card: "who did you pick?"
 T = end_t + ENDS; N = int(T * FPS)
 
@@ -185,6 +218,11 @@ def draw_state(st, final=False):
         else:
             g0 = st['gap'] - st['GAP'] / 2; g1 = st['gap'] + st['GAP'] / 2
             cv2.ellipse(lay, (CX, CY), (int(R) + 8, int(R) + 8), 0, math.degrees(g1), math.degrees(g0) + 360, (255, 255, 255), 8, cv2.LINE_AA)
+    if KIND == 'rings':
+        for R, gc in st['rings']:
+            hue = int(180 * (R - 150) / (46 * 8)); col = cv2.cvtColor(np.uint8([[[hue, 200, 255]]]), cv2.COLOR_HSV2BGR)[0, 0].tolist()
+            g0 = gc - st['GAP'] / 2; g1 = gc + st['GAP'] / 2
+            cv2.ellipse(lay, (CX, CY), (int(R) + 3, int(R) + 3), 0, math.degrees(g1), math.degrees(g0) + 360, col, 6, cv2.LINE_AA)
     if KIND == 'race':
         X0, TOP, X1, FIN = st['box']
         for x, y in st['pegs']: cv2.circle(lay, (int(x), int(y)), int(st['pr']), (200, 200, 200), -1, cv2.LINE_AA)
@@ -209,7 +247,12 @@ def render(i):
         st = frames[min(len(frames) - 1, int(t * FPS))]; f = draw_state(st)
         f = over(f, text_layer(TITLE))
         YMSG, SMSG = (432, 56) if KIND == 'race' else (1560, 64)              # race: between title and board, never on the pegs
-        if KIND == 'grow':
+        if KIND == 'rings':
+            left = st['NR'] - st['k']
+            msg = f'{left} RINGS LEFT' if left > 1 else ('LAST RING!' if left == 1 else 'ESCAPED!')
+            f = over(f, text_layer(((1560, msg, 72 if left else 96, YEL if left <= 1 else (255, 255, 255)),)))
+            if t < 3.0: f = over(f, text_layer(((1660, 'YES OR NO? COMMENT NOW!', 44, YEL),)))
+        elif KIND == 'grow':
             b = st['bounces']
             f = over(f, text_layer(((1560, f"{b} BOUNCE" + ('' if b == 1 else 'S'), 64, (255, 255, 255)),)))
             if t < 3.0: f = over(f, text_layer(((1660, 'GUESS HOW MANY!', 48, YEL),)))
@@ -220,7 +263,9 @@ def render(i):
             f = over(f, text_layer(((YMSG, 'PICK A COLOR NOW!', SMSG, (255, 255, 255)),)))
     else:
         u = t - end_t; f = bgimg.copy()
-        if KIND == 'grow':
+        if KIND == 'rings':
+            L = ((740, 'IT ESCAPED!', 110, YEL), (870, f"ALL 8 RINGS IN {info['t_win']:.1f}s", 64, (255, 255, 255)), (1000, 'did you say yes or no?', 48, (200, 200, 200)))
+        elif KIND == 'grow':
             L = ((760, f"{info['bounces']} BOUNCES!", 100, YEL), (880, 'DID YOU GUESS IT?', 76, (255, 255, 255)), (1000, 'tell us your guess in the comments', 48, (200, 200, 200)))
         else:
             c = COLS[info['winner']]
@@ -247,6 +292,8 @@ for ev in events:
     if t > end_t: continue
     if KIND == 'grow':
         put(t, pluck(scale(min(ev[1], 24)) / 2, 0.6, 0.12))
+    elif ev[1] == 'ring':
+        for kk, fr in enumerate((scale(ev[2] + 5), scale(ev[2] + 7))): put(t + kk * 0.06, pluck(fr, 0.8, 0.2))
     elif ev[1] == 'win':
         for k, fr in enumerate((523.3, 659.3, 784.0, 1046.5)): put(t + k * 0.09, pluck(fr, 1.2, 0.22))
     elif ev[1] == 'finish':
