@@ -21,6 +21,10 @@ COUNTRIES = {'US': ('USA', '🇺🇸'), 'BR': ('BRAZIL', '🇧🇷'), 'TR': ('TU
              'ES': ('SPAIN', '🇪🇸'), 'PK': ('PAKISTAN', '🇵🇰'), 'NG': ('NIGERIA', '🇳🇬'), 'EG': ('EGYPT', '🇪🇬'), 'SA': ('SAUDI ARABIA', '🇸🇦'),
              'VN': ('VIETNAM', '🇻🇳'), 'PL': ('POLAND', '🇵🇱'), 'NL': ('NETHERLANDS', '🇳🇱'), 'PT': ('PORTUGAL', '🇵🇹'), 'RU': ('RUSSIA', '🇷🇺')}
 NAMES = [COUNTRIES[c][0] for c in CODES]; FLAGS = [COUNTRIES[c][1] for c in CODES]; NB = len(NAMES)
+SPOKEN = {'USA': 'the U.S.A.', 'UK': 'the U.K.'}
+def spoken(n, start=False):
+    s_ = SPOKEN.get(n, n.title()); return s_[0].upper() + s_[1:] if start else s_
+LABEL = sys.argv[sys.argv.index('--label') + 1] if '--label' in sys.argv else ''
 W, VH, FPS, SUB, SR = 1080, 1920, 30, 16, 44100       # world width, viewport height (Short)
 DT = 1.0 / (FPS * SUB); YEL = (255, 229, 0)
 R = 27.0; G = 1500.0
@@ -40,7 +44,7 @@ SPIN = [(320.0, 3800.0, 190.0, 2.3), (760.0, 4080.0, 190.0, -2.6)]   # spinner c
 FUN_Y0, FUN_Y1 = 4320.0, 4620.0
 SEG += [(WL, FUN_Y0, 440, FUN_Y1), (WRt, FUN_Y0, 640, FUN_Y1), (440, FUN_Y1, 440, 4900), (640, FUN_Y1, 640, 4900)]
 FINISH = 4860.0; WORLD_H = 5000
-SECTIONS = [(400, 'ZIG ZAG'), (2650, 'PEG FOREST'), (3650, 'SPINNERS'), (4250, 'FINAL FUNNEL')]
+SECTIONS = [(420, 'ZIG ZAG'), (2600, 'PEG FOREST'), (3600, 'SPINNERS'), (4220, 'FINAL FUNNEL')]
 
 
 def seg_collide(P, V, x1, y1, x2, y2, rest, vs=None):
@@ -61,7 +65,7 @@ def seg_collide(P, V, x1, y1, x2, y2, rest, vs=None):
         tx, ty = -ny[m], nx[m]; vt = rx[m] * tx + ry[m] * ty     # rolling friction along the surface
         rx[m] -= 0.004 * vt * tx; ry[m] -= 0.004 * vt * ty
         V[m, 0] = rx[m] + (sx[m] if np.ndim(sx) else sx); V[m, 1] = ry[m] + (sy[m] if np.ndim(sy) else sy)
-        out = list(np.where(m & (imp < -260))[0])                # hard hits make a sound
+        out = list(np.where(m & (vn < -260))[0])                 # hard hits make a sound
     return out
 
 
@@ -133,7 +137,7 @@ lead, last_call, calls = None, -10.0, []
 for fr in frames:
     l = ranking(fr)[0]; t = fr['t']
     if l != lead and t > 2.5 and t - last_call > 3.2 and not fr['order']:
-        calls.append((t, f'{NAMES[l].capitalize()} takes the lead!')); last_call = t
+        calls.append((t, f'{spoken(NAMES[l], True)} takes the lead!')); last_call = t
     lead = l
 sec_calls = {}
 for fr in frames:
@@ -143,7 +147,7 @@ for fr in frames:
 SAY = {'PEG FOREST': 'Into the peg forest!', 'SPINNERS': 'Watch out for the spinners!', 'FINAL FUNNEL': 'Final stretch!'}
 for nm, t in sec_calls.items():
     if all(abs(t - c[0]) > 2.0 for c in calls): calls.append((t, SAY[nm]))
-calls.append((t_first, f'{winner.capitalize()} wins the race!'))
+calls.append((t_first, f'{spoken(winner, True)} wins the race!'))
 calls.sort()
 
 # ------------------------------------------------------------------ drawing
@@ -185,12 +189,14 @@ def build_world():
     w = bg + glow * 0.9; m = (lay.max(2, keepdims=True) > 0).astype(np.float32); w = w * (1 - m) + lay * m
     im = Image.fromarray(np.clip(w[..., ::-1], 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
     for y, nm in SECTIONS:
-        d.text((W // 2, y), nm, font=font('Inter Black', 44), fill=(255, 255, 255), anchor='mm')
+        d.text((70, y + 40), nm, font=font('Inter Black', 34), fill=(190, 180, 220), anchor='lm')
     d.text((W // 2, FINISH + 70), 'FINISH', font=font('Inter Black', 60), fill=YEL, anchor='mm')
     return np.asarray(im, np.float32)[..., ::-1].copy()
 
 
+PAD = 520
 WORLD = build_world()
+WORLD = np.concatenate([np.zeros((PAD, W, 3), np.float32) + WORLD[:1], WORLD], 0)
 OW, OH = (1920, 1080) if WIDE else (1080, 1920)
 VIEW_H = 1080 if WIDE else VH                     # world pixels visible vertically
 TOPBAND = 0 if WIDE else 330
@@ -232,14 +238,24 @@ def standings_panel(rank, done_order):
     return np.asarray(im, np.float32), x0 - 150 if WIDE else x0, y0
 
 
+@functools.lru_cache(None)
+def left_panel(label):
+    im = Image.new('RGBA', (OW, OH), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.text((250, 120), 'ZEIPAN', font=font('Inter Black', 40), fill=YEL + (255,), anchor='mm')
+    d.text((250, 175), 'COUNTRY CUP', font=font('Inter Black', 34), fill=(255, 255, 255, 255), anchor='mm')
+    for k, line in enumerate(label.split('|') if label else []):
+        d.text((250, 330 + k * 70), line, font=font('Inter Black', 52 if k else 40), fill=((255, 255, 255) if k else (200, 200, 200)) + (255,), anchor='mm')
+    return np.asarray(im, np.float32)
+
+
 def render(i):
     global cam
     t = i / FPS; fr = frames[min(len(frames) - 1, i)]; rank = ranking(fr)
     alive = [k for k in rank if not fr['done'][k]]
     focus = fr['P'][alive[0], 1] if alive else FINISH
-    target = min(max(focus - VIEW_H * (0.42 if not WIDE else 0.45), 0), WORLD_H - VIEW_H)
+    target = min(max(focus + PAD - VIEW_H * (0.42 if not WIDE else 0.45), 0), WORLD_H + PAD - VIEW_H)
     cam = target if i == 0 else cam + (target - cam) * 0.09
-    y0 = int(cam); view = WORLD[y0:y0 + VIEW_H].copy()
+    yc = int(cam); view = WORLD[yc:yc + VIEW_H].copy(); y0 = yc - PAD           # y0: world y at the top of the view
     for sx, sy, hl, w in SPIN:                                        # spinners
         a = w * t; ca, sa = math.cos(a), math.sin(a)
         p1 = (int(sx - hl * ca), int(sy - hl * sa - y0)); p2 = (int(sx + hl * ca), int(sy + hl * sa - y0))
@@ -264,15 +280,21 @@ def render(i):
         f = view
         band = np.zeros((TOPBAND, OW, 3), np.float32) + np.array([30, 14, 20], np.float32)
         f[:TOPBAND] = f[:TOPBAND] * 0.25 + band * 0.75
-    L, px, py = standings_panel(tuple(rank), tuple(fr['order'])); over(f, L, px, py)
-    if not WIDE:
-        msg = 'PICK YOUR COUNTRY!' if t < 3.0 else ('3' if t < 0 else '')
-        over(f, text_rgba(((OW // 2, 120, 'WHICH COUNTRY', 80, (255, 255, 255), 'mm'), (OW // 2, 220, 'WINS THE RACE?', 80, YEL, 'mm')), OW, 300))
+    if WIDE:
+        L, px, py = standings_panel(tuple(rank), tuple(fr['order'])); over(f, L, px, py)
+        over(f, left_panel(LABEL))
+    else:
+        over(f, text_rgba(((OW // 2, 85, 'WHICH COUNTRY WINS?', 70, (255, 255, 255), 'mm'),), OW, 170))
         if fr['order']:
-            over(f, text_rgba(((OW // 2, 60, f'{NAMES[fr["order"][0]]} WINS!', 92, YEL, 'mm'),), OW, 140), 0, 1500)
+            over(f, text_rgba(((OW // 2, 60, f'{NAMES[fr["order"][0]]} WINS!', 92, YEL, 'mm'),), OW, 140), 0, 170)
         elif t < 3.0:
-            over(f, text_rgba(((OW // 2, 60, msg, 64, (255, 255, 255), 'mm'),), OW, 140), 0, 1500)
-        tag = text_rgba(((OW // 2, 30, 'ZEIPAN', 30, YEL, 'mm'),), OW, 60); tag[..., 3] *= 0.55; over(f, tag, 0, 1750)
+            over(f, text_rgba(((OW // 2, 60, 'PICK YOUR COUNTRY!', 64, YEL, 'mm'),), OW, 140), 0, 170)
+        else:                                                              # live ranking row: 1st ... 6th
+            gap = OW / (NB + 1)
+            for p, k in enumerate(rank):
+                cx = int(gap * (p + 1)); paste_ball(f, k, cx, 230, 34 if p == 0 else 28)
+                over(f, text_rgba(((40, 20, str(p + 1), 30, YEL if p == 0 else (220, 220, 230), 'mm'),), 80, 40), cx - 40, 268)
+        tag = text_rgba(((OW // 2, 30, 'ZEIPAN', 30, YEL, 'mm'),), OW, 60); tag[..., 3] *= 0.55; over(f, tag, 0, 1840)
     return f
 
 
@@ -327,7 +349,7 @@ def voice(txt):
     s, sr = KK.create(txt, voice='am_michael', speed=1.12, lang='en-us')
     return cv2.resize(s.astype(np.float32)[None, :], (int(len(s) * SR / sr), 1), interpolation=cv2.INTER_LINEAR)[0]
 duck = np.ones(len(mix), np.float32)
-for t, txt in [(0.0, 'Pick your country! Three, two, one, go!')] + calls:
+for t, txt in ([(0.0, 'Three, two, one, go!')] if WIDE else [(0.0, 'Pick your country! Three, two, one, go!')]) + calls:
     v = voice(txt); put(t, v, 1.0)
     i0, i1 = int(t * SR), min(len(mix), int(t * SR) + len(v)); duck[i0:i1] = 0.45
 duck = np.convolve(duck, np.ones(2205) / 2205, 'same')                   # smooth ducking (50 ms ramps)
