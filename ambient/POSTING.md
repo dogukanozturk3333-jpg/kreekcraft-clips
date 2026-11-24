@@ -149,9 +149,9 @@ christmas tree, fireplace 1 hour, christmas living room, winter ambience, sleep 
 ---
 
 ## 04 — Snowy Christmas Village at night (1 hour)
-File: `ambient/04-christmas-village-snowfall-1h.mkv` (1920x1080, 15 fps, H.264 + Opus 64k, about -23 LUFS)
+File: `ambient/04-christmas-village-snowfall-1h.mkv` (1920x1080, 12 fps, HEVC + Opus 40k, -23 LUFS, peaks -8.5 dBFS, QA PASS, 82.7 MB)
 Picture: `img/christmas-village.jpg` (Image created with ElevenLabs) · Sound: snow-hush-a/b only (soft, no hiss)
-Animated: slow heavy snowfall (no wind), twinkling village tree, flickering lanterns.
+Animated: soft bokeh snowfall (no wind), twinkling village tree, flickering lanterns.
 
 **Title:** Snowy Christmas Village at Night ❄️🎄 Gentle Snowfall Ambience for Sleep & Relaxation | 1 Hour
 
