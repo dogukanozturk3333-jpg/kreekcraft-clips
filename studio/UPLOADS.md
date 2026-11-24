@@ -93,3 +93,13 @@ them to their playlist (episodes → PLA0sAqxxCuGA).
 munker-01 → Metricool #2, published 2026-11-24 07:12 Istanbul (id 439775736, uuid 2996288497648419354) at the user's
 request ("upload what is tested now"). November Metricool count: 18/20. Zapier was still throttled at 04:00 UTC.
 So the Zapier illusion order is now: checker-01 (11-24), mib-01, cafe-01, ebbinghaus-01.
+
+## ZAPIER ACCOUNT CHANGE (2026-11-24 04:10 UTC)
+The user opened a SECOND Zapier account and connected it here. The Zapier connector in this session now reaches
+ONLY the new account: one YouTube connection 02a93cb0-1845-8833-ba71-82e0bac67ed6 = Zeipan (UCyg04V0DLhMYyEoX9TEvqIA).
+The old connection ids (Brain Warp Lab 02b64918…, Lantern Rain Room 0288fac3…, old Zeipan 021d0c65…) are NOT
+reachable any more until the old account is connected again (as its own connector, or by adding those channels to
+the new account). Always resolve connections at run time: list_zapier_connections for YouTubeV4CLIAPI, then
+find_channel per connection, and match by channel id (Brain Warp Lab UCBTjlne2r4zjd9zkFuIPQ6g, Zeipan
+UCyg04V0DLhMYyEoX9TEvqIA, Lantern Rain Room = the remaining one). The new account has its own 5-a-day quota:
+used 3 at 04:12 UTC on 11-24 (zp-004 public, zp-001 publishAt 07:15Z, zp-003 publishAt 10:15Z).
