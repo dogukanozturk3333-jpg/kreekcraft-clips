@@ -78,3 +78,7 @@ flag-de) in the free 14:00 / 23:30 slots 11-25 … 11-30 — scheduled once rend
 flag-tr 11-24 17:00 · math-003 11-25 01:00 · lines-01 11-25 17:00 · diff-002 11-26 01:00 · flag-br 11-26 17:00 ·
 math-004 11-27 01:00 · diff-003 11-27 17:00 · Ep.2 11-27 20:00 (when rendered) · flag-jp 11-28 01:00 ·
 math-005 11-28 17:00 · diff-004 11-29 01:00 · diff-001 11-29 17:00. November count: 5 published + 11 + Ep.2 = 17/20.
+Ep.2 scheduled 2026-11-27 20:00 Istanbul (Metricool id 439701939, uuid 2246035285246430262, QA PASS, thumb in
+channel2/episodes/brainwarplab-ep02.mp4.thumb.jpg). November Metricool count: 5 published + 12 scheduled = 17/20.
+Every daily run: for Metricool #2 posts that published since the last run, log them in tools/uploaded.tsv and add
+them to their playlist (episodes → PLA0sAqxxCuGA).
