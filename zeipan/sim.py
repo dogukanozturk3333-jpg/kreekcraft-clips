@@ -15,6 +15,8 @@ cv2.setNumThreads(1)
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 KIND, SEED, OUT = sys.argv[1], int(sys.argv[2]), sys.argv[3]
+EVENT = '--event' in sys.argv                            # tournament mode: 6 teams, full finishing order, 16:9 frame
+LABEL = sys.argv[sys.argv.index('--label') + 1] if '--label' in sys.argv else ''
 W, H, FPS, SR, SUB = 1080, 1920, 30, 44100, 16          # 16 physics steps per frame
 DT = 1.0 / (FPS * SUB)
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
@@ -76,14 +78,15 @@ def sim_grow(seed):
 
 def sim_escape(seed):
     rng = np.random.default_rng(seed); R = 420.0; g = 900.0; r = 30.0; GAP = math.radians(34); OMEGA = 1.1
-    names = ['RED', 'BLUE', 'GREEN', 'YELLOW']
+    names = ['RED', 'BLUE', 'GREEN', 'YELLOW', 'PURPLE', 'ORANGE'] if EVENT else ['RED', 'BLUE', 'GREEN', 'YELLOW']
+    NB = len(names); order = []
     P = np.array([[CX + rng.uniform(-150, 150), CY + rng.uniform(-150, 150)] for _ in names])
     V = np.array([[rng.uniform(-500, 500), rng.uniform(-500, 200)] for _ in names])
-    out = [False] * 4; frames, events, winner, t, t_win = [], [], None, 0.0, None
-    while t < 70:
+    out = [False] * NB; frames, events, winner, t, t_win, t_all = [], [], None, 0.0, None, None
+    while t < (95 if EVENT else 70):
         for _ in range(SUB):
             t += DT; gap_c = (OMEGA * t) % (2 * math.pi)
-            for i in range(4):
+            for i in range(NB):
                 V[i, 1] += g * DT; P[i] += V[i] * DT
                 if out[i]: continue
                 d = P[i] - [CX, CY]; dist = np.linalg.norm(d)
@@ -91,26 +94,31 @@ def sim_escape(seed):
                     ang = math.atan2(d[1], d[0]) % (2 * math.pi); off = (ang - gap_c + math.pi) % (2 * math.pi) - math.pi
                     if abs(off) < GAP / 2 - math.asin(min(1, r / R)):          # fully inside the gap -> through it
                         if dist > R + r:
-                            out[i] = True
+                            out[i] = True; order.append(i)
                             if winner is None: winner, t_win = names[i], t; events.append((t, 'win', i))
+                            else: events.append((t, 'finish', i))
                         continue
                     n = d / dist; P[i] = np.array([CX, CY]) + n * (R - r)
                     vn = V[i] @ n
                     if vn > 0:
                         V[i] = V[i] - 2 * vn * n; sp = np.linalg.norm(V[i]); V[i] = V[i] / sp * max(sp, 900.0)
                         events.append((t, 'wall', i))
-            for i in range(4):                                                  # ball-ball elastic collisions
-                for j in range(i + 1, 4):
+            for i in range(NB):                                                 # ball-ball elastic collisions
+                for j in range(i + 1, NB):
                     if out[i] or out[j]: continue
                     d = P[j] - P[i]; dist = np.linalg.norm(d)
                     if 0 < dist < 2 * r:
                         n = d / dist; rel = (V[i] - V[j]) @ n
                         if rel > 0: V[i] -= rel * n; V[j] += rel * n; events.append((t, 'hit', i))
                         ov = 2 * r - dist; P[i] -= n * ov / 2; P[j] += n * ov / 2
-        frames.append(dict(t=t, balls=[(P[i, 0], P[i, 1], r, names[i]) for i in range(4)], gap=(OMEGA * t) % (2 * math.pi),
-                           GAP=GAP, R=R, winner=winner))
-        if t_win is not None and t > t_win + 3.0: break
-    return frames, events, dict(winner=winner, t_win=t_win)
+        frames.append(dict(t=t, balls=[(P[i, 0], P[i, 1], r, names[i]) for i in range(NB)], gap=(OMEGA * t) % (2 * math.pi),
+                           GAP=GAP, R=R, winner=winner, order=list(order)))
+        if EVENT:
+            if len(order) == NB:
+                t_all = t_all if t_all is not None else t
+                if t > t_all + 2.0: break
+        elif t_win is not None and t > t_win + 3.0: break
+    return frames, events, dict(winner=winner, t_win=t_win, order=[names[i] for i in order], t_last=t_all)
 
 
 def sim_race(seed):
@@ -147,8 +155,12 @@ def sim_race(seed):
                         ov = 2 * r - dist; P[i] -= n * ov / 2; P[j] += n * ov / 2
         frames.append(dict(t=t, balls=[(P[i, 0], P[i, 1], r, names[i]) for i in range(6)], order=list(order), pegs=PEG, pr=pr,
                            box=(X0, TOP, X1, FIN)))
-        if t_first is not None and (len(order) == 6 or t > t_first + 4.0): break
-    return frames, events, dict(winner=names[order[0]] if order else None, order=[names[i] for i in order], t_win=t_first)
+        if EVENT:
+            if len(order) == 6 and t > t_all + 1.5: break
+            if len(order) < 6: t_all = t
+        elif t_first is not None and (len(order) == 6 or t > t_first + 4.0): break
+    return frames, events, dict(winner=names[order[0]] if order else None, order=[names[i] for i in order], t_win=t_first,
+                                t_last=t if len(order) == 6 else None)
 
 
 def sim_rings(seed):
@@ -189,6 +201,10 @@ for seed in range(SEED, SEED + 60):                      # accept the first seed
     frames, events, info = fn(seed)
     end_t = frames[-1]['t']
     if os.environ.get('SIMDEBUG'): print('try', seed, round(end_t, 1), {k: v for k, v in info.items() if k != 'order'}, flush=True)
+    if EVENT:
+        if info.get('t_last') and len(info['order']) == 6 and (info['t_win'] >= (2 if KIND == 'escape' else 6)) and \
+           (15 if KIND == 'escape' else 8) <= info['t_last'] <= (60 if KIND == 'escape' else 50): break
+        continue
     if KIND == 'grow' and lo <= end_t <= hi: break
     if KIND != 'grow' and info.get('winner') and lo <= info['t_win'] <= hi - 4: break
 else:
@@ -200,7 +216,7 @@ TITLE = {'grow': ((250, 'EVERY BOUNCE', 84, (255, 255, 255)), (350, 'IT GETS BIG
          'escape': ((250, 'WHICH COLOR', 84, (255, 255, 255)), (350, 'ESCAPES FIRST?', 84, YEL)),
          'race': ((250, 'WHICH MARBLE', 84, (255, 255, 255)), (350, 'WINS THE RACE?', 84, YEL)),
          'rings': ((250, 'CAN IT ESCAPE', 84, (255, 255, 255)), (350, 'ALL 8 RINGS?', 84, YEL))}[KIND]
-ENDS = 2.8                                                # end card: "who did you pick?"
+ENDS = 0.0 if EVENT else 2.8                             # end card: "who did you pick?" (tournament: the episode adds its own cards)
 T = end_t + ENDS; N = int(T * FPS)
 
 # ------------------------------------------------------------------ render
@@ -277,6 +293,37 @@ def render(i):
     return over(f, brand_layer())
 
 
+W2, H2 = 1920, 1080
+CROP = {'race': (430, 1690), 'escape': (540, 1460)}.get(KIND, (430, 1690))
+
+
+@functools.lru_cache(None)
+def wide_panels(order_names, label):
+    im = Image.new('RGBA', (W2, H2), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.text((250, 120), 'ZEIPAN', font=font('Inter Black', 40), fill=YEL + (255,), anchor='mm')
+    d.text((250, 175), 'COLOR CUP', font=font('Inter Black', 34), fill=(255, 255, 255, 255), anchor='mm')
+    for k, line in enumerate(label.split('|')):
+        d.text((250, 330 + k * 70), line, font=font('Inter Black', 52 if k else 40), fill=((255, 255, 255) if k else (200, 200, 200)) + (255,), anchor='mm')
+    d.text((1670, 120), 'FINISH ORDER', font=font('Inter Black', 40), fill=(255, 255, 255, 255), anchor='mm')
+    for k, nm in enumerate(order_names):
+        c = COLS[nm]; y = 210 + k * 120
+        d.rounded_rectangle([1460, y - 46, 1880, y + 46], 24, fill=(30, 26, 40, 255))
+        d.text((1505, y), str(k + 1), font=font('Inter Black', 50), fill=YEL + (255,), anchor='mm')
+        d.ellipse([1550, y - 24, 1598, y + 24], fill=(c[2], c[1], c[0], 255))
+        d.text((1620, y), nm, font=font('Inter Black', 46), fill=(255, 255, 255, 255), anchor='lm')
+    return np.asarray(im, np.float32)
+
+
+def render_wide(i):
+    t = i / FPS; st = frames[min(len(frames) - 1, int(t * FPS))]; f = draw_state(st)
+    y0, y1 = CROP; field = f[y0:y1]; hh = 1000; ww = int(W * hh / (y1 - y0))
+    field = cv2.resize(field, (ww, hh), interpolation=cv2.INTER_AREA)
+    out = np.zeros((H2, W2, 3), np.float32) + BGC + np.linspace(0, 1, H2)[:, None, None] * np.array([28, 8, 18], np.float32)
+    x0 = (W2 - ww) // 2; out[40:40 + hh, x0:x0 + ww] = field
+    names = ['RED', 'BLUE', 'GREEN', 'YELLOW', 'PURPLE', 'ORANGE']
+    return over(out, wide_panels(tuple(names[k] for k in st.get('order', [])), LABEL))
+
+
 # ------------------------------------------------------------------ audio: notes on bounces, fanfare on the win
 mix = np.zeros(int((T + 1) * SR), np.float32)
 def put(at, s, g=1.0):
@@ -310,11 +357,12 @@ mix += pad.astype(np.float32)
 mix = mix / max(1.0, np.abs(mix).max() / 0.6)
 wav = OUT + '.wav'; sf.write(wav, np.stack([mix, mix], 1)[:int(T * SR)], SR, subtype='FLOAT')
 
-enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
+FW, FH = (W2, H2) if EVENT else (W, H)
+enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-s', f'{FW}x{FH}', '-r', str(FPS), '-i', '-',
                         '-i', wav, '-af', 'loudnorm=I=-15:TP=-2:LRA=9,aresample=48000,alimiter=limit=0.7:level=false',
                         '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k',
                         '-shortest', '-movflags', '+faststart', OUT], stdin=subprocess.PIPE)
-for i in range(N): enc.stdin.write(np.clip(render(i), 0, 255).astype(np.uint8).tobytes())
+for i in range(N): enc.stdin.write(np.clip(render_wide(i) if EVENT else render(i), 0, 255).astype(np.uint8).tobytes())
 enc.stdin.close(); enc.wait(); os.remove(wav)
 json.dump(dict(kind=KIND, seed=seed, **{k: v for k, v in info.items()}), open(OUT + '.json', 'w'))
 print('zeipan', KIND, OUT, round(T, 1), 's', info)
