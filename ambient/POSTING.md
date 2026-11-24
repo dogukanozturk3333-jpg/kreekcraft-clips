@@ -116,3 +116,61 @@ Image created with ElevenLabs.
 #snowfall #winter #sleep
 
 **Tags:** snowfall, snow falling, winter, cozy, sleep sounds, relaxing, shorts
+
+---
+
+## 03 — Christmas Fireplace, cozy living room (1 hour)
+File: `ambient/03-christmas-fireplace-1h.mkv` (1920x1080, 15 fps, H.264 + Opus 64k, about -21 LUFS, peaks -4 dBFS)
+Picture: `img/christmas-fireplace.jpg` (Image created with ElevenLabs) · Sound: fire-a, fire-b only (crackles tamed)
+Animated: fire, twinkling tree lights, candles, quiet snow behind the window. No wind, no rain, no music.
+
+**Title:** Christmas Fireplace 🎄🔥 Crackling Fire & Twinkling Tree Lights | Cozy Christmas Ambience 1 Hour
+
+**Description:**
+Christmas fireplace ambience for a cozy, calm evening: a gently crackling log fire, twinkling Christmas
+tree lights and soft snow falling outside the window of a warm living room.
+
+✔ Crackling fire only: no music, no talking, no wind
+✔ Even volume, softened crackles, nothing sudden
+✔ Perfect for sleep, reading, studying, holiday dinners or just relaxing
+
+Subscribe to Lantern Rain Room for a new cozy Christmas ambience every few days this December.
+
+Image created with ElevenLabs. Sound effects created with ElevenLabs.
+
+christmas fireplace, christmas ambience, crackling fireplace, cozy christmas, fireplace sounds,
+christmas tree lights, winter ambience, fireplace for sleep, holiday ambience, relaxing fire sounds
+
+#christmasfireplace #christmasambience #fireplace
+
+**Tags:** christmas fireplace, christmas ambience, fireplace sounds, crackling fire, cozy christmas,
+christmas tree, fireplace 1 hour, christmas living room, winter ambience, sleep sounds, holiday ambience
+
+---
+
+## 04 — Snowy Christmas Village at night (1 hour)
+File: `ambient/04-christmas-village-snowfall-1h.mkv` (1920x1080, 15 fps, H.264 + Opus 64k, about -23 LUFS)
+Picture: `img/christmas-village.jpg` (Image created with ElevenLabs) · Sound: snow-hush-a/b only (soft, no hiss)
+Animated: slow heavy snowfall (no wind), twinkling village tree, flickering lanterns.
+
+**Title:** Snowy Christmas Village at Night ❄️🎄 Gentle Snowfall Ambience for Sleep & Relaxation | 1 Hour
+
+**Description:**
+Gentle snowfall over a quiet Christmas village at night: warm glowing cottages, a twinkling Christmas tree
+in the square and soft snow falling without a breath of wind.
+
+✔ Soft, calm snow hush: no music, no talking, no wind
+✔ Even volume all the way through
+✔ Great for sleep, study, reading and Christmas relaxation
+
+Subscribe to Lantern Rain Room for a new cozy Christmas ambience every few days this December.
+
+Image created with ElevenLabs.
+
+christmas village, snowfall ambience, snowy night, christmas ambience, falling snow, winter village,
+snow for sleep, christmas lights, peaceful winter night, relaxing snow
+
+#christmasambience #snowfall #christmasvillage
+
+**Tags:** christmas village, snowfall, snowy night, christmas ambience, falling snow, winter ambience,
+snow sounds, christmas lights, sleep ambience, relaxing, 1 hour
