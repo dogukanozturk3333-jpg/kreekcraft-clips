@@ -11,7 +11,7 @@ cv2.setNumThreads(1)
 from PIL import Image, ImageDraw, ImageFont
 
 EP = int(sys.argv[1]); OUT = sys.argv[2]
-NEV = int(sys.argv[sys.argv.index('--events') + 1]) if '--events' in sys.argv else 14
+NEV = int(sys.argv[sys.argv.index('--events') + 1]) if '--events' in sys.argv else 16
 WORKERS = int(sys.argv[sys.argv.index('--workers') + 1]) if '--workers' in sys.argv else 2
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 SCR = os.environ.get('ZP_SCRATCH', '/tmp/claude-0/-home-user/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/cup')
