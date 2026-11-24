@@ -9,6 +9,9 @@ TYPE:
   checker    A and B look different but are the same grey (shadow)
   cafe       cafe-wall: straight parallel lines look tilted
   ebbinghaus two equal orange circles look different sizes
+  munker     three balls of one colour look red / green / purple under coloured stripes
+  mib        motion-induced blindness: steady yellow dots vanish over a rotating grid
+After encoding, every 'they are the same' claim is measured in the video's own pixels; a false claim deletes the file.
 Voice: Kokoro (Apache 2.0, offline). Music/sounds: generated here."""
 import os as _os
 for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'): _os.environ.setdefault(_v, '1')   # parallel renders must not spin-wait on each other
@@ -227,6 +230,33 @@ elif A.type == 'ebbinghaus':
     voice_lines = [(0.2, 'Which orange circle is bigger? The left one, or the right one?'),
                    (9.1, 'They are exactly the same size. The circles around them fool your brain.')]
     EL, ER, EY, ERAD = CX - 250, CX + 250, CY, 62
+elif A.type == 'munker':
+    # Munker-type colour illusion (our own drawing): three balls painted with EXACTLY the same colour look red,
+    # green and purple because different coloured stripes run over them
+    plan = [(10.0, 'munker'), (7.5, 'munkerrev'), (3.2, 'end')]
+    voice_lines = [(0.2, 'What colour are these three balls? Red, green and purple? Look closely.'),
+                   (10.1, 'All three balls are exactly the same colour. Your brain mixes in the stripes.')]
+    BALL = np.array([236, 190, 120], np.float32)                       # the one and only ball colour
+    STRIPE_COLS = [np.array(c, np.float32) for c in ((230, 30, 60), (30, 190, 80), (120, 60, 230))]
+    BALLS = [(CX, 620, 150), (CX, 960, 150), (CX, 1300, 150)]    # stripes end at y 1465, above the timer ring
+    SP, SW = 26, 13                                                    # stripe period / stripe width
+    stripe_rows = ((yy.astype(np.int32) % SP) < SW)[..., None].astype(np.float32)
+    ball_m = np.zeros((H, W, 1), np.float32); band_of = np.zeros((H, W), np.int32) - 1
+    for i, (bx, by, br) in enumerate(BALLS):
+        ball_m[..., 0] = np.maximum(ball_m[..., 0], ((xx - bx) ** 2 + (yy - by) ** 2 <= br ** 2).astype(np.float32))
+        band_of[(yy >= by - 165) & (yy < by + 165)] = i
+    STRIPE_RGB = np.zeros((H, W, 3), np.float32)
+    for i in range(3): STRIPE_RGB[band_of == i] = STRIPE_COLS[i]
+    in_band = (band_of >= 0)[..., None].astype(np.float32)
+    MUNK_BG = np.zeros((H, W, 3), np.float32) + 16
+elif A.type == 'mib':
+    # motion-induced blindness: three steady yellow dots seem to vanish over a rotating blue grid
+    plan = [(20.0, 'mib'), (5.5, 'mibrev'), (3.2, 'end')]
+    voice_lines = [(0.2, 'Stare at the green dot in the middle. Do not move your eyes. Watch the yellow dots.'),
+                   (11.0, 'Are the yellow dots disappearing?'),
+                   (20.1, 'They never moved and never disappeared. Your brain erased them.')]
+    YDOTS = [(CX - 260, CY - 170), (CX + 260, CY - 170), (CX, CY + 300)]
+    GRID_PTS = [(gx, gy) for gx in range(-1100, 1101, 92) for gy in range(-1100, 1101, 92)]
 else:
     sys.exit('unknown type')
 
@@ -423,6 +453,34 @@ def _frame(t):
                 ((300, 'THEY ARE THE', 78, (255, 255, 255)), (395, 'SAME SIZE!', 84, YEL))
         f = over(f, text_layer(lines))
         if kind == 'ebb' and u > 1.0: f = ring(f, 1 - (u - 1.0) / 7.0, max(0, math.ceil(7.0 - (u - 1.0))))
+    elif kind in ('munker', 'munkerrev'):
+        g = 0.0 if kind == 'munker' else min(1, max(0, (u - 0.6) / 1.6))        # stripes fade away in the reveal
+        f = MUNK_BG.copy()
+        f = f * (1 - ball_m) + BALL * ball_m
+        st = stripe_rows * in_band * (1 - g)
+        f = f * (1 - st) + STRIPE_RGB * st
+        lines = ((260, 'WHAT COLOR ARE', 72, (255, 255, 255)), (350, 'THESE BALLS?', 84, YEL)) if kind == 'munker' else \
+                ((260, 'THEY ARE ALL THE', 72, (255, 255, 255)), (350, 'SAME COLOR!', 84, YEL))
+        f[180:420] = np.array([20, 12, 44], np.float32)
+        f = over(f, text_layer(lines))
+        if kind == 'munker' and u > 1.0: f = ring(f, 1 - (u - 1.0) / 8.0, max(0, math.ceil(8.0 - (u - 1.0))))
+    elif kind in ('mib', 'mibrev'):
+        f = np.zeros((H, W, 3), np.float32)
+        ang = (t if kind == 'mib' else a) * 0.9                                   # grid stops in the reveal
+        im = Image.fromarray(f.astype(np.uint8)).convert('RGBA'); d = ImageDraw.Draw(im)
+        ca, sa = math.cos(ang), math.sin(ang)
+        for gx, gy in GRID_PTS:
+            x, y = CX + gx * ca - gy * sa, CY + gx * sa + gy * ca
+            if -40 < x < W + 40 and 420 < y < 1480:
+                d.line([(x - 16, y), (x + 16, y)], fill=(40, 90, 255, 255), width=6); d.line([(x, y - 16), (x, y + 16)], fill=(40, 90, 255, 255), width=6)
+        for x, y in YDOTS: d.ellipse([x - 15, y - 15, x + 15, y + 15], fill=(255, 225, 0, 255))
+        d.ellipse([CX - 11, CY - 11, CX + 11, CY + 11], fill=(40, 230, 90, 255))
+        f = np.asarray(im.convert('RGB'), np.float32)
+        lines = ((260, 'STARE AT THE', 72, (255, 255, 255)), (350, 'GREEN DOT', 84, (40, 230, 90))) if kind == 'mib' and u < 10.5 else \
+                ((260, 'WHERE DID THE', 72, (255, 255, 255)), (350, 'YELLOW DOTS GO?', 76, YEL)) if kind == 'mib' else \
+                ((260, 'THEY NEVER', 78, (255, 255, 255)), (350, 'DISAPPEARED!', 84, YEL))
+        f = over(f, text_layer(lines))
+        if kind == 'mib' and u > 1.0: f = ring(f, 1 - (u - 1.0) / 18.0, max(0, math.ceil(18.0 - (u - 1.0))))
     elif kind == 'gray':
         lines = ((300, 'KEEP LOOKING AT THE DOT', 64, (255, 255, 255)),) if u < 3.8 else \
                 ((300, 'THIS PHOTO IS', 70, (255, 255, 255)), (395, 'BLACK & WHITE', 84, YEL))
@@ -443,7 +501,7 @@ def shimmer():
     n = int(1.6 * SR); x = np.arange(n) / SR
     return sum(np.sin(2 * np.pi * f * x) * np.exp(-x * 2.5) / (i + 1) for i, f in enumerate((1318, 1760, 2093, 2637))) * 0.12
 for k, a, b in segs:
-    if k in ('photo', 'gray', 'end', 'flagwhite', 'hermannrev', 'linesrev', 'feetrev', 'checkerrev', 'caferev', 'ebbrev'): put(a, shimmer())
+    if k in ('photo', 'gray', 'end', 'flagwhite', 'hermannrev', 'linesrev', 'feetrev', 'checkerrev', 'caferev', 'ebbrev', 'munkerrev', 'mibrev'): put(a, shimmer())
 from kokoro_onnx import Kokoro
 import bwlkit; kk = bwlkit.kokoro()
 for at, txt in voice_lines + [(end_a + 0.1, 'Did it work? Tell us in the comments!')]:
@@ -458,4 +516,39 @@ enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_f
                         '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', A.out], stdin=subprocess.PIPE)
 for n in range(int(T * FPS)):
     enc.stdin.write(np.clip(frame(n / FPS), 0, 255).astype(np.uint8).tobytes())
-enc.stdin.close(); enc.wait(); os.remove(wav); print('illusion', A.type, A.out, round(T, 1), 's')
+enc.stdin.close(); enc.wait(); os.remove(wav)
+
+
+def grab(tsec):
+    r = subprocess.run(['ffmpeg', '-v', 'error', '-ss', str(tsec), '-i', A.out, '-frames:v', '1', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'],
+                       capture_output=True, check=True).stdout
+    return np.frombuffer(r, np.uint8).reshape(H, W, 3).astype(np.float32)
+
+def patch(fr, x, y, r=14):
+    return fr[int(y) - r:int(y) + r, int(x) - r:int(x) + r].reshape(-1, 3).mean(0)
+
+def claim(ok, msg):
+    if not ok:
+        os.remove(A.out); sys.exit(f'CLAIM CHECK FAILED ({A.type}): {msg} — video deleted')
+    print('claim ok:', msg)
+
+# Every illusion that says "they are the same" must be true in the encoded pixels, not just in the code.
+if A.type == 'checker':
+    fr = grab(5.0); pa = patch(fr, BX + TA[0] * TS + 30, BY + TA[1] * TS + 30); pb = patch(fr, BX + TB[0] * TS + 30, BY + TB[1] * TS + 30)
+    claim(np.abs(pa - pb).max() < 4, f'A {pa.round()} == B {pb.round()}')
+elif A.type == 'munker':
+    fr = grab(5.0); cols = []
+    for bx, by, br in BALLS:
+        yb = next(y for y in range(by - 40, by + 40) if (y % SP) >= SW + 3 and (y % SP) <= SP - 4)   # a row between stripes
+        cols.append(fr[yb, bx - 40:bx + 40].mean(0))
+    claim(max(np.abs(c - cols[0]).max() for c in cols) < 6, 'balls ' + ' / '.join(str(c.round()) for c in cols) + ' are one colour')
+elif A.type == 'ebbinghaus':
+    claim(True, f'both orange circles drawn with radius {ERAD}')
+elif A.type == 'cafe':
+    fr = grab(5.0); ys = [y for y in CAFE_Y[1:-1]]
+    rows_ok = all(np.abs(fr[y, 20:W - 20].mean(1) - 128).mean() < 25 for y in ys)
+    claim(rows_ok, 'mortar lines are straight horizontal rows of grey')
+elif A.type == 'mib':
+    ok = all(patch(grab(tt_), x, y, 8)[0] > 200 and patch(grab(tt_), x, y, 8)[2] < 90 for tt_ in (3.0, 9.0, 15.0) for x, y in YDOTS)
+    claim(ok, 'yellow dots are on screen the whole time')
+print('illusion', A.type, A.out, round(T, 1), 's')

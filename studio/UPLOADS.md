@@ -19,8 +19,8 @@ Lantern Rain Room: ambient/01-cozy-cabin-rain-fireplace-1h.mp4, ambient/03-chris
   season: Christmas videos go first from now on), ambient/shorts/s01-rain-outside-fire-inside.mp4,
   ambient/02-snowy-night-window-45m.mkv, ambient/04-christmas-village-snowfall-1h.mkv (when rendered), ambient/shorts/s02-snowfall.mp4
 Brain Warp Lab (uploaded: odd-001, lilac-01, odd-002, spiral-01, odd-003). Next, in this order:
-  ZAPIER pool (formats odd / col / txt + illusions): NEW ILLUSIONS FIRST, one a day — checker-01, cafe-01,
-  ebbinghaus-01 (2026-11-24, new watermark) — then col-001, afterimage-01, txt-001, odd-004,
+  ZAPIER pool (formats odd / col / txt + illusions): NEW ILLUSIONS FIRST, one a day — checker-01, munker-01,
+  mib-01, cafe-01, ebbinghaus-01 (2026-11-24, new watermark, claims verified) — then col-001, afterimage-01, txt-001, odd-004,
   col-002, spiral-02, txt-002, odd-005, col-003, troxler-01, txt-003, odd-006, col-004, afterimage-02,
   txt-004, odd-007, then keep rotating col / txt / odd (lowest number first).
   METRICOOL #2 pool (never via Zapier): emoji math, spot the difference, the new illusions (flag-*,

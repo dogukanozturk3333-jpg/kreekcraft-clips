@@ -64,7 +64,8 @@ def short(video, kind, out, line1=None, line2=None):
     presets = {'flag': ('STARE AT', 'THE DOT', 6.0), 'hermann': ('COUNT THE', 'BLACK DOTS', 6.0), 'lines': ('WHICH IS', 'LONGER?', 3.0),
                'lilac': ('A GREEN', 'DOT?!', 8.0), 'math': ('CAN YOU', 'SOLVE IT?', 6.0), 'diff': ('FIND 3', 'DIFFERENCES', 8.0),
                'odd': ('FIND THE', 'ODD ONE', 3.0), 'checker': ('A OR B?', 'WHICH IS DARKER', 4.0),
-               'cafe': ('ARE THEY', 'STRAIGHT?', 4.0), 'ebbinghaus': ('WHICH ONE IS', 'BIGGER?', 4.0), 'col': ('FIND THE', 'COLOR', 3.0), 'txt': ('FIND THE', 'ODD LETTER', 3.0)}
+               'cafe': ('ARE THEY', 'STRAIGHT?', 4.0), 'ebbinghaus': ('WHICH ONE IS', 'BIGGER?', 4.0),
+               'munker': ('WHAT COLOR', 'ARE THEY?', 4.0), 'mib': ('WATCH THE', 'YELLOW DOTS', 6.0), 'col': ('FIND THE', 'COLOR', 3.0), 'txt': ('FIND THE', 'ODD LETTER', 3.0)}
     a, b, t = presets.get(kind, ('CAN YOU', 'SEE IT?', 5.0))
     a, b = line1 or a, line2 or b
     fr = grab(video, t)                                       # 1080x1920

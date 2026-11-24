@@ -20,5 +20,13 @@
 2. Open the contact sheet it writes and check by eye: no watermark or text over the moment the puzzle or
    illusion happens, nothing cut off, answers not shown before the reveal, logo/handle visible.
 3. A new format or a changed renderer: watch one full render frame by frame (8–12 stills) before batch use.
+4. Claims must be TRUE in the pixels: illusion.py measures every "same colour / same size / straight" claim in
+   the encoded video and deletes the file if it is false (checker, munker, cafe, mib). Puzzle answers are
+   checked by eye on the reveal frame (math: the sum on screen must match; diff: all 3 circles on real changes).
+5. Layout: titles, timers, captions and the brand tag must never overlap each other or the puzzle
+   (2026-11-24: brand tag moved to y 1780 under the math hint; Munker balls moved above the timer ring).
 Lesson (2026-11-24, flag illusion): the diagonal watermark crossed the blank screen where the afterimage
 appears — the user spotted it. Illusion moments are now kept clean (illusion.py CLEAN_KINDS).
+
+Watermark (user, 2026-11-24): no big diagonal handle anywhere; only the small faint logo + @brainwarplab at the
+bottom (brandmark.py, y 1780). The brand stays visible without disturbing the picture.
