@@ -339,7 +339,7 @@ CROP = {'race': (430, 1690), 'escape': (540, 1460)}.get(KIND, (430, 1690))
 def wide_panels(order_names, label):
     im = Image.new('RGBA', (W2, H2), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
     d.text((250, 120), 'ZEIPAN', font=font('Inter Black', 40), fill=YEL + (255,), anchor='mm')
-    d.text((250, 175), 'COLOR CUP', font=font('Inter Black', 34), fill=(255, 255, 255, 255), anchor='mm')
+    d.text((250, 175), 'COUNTRY CUP' if TEAMS_ARG else 'COLOR CUP', font=font('Inter Black', 34), fill=(255, 255, 255, 255), anchor='mm')
     for k, line in enumerate(label.split('|')):
         d.text((250, 330 + k * 70), line, font=font('Inter Black', 52 if k else 40), fill=((255, 255, 255) if k else (200, 200, 200)) + (255,), anchor='mm')
     d.text((1670, 120), 'FINISH ORDER', font=font('Inter Black', 40), fill=(255, 255, 255, 255), anchor='mm')
@@ -347,8 +347,12 @@ def wide_panels(order_names, label):
         c = COLS[nm]; y = 210 + k * 120
         d.rounded_rectangle([1460, y - 46, 1880, y + 46], 24, fill=(30, 26, 40, 255))
         d.text((1505, y), str(k + 1), font=font('Inter Black', 50), fill=YEL + (255,), anchor='mm')
-        d.ellipse([1550, y - 24, 1598, y + 24], fill=(c[2], c[1], c[0], 255))
-        d.text((1620, y), nm, font=font('Inter Black', 46), fill=(255, 255, 255, 255), anchor='lm')
+        if nm in FLAG:
+            spr, a = flag_sprite(nm, 26); fl = Image.fromarray(np.concatenate([spr[..., ::-1], a * 255], 2).astype(np.uint8), 'RGBA')
+            im.alpha_composite(fl, (1574 - 26, y - 26))
+        else:
+            d.ellipse([1550, y - 24, 1598, y + 24], fill=(c[2], c[1], c[0], 255))
+        d.text((1620, y), nm, font=font('Inter Black', 46 if len(nm) < 9 else 36), fill=(255, 255, 255, 255), anchor='lm')
     return np.asarray(im, np.float32)
 
 

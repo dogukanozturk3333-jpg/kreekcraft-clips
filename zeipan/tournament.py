@@ -16,7 +16,10 @@ WORKERS = int(sys.argv[sys.argv.index('--workers') + 1]) if '--workers' in sys.a
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 SCR = os.environ.get('ZP_SCRATCH', '/tmp/claude-0/-home-user/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/cup')
 WORK = os.path.join(SCR, f'ep{EP:02d}'); os.makedirs(WORK, exist_ok=True)
-SEASON = os.path.join(HERE, 'season1.json')
+TEAMS_ARG = sys.argv[sys.argv.index('--teams') + 1] if '--teams' in sys.argv else None
+CUP = 'COUNTRY CUP' if TEAMS_ARG else 'COLOR CUP'
+SEASON = os.path.join(HERE, 'country_season1.json' if TEAMS_ARG else 'season1.json')
+if TEAMS_ARG: WORK = WORK + '-country'; os.makedirs(WORK, exist_ok=True)
 W, H, FPS, SR = 1920, 1080, 30, 48000
 TEAMS = ['RED', 'BLUE', 'GREEN', 'YELLOW', 'PURPLE', 'ORANGE']
 RGB = {'RED': (255, 60, 70), 'BLUE': (40, 150, 255), 'GREEN': (60, 220, 90), 'YELLOW': (255, 229, 0),
