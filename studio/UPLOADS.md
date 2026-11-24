@@ -106,3 +106,11 @@ used ALL 5 at 04:12–04:14 UTC on 11-24 (zp-004 public, zp-001 07:15Z, zp-003 1
 Account roles (user, 2026-11-24): NEW Zapier account = Zeipan only (all 5 daily uploads go to Zeipan).
 OLD Zapier account = Brain Warp Lab + Lantern Rain Room (the user reconnects it for the evening batches).
 Whichever account the Zapier connector currently reaches, upload only to the channels that belong to it.
+
+## 2026-11-24 05:00 UTC decisions (user: "only viral, nothing simple")
+- Zeipan pivot to COUNTRY races (data: an Algodoo "100 Countries Marble Race" video has ~11M views; country pride drives
+  comments). New Shorts: zeipan/shorts/zp-0NN-country-*.mp4 (sim.py --teams). Upload country ones before colour ones.
+- A third Zapier account (also Zeipan) exists: used 2 at 04:45 UTC (zp-020 → 11-25 09:00Z, zp-021 → 11-25 15:00Z).
+  Keep Zeipan at ~4-5 public Shorts a day, spaced ≥3 h (YouTube stops a channel at ~10 uploads per 24 h).
+- Lantern Rain Room Shorts S01/S02 are on HOLD (plain loops, no hook). Upload only the long videos until better
+  Shorts exist (slow camera push-in, Christmas scenes).
