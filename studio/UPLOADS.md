@@ -102,4 +102,4 @@ reachable any more until the old account is connected again (as its own connecto
 the new account). Always resolve connections at run time: list_zapier_connections for YouTubeV4CLIAPI, then
 find_channel per connection, and match by channel id (Brain Warp Lab UCBTjlne2r4zjd9zkFuIPQ6g, Zeipan
 UCyg04V0DLhMYyEoX9TEvqIA, Lantern Rain Room = the remaining one). The new account has its own 5-a-day quota:
-used 3 at 04:12 UTC on 11-24 (zp-004 public, zp-001 publishAt 07:15Z, zp-003 publishAt 10:15Z).
+used ALL 5 at 04:12–04:14 UTC on 11-24 (zp-004 public, zp-001 07:15Z, zp-003 10:15Z, zp-002 13:15Z, zp-005 16:15Z); free again from 04:15 UTC on 11-25.
