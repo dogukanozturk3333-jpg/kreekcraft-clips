@@ -24,6 +24,34 @@ YEL = (255, 229, 0); BGC = np.array([15, 11, 11], np.float32)          # brand: 
 COLS = {'RED': (70, 60, 255), 'BLUE': (255, 150, 40), 'GREEN': (90, 220, 60), 'YELLOW': (0, 229, 255),
         'PURPLE': (230, 80, 170), 'ORANGE': (30, 150, 255)}            # BGR for OpenCV
 CX, CY = W // 2, 1000
+COUNTRIES = {'US': ('USA', '🇺🇸'), 'BR': ('BRAZIL', '🇧🇷'), 'TR': ('TURKEY', '🇹🇷'), 'IN': ('INDIA', '🇮🇳'), 'MX': ('MEXICO', '🇲🇽'),
+             'ID': ('INDONESIA', '🇮🇩'), 'PH': ('PHILIPPINES', '🇵🇭'), 'DE': ('GERMANY', '🇩🇪'), 'GB': ('UK', '🇬🇧'), 'FR': ('FRANCE', '🇫🇷'),
+             'JP': ('JAPAN', '🇯🇵'), 'KR': ('KOREA', '🇰🇷'), 'AR': ('ARGENTINA', '🇦🇷'), 'CA': ('CANADA', '🇨🇦'), 'IT': ('ITALY', '🇮🇹'),
+             'ES': ('SPAIN', '🇪🇸'), 'PK': ('PAKISTAN', '🇵🇰'), 'NG': ('NIGERIA', '🇳🇬'), 'EG': ('EGYPT', '🇪🇬'), 'SA': ('SAUDI ARABIA', '🇸🇦'),
+             'VN': ('VIETNAM', '🇻🇳'), 'PL': ('POLAND', '🇵🇱'), 'NL': ('NETHERLANDS', '🇳🇱'), 'PT': ('PORTUGAL', '🇵🇹'), 'RU': ('RUSSIA', '🇷🇺')}
+TEAMS_ARG = sys.argv[sys.argv.index('--teams') + 1].split(',') if '--teams' in sys.argv else None
+if TEAMS_ARG:
+    for code in TEAMS_ARG: COLS[COUNTRIES[code][0]] = (235, 235, 235)        # text colour for country names
+TEAM6 = [COUNTRIES[c][0] for c in TEAMS_ARG] if TEAMS_ARG else ['RED', 'BLUE', 'GREEN', 'YELLOW', 'PURPLE', 'ORANGE']
+FLAG = {COUNTRIES[c][0]: COUNTRIES[c][1] for c in (TEAMS_ARG or [])}
+RSCALE = 1.45 if TEAMS_ARG else 1.0                                   # flags need bigger balls to be readable
+
+
+@functools.lru_cache(None)
+def flag_sprite(name, r):
+    """Round flag ball (BGR + alpha) of radius r, with a thin white rim."""
+    fi = Image.new('RGBA', (200, 200), (0, 0, 0, 0))
+    ImageDraw.Draw(fi).text((100, 100), FLAG[name], font=ImageFont.truetype('/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf', 109),
+                            embedded_color=True, anchor='mm')
+    fi = fi.crop(fi.getbbox()); d = 2 * r
+    sc = d / min(fi.width, fi.height); fi = fi.resize((max(d, int(fi.width * sc) + 1), max(d, int(fi.height * sc) + 1)), Image.LANCZOS)
+    fi = fi.crop(((fi.width - d) // 2, (fi.height - d) // 2, (fi.width - d) // 2 + d, (fi.height - d) // 2 + d)).convert('RGB')
+    big = Image.new('L', (d * 4, d * 4), 0); ImageDraw.Draw(big).ellipse([0, 0, d * 4 - 1, d * 4 - 1], fill=255)
+    m = big.resize((d, d), Image.LANCZOS)
+    rim = Image.new('RGB', (d, d), (255, 255, 255)); inner = Image.new('L', (d * 4, d * 4), 0)
+    ImageDraw.Draw(inner).ellipse([10, 10, d * 4 - 11, d * 4 - 11], fill=255); inner = inner.resize((d, d), Image.LANCZOS)
+    rgb = Image.composite(fi, rim, inner)
+    return np.asarray(rgb, np.float32)[..., ::-1].copy(), (np.asarray(m, np.float32) / 255.0)[..., None]
 
 
 @functools.lru_cache(None)
@@ -77,8 +105,8 @@ def sim_grow(seed):
 
 
 def sim_escape(seed):
-    rng = np.random.default_rng(seed); R = 420.0; g = 900.0; r = 30.0; GAP = math.radians(34); OMEGA = 1.1
-    names = ['RED', 'BLUE', 'GREEN', 'YELLOW', 'PURPLE', 'ORANGE'] if EVENT else ['RED', 'BLUE', 'GREEN', 'YELLOW']
+    rng = np.random.default_rng(seed); R = 420.0; g = 900.0; r = 30.0 * RSCALE; GAP = math.radians(34 * (1.25 if TEAMS_ARG else 1)); OMEGA = 1.1
+    names = TEAM6[:6] if EVENT else TEAM6[:4]
     NB = len(names); order = []
     P = np.array([[CX + rng.uniform(-150, 150), CY + rng.uniform(-150, 150)] for _ in names])
     V = np.array([[rng.uniform(-500, 500), rng.uniform(-500, 200)] for _ in names])
@@ -122,7 +150,7 @@ def sim_escape(seed):
 
 
 def sim_race(seed):
-    rng = np.random.default_rng(seed); g = 700.0; r = 24.0; names = ['RED', 'BLUE', 'GREEN', 'YELLOW', 'PURPLE', 'ORANGE']
+    rng = np.random.default_rng(seed); g = 700.0; r = 24.0 * (1.2 if TEAMS_ARG else 1); names = TEAM6[:6]
     X0, X1, TOP, FIN = 90.0, W - 90.0, 470.0, 1640.0
     pegs = [(X0 + 40 + (k + (0.5 if row % 2 else 0)) * 100, 580 + row * 76) for row in range(14) for k in range(9)
             if X0 + 20 < X0 + 40 + (k + (0.5 if row % 2 else 0)) * 100 < X1 - 20]
@@ -216,6 +244,9 @@ TITLE = {'grow': ((250, 'EVERY BOUNCE', 84, (255, 255, 255)), (350, 'IT GETS BIG
          'escape': ((250, 'WHICH COLOR', 84, (255, 255, 255)), (350, 'ESCAPES FIRST?', 84, YEL)),
          'race': ((250, 'WHICH MARBLE', 84, (255, 255, 255)), (350, 'WINS THE RACE?', 84, YEL)),
          'rings': ((250, 'CAN IT ESCAPE', 84, (255, 255, 255)), (350, 'ALL 8 RINGS?', 84, YEL))}[KIND]
+if TEAMS_ARG:
+    TITLE = {'escape': ((250, 'WHICH COUNTRY', 84, (255, 255, 255)), (350, 'ESCAPES FIRST?', 84, YEL)),
+             'race': ((250, 'WHICH COUNTRY', 84, (255, 255, 255)), (350, 'WINS THE RACE?', 84, YEL))}.get(KIND, TITLE)
 ENDS = 0.0 if EVENT else 2.8                             # end card: "who did you pick?" (tournament: the episode adds its own cards)
 T = end_t + ENDS; N = int(T * FPS)
 
@@ -248,12 +279,17 @@ def draw_state(st, final=False):
             cv2.rectangle(lay, (int(X0 + k), int(FIN)), (int(min(X1, X0 + k + 40)), int(FIN + 16)), c, -1)
     for x, y, r, nm in st['balls']:
         if -100 < x < W + 100 and -100 < y < H + 100:
-            cv2.circle(lay, (int(round(x * 4)), int(round(y * 4))), int(r * 4), COLS[nm], -1, cv2.LINE_AA, 2)
+            col = (200, 200, 200) if nm in FLAG else COLS[nm]
+            cv2.circle(lay, (int(round(x * 4)), int(round(y * 4))), int(r * 4), col, -1, cv2.LINE_AA, 2)
     small = cv2.resize(lay, (W // 2, H // 2), interpolation=cv2.INTER_AREA).astype(np.float32)
     glow_acc = glow_acc * 0.78 + small * 0.22                 # trails
     glow = cv2.resize(cv2.GaussianBlur(glow_acc, (0, 0), 9), (W, H))
     f = f + glow * 0.9 + cv2.resize(glow_acc, (W, H)) * 0.35
     m = (lay.max(2, keepdims=True) > 0).astype(np.float32); f = f * (1 - m) + lay.astype(np.float32) * m
+    for x, y, r, nm in st['balls']:                                      # country balls: paste the round flag
+        if nm in FLAG and r < x < W - r and r < y < H - r:
+            spr, a = flag_sprite(nm, int(round(r))); x0, y0 = int(round(x)) - spr.shape[1] // 2, int(round(y)) - spr.shape[0] // 2
+            reg = f[y0:y0 + spr.shape[0], x0:x0 + spr.shape[1]]; f[y0:y0 + spr.shape[0], x0:x0 + spr.shape[1]] = reg * (1 - a) + spr * a
     return f
 
 
@@ -273,10 +309,10 @@ def render(i):
             f = over(f, text_layer(((1560, f"{b} BOUNCE" + ('' if b == 1 else 'S'), 64, (255, 255, 255)),)))
             if t < 3.0: f = over(f, text_layer(((1660, 'GUESS HOW MANY!', 48, YEL),)))
         elif st.get('winner') or (KIND == 'race' and st['order']):
-            wn = st.get('winner') or ['RED', 'BLUE', 'GREEN', 'YELLOW', 'PURPLE', 'ORANGE'][st['order'][0]]
+            wn = st.get('winner') or TEAM6[st['order'][0]]
             c = COLS[wn]; f = over(f, text_layer(((YMSG, f'{wn} WINS!', SMSG + 30 if KIND != 'race' else SMSG, (c[2], c[1], c[0])),)))
         elif t < 3.0:
-            f = over(f, text_layer(((YMSG, 'PICK A COLOR NOW!', SMSG, (255, 255, 255)),)))
+            f = over(f, text_layer(((YMSG, 'PICK YOUR COUNTRY NOW!' if TEAMS_ARG else 'PICK A COLOR NOW!', SMSG, (255, 255, 255)),)))
     else:
         u = t - end_t; f = bgimg.copy()
         if KIND == 'rings':
@@ -285,7 +321,9 @@ def render(i):
             L = ((760, f"{info['bounces']} BOUNCES!", 100, YEL), (880, 'DID YOU GUESS IT?', 76, (255, 255, 255)), (1000, 'tell us your guess in the comments', 48, (200, 200, 200)))
         else:
             c = COLS[info['winner']]
-            L = ((740, f"{info['winner']} WON!", 110, (c[2], c[1], c[0])), (870, 'WHO DID YOU PICK?', 76, (255, 255, 255)), (1000, 'tell us in the comments', 48, (200, 200, 200)))
+            L = ((740, f"{info['winner']} WON!", 110 if len(info['winner']) < 9 else 84, (c[2], c[1], c[0])),
+                 (870, 'WHERE ARE YOU FROM?' if TEAMS_ARG else 'WHO DID YOU PICK?', 76, (255, 255, 255)),
+                 (1000, 'comment your country' if TEAMS_ARG else 'tell us in the comments', 48, (200, 200, 200)))
         f = over(f, text_layer(L))
         if u > 0.5:
             lg = Image.open(os.path.join(REPO, 'brand', 'art', 'logo.png')).convert('RGBA').resize((200, 200), Image.LANCZOS)
@@ -320,7 +358,7 @@ def render_wide(i):
     field = cv2.resize(field, (ww, hh), interpolation=cv2.INTER_AREA)
     out = np.zeros((H2, W2, 3), np.float32) + BGC + np.linspace(0, 1, H2)[:, None, None] * np.array([28, 8, 18], np.float32)
     x0 = (W2 - ww) // 2; out[40:40 + hh, x0:x0 + ww] = field
-    names = ['RED', 'BLUE', 'GREEN', 'YELLOW', 'PURPLE', 'ORANGE']
+    names = TEAM6
     return over(out, wide_panels(tuple(names[k] for k in st.get('order', [])), LABEL))
 
 
