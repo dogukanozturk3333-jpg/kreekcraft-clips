@@ -26,7 +26,7 @@ def layer(diag_alpha=0, diag_col=(90, 60, 150), tag_alpha=110, tag_col=(255, 255
     lg = Image.open(os.path.join(HERE, '..', 'studio', 'art', 'brainwarplab-logo.png')).convert('RGBA').resize((40, 40), Image.LANCZOS)
     m = Image.new('L', (40, 40), 0); ImageDraw.Draw(m).ellipse([0, 0, 39, 39], fill=tag_alpha); lg.putalpha(m)
     f = _font('Inter Display SemiBold', 26); d = ImageDraw.Draw(im); tw = d.textlength(HANDLE, font=f)
-    x0 = int(W / 2 - (40 + 10 + tw) / 2); y = 1660
+    x0 = int(W / 2 - (40 + 10 + tw) / 2); y = 1780   # below every caption, hint and timer
     im.alpha_composite(lg, (x0, y - 20))
     d.text((x0 + 50, y), HANDLE, font=f, fill=tuple(tag_col) + (tag_alpha,), anchor='lm')
     return im
