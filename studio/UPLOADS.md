@@ -28,8 +28,8 @@ Brain Warp Lab (uploaded: odd-001, lilac-01, odd-002, spiral-01, odd-003). Next,
   Files: channel2/oddone2/odd-NNN.mp4, channel2/text/txt-NNN.mp4, channel2/color/col-NNN.mp4,
   channel2/math/math-NNN.mp4, channel2/spotdiff/diff-NNN.mp4,
   channel2/illusions/*.mp4; titles in channel2/POSTING.md (add #shorts to every title).
-Zeipan: STOPPED (user, 2026-11-24). The user is deleting the channel's videos; the name stays and the channel gets
-  a new concept (own-made, no streamer clips). Nothing goes to Zeipan until the user approves that concept.
+Zeipan: NEW CONCEPT APPROVED (user, 2026-11-24): satisfying physics simulations (zeipan/README.md, zeipan/POSTING.md).
+  2 Shorts a day from zeipan/shorts/ (lowest number first), spaced ~3 h. Never streamer/game clips again.
 Uploaded items are listed in tools/uploaded.tsv; skip anything already there.
 
 ## Instagram (@brainwarplab) via Metricool — brand blogId 7879434, timezone Europe/Istanbul
