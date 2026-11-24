@@ -65,10 +65,22 @@ Tags: optical illusion, illusion, brain trick, eye test, mind blowing, perceptio
 Extra illusion titles:
 - spiral-02: Stare at the Spiral, Then Look at the Snow ❄️ It Starts Moving!
 - afterimage-02: This Snowy Night Is Black & White… or Is It? 🤯 (Stare at the Dot)
+New illusions (2026-11-24; each "same" claim is verified in the video pixels). Use the format description above
+with the comment prompt that fits (A or B / YES or NO), plus the per-video tags:
+- checker-01: Which Square Is Darker, A or B? 🤯 Your Brain Gets This Wrong
+  (comment prompt: "Comment A or B before the reveal 👇"; tags + checker shadow illusion, same color illusion)
+- munker-01: What Color Are These Balls? 🔴🟢🟣 They're All the SAME Color
+  (comment prompt: "What colors did you see? 👇"; tags + color illusion, same color illusion, munker illusion)
+- mib-01: Stare at the Green Dot… the Yellow Dots VANISH 👀
+  (comment prompt: "Did they disappear? YES or NO 👇"; tags + motion induced blindness, disappearing dots)
+- cafe-01: Are These Lines Straight or Tilted? 👀 Optical Illusion
+  (comment prompt: "Straight or tilted? 👇"; tags + cafe wall illusion, straight lines illusion)
+- ebbinghaus-01: Which Orange Circle Is Bigger? 🟠 Look Again…
+  (comment prompt: "Left or right? 👇"; tags + ebbinghaus illusion, size illusion)
 
 ## Watermark (all videos from 2026-11-23 evening on)
-channel2/brandmark.py: faint diagonal @brainwarplab across the centre + logo/handle tag at the bottom,
-so re-uploads can't simply crop the brand away.
+channel2/brandmark.py: since 2026-11-24 only a small faint logo + @brainwarplab tag at the very bottom (y 1780);
+the big diagonal handle was removed (user: too distracting). Older renders with the diagonal are not uploaded.
 
 ## Format 3 — Hidden letter / number (`oddone2.py SEED OUT.mp4 text`) → channel2/text/txt-NNN.mp4
 Same motion design; grids of letters/numbers with one look-alike (W/M, q/p, O/0, 81/18 …).
