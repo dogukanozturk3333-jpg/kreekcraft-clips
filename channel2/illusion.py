@@ -20,6 +20,7 @@ ap.add_argument('--photo', default=os.path.join(os.path.dirname(os.path.abspath(
 A = ap.parse_args()
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import brandmark
 W, H, FPS, SR = 1080, 1920, 30, 44100
+if A.type == 'benham': FPS = 60          # the flicker that makes Benham's colours needs smooth rotation
 KOKORO = os.environ.get('KOKORO_DIR', '/tmp/claude-0/-home-user/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/kokoro')
 HERE = os.path.dirname(os.path.abspath(__file__))
 ACCENT, YEL = (46, 230, 214), (255, 214, 60)
@@ -144,6 +145,43 @@ elif A.type == 'lines':
     voice_lines = [(0.2, 'Which line is longer? The top one, or the bottom one? Decide now!'),
                    (8.1, 'Look again. They are exactly the same length.')]
     L0, L1, Y1, Y2, FIN = CX - 300, CX + 300, 820, 1180, 110
+elif A.type == 'drift':
+    # peripheral drift: rings of cells with a dark→black→white→light luminance step make a still picture
+    # appear to rotate (own pattern; the principle is classic vision science)
+    plan = [(14.0, 'drift'), (3.2, 'end')]
+    voice_lines = [(0.2, 'This picture is not moving. Not a single pixel. Look around it, not at the center.'),
+                   (8.0, 'Your brain is making it spin.')]
+    di = Image.new('RGB', (W, H), (128, 128, 128)); dd = ImageDraw.Draw(di)
+    steps = [(10, 10, 10), (70, 70, 110), (250, 250, 250), (190, 190, 225)]   # black, dark, white, light (blue-tinted)
+    for (cx, cy, R0, dirn) in ((CX, CY - 360, 300, 1), (CX, CY + 360, 300, -1)):
+        for ring_i, r in enumerate(range(R0, 40, -52)):
+            d_ = dirn if ring_i % 2 == 0 else -dirn; n = max(8, int(2 * math.pi * r / 70))
+            for k in range(n):
+                a0 = k / n * 360; a1 = (k + 1) / n * 360
+                for j in range(4):
+                    jj = j if d_ > 0 else 3 - j
+                    dd.pieslice([cx - r, cy - r, cx + r, cy + r], a0 + (a1 - a0) * j / 4, a0 + (a1 - a0) * (j + 1) / 4 + 0.4, fill=steps[jj])
+            dd.ellipse([cx - r + 44, cy - r + 44, cx + r - 44, cy + r - 44], fill=(128, 128, 128))
+    DRIFT = np.asarray(di, np.float32)
+elif A.type == 'benham':
+    plan = [(16.0, 'benham'), (3.2, 'end')]
+    voice_lines = [(0.2, 'This disk is only black and white. Watch it spin. Do you see any colours?'),
+                   (9.0, 'Most people see faint rings of colour. They are not there.')]
+    bi = Image.new('L', (W, W), 255); bd = ImageDraw.Draw(bi); R = 420; c = W // 2
+    bd.ellipse([c - R, c - R, c + R, c + R], fill=255, outline=0, width=6)
+    bd.pieslice([c - R, c - R, c + R, c + R], 180, 360, fill=0)
+    for q in range(4):                                     # Benham arcs: 3 arcs per quarter of the white half
+        for j in range(3):
+            rr = 120 + q * 75 + j * 22
+            a0 = q * 45; a1 = a0 + 45
+            bd.arc([c - rr, c - rr, c + rr, c + rr], a0, a1, fill=0, width=12)
+    BEN = bi
+elif A.type == 'feet':
+    plan = [(10.0, 'feet'), (6.0, 'feetrev'), (3.2, 'end')]
+    voice_lines = [(0.2, 'Watch the yellow and the blue block. They take turns, step by step.'),
+                   (10.1, 'Now without the stripes. They were moving smoothly, at the same speed, the whole time.')]
+    STR = np.zeros((H, W, 3), np.float32) + 255
+    for x in range(0, W, 48): STR[:, x:x + 24] = 0
 else:
     sys.exit('unknown type')
 
@@ -168,8 +206,8 @@ def end_screen(t, a, b):
     return brand(over(base, im))
 
 
-LIGHT_KINDS = ('lilac', 'troxler', 'flagneg', 'flagwhite')       # light backgrounds: dark bottom tag
-CLEAN_KINDS = ('flagwhite', 'gray', 'photo', 'hermann', 'hermannrev', 'lines', 'linesrev')   # illusion moments: no diagonal watermark on top
+LIGHT_KINDS = ('lilac', 'troxler', 'flagneg', 'flagwhite', 'benham')       # light backgrounds: dark bottom tag
+CLEAN_KINDS = ('flagwhite', 'gray', 'photo', 'hermann', 'hermannrev', 'lines', 'linesrev', 'drift', 'benham', 'feet', 'feetrev')   # illusion moments: no diagonal watermark on top
 def frame(t):
     kind = next(s for s in segs if s[1] <= t < s[2] or s is segs[-1])[0]
     kw = {}
@@ -235,6 +273,25 @@ def _frame(t):
             k = ease_out_back(u * 3)
             f = over(f, text_layer(((260, 'THERE ARE 0', 84, (255, 255, 255)), (360, 'BLACK DOTS!', 84, YEL))))
             f = over(f, text_layer(((1700, 'your brain made them up', 50, (220, 210, 255)),)))
+    elif kind == 'drift':
+        f = DRIFT.copy()
+        f = over(f, text_layer(((180, 'THIS IMAGE IS', 66, (255, 255, 255)), (262, 'NOT MOVING', 84, YEL))))
+        return brand(f)
+    elif kind == 'benham':
+        ang = (t * 5.0 * 360) % 360                          # 5 turns per second
+        disk = BEN.rotate(-ang, resample=Image.BICUBIC, fillcolor=255)
+        f = np.zeros((H, W, 3), np.float32) + 255
+        f[CY - W // 2:CY + W // 2, :, :] = np.asarray(disk, np.float32)[..., None]
+        lines = ((230, 'ONLY BLACK & WHITE', 64, (40, 24, 70)), (310, 'do you see colours?', 50, (120, 60, 200)))
+        return brand(over(f, text_layer(lines, dark=True)), dark=True)
+    elif kind in ('feet', 'feetrev'):
+        f = (STR.copy() if kind == 'feet' else np.zeros((H, W, 3), np.float32) + 128)
+        x = int(((t - (a if kind == 'feetrev' else 0)) * 70) % (W + 300)) - 260
+        f[CY - 230:CY - 130, max(0, x):max(0, x + 260)] = np.array([255, 214, 40], np.float32)
+        f[CY + 130:CY + 230, max(0, x):max(0, x + 260)] = np.array([30, 50, 190], np.float32)
+        f[220:400] *= 0.25
+        lines = ((280, 'WATCH THEM WALK', 72, (255, 255, 255)),) if kind == 'feet' else ((280, 'SAME SPEED ALL ALONG', 64, (255, 255, 255)),)
+        return brand(over(f, text_layer(lines)))
     elif kind in ('lines', 'linesrev'):
         f = BG.copy() + np.array([20, 6, 40], np.float32) * (yy / H)[..., None]
         im = Image.fromarray(np.clip(f, 0, 255).astype(np.uint8)).convert('RGBA'); d = ImageDraw.Draw(im)
@@ -279,7 +336,7 @@ def shimmer():
     n = int(1.6 * SR); x = np.arange(n) / SR
     return sum(np.sin(2 * np.pi * f * x) * np.exp(-x * 2.5) / (i + 1) for i, f in enumerate((1318, 1760, 2093, 2637))) * 0.12
 for k, a, b in segs:
-    if k in ('photo', 'gray', 'end', 'flagwhite', 'hermannrev', 'linesrev'): put(a, shimmer())
+    if k in ('photo', 'gray', 'end', 'flagwhite', 'hermannrev', 'linesrev', 'feetrev'): put(a, shimmer())
 from kokoro_onnx import Kokoro
 import bwlkit; kk = bwlkit.kokoro()
 for at, txt in voice_lines + [(end_a + 0.1, 'Did it work? Tell us in the comments!')]:
