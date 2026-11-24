@@ -1,0 +1,145 @@
+{
+ "episodes": {
+  "1": {
+   "points": {
+    "RED": 61,
+    "BLUE": 57,
+    "GREEN": 87,
+    "YELLOW": 69,
+    "PURPLE": 76,
+    "ORANGE": 98
+   },
+   "champion": "ORANGE",
+   "events": [
+    [
+     "YELLOW",
+     "RED",
+     "ORANGE",
+     "GREEN",
+     "BLUE",
+     "PURPLE"
+    ],
+    [
+     "PURPLE",
+     "BLUE",
+     "GREEN",
+     "YELLOW",
+     "RED",
+     "ORANGE"
+    ],
+    [
+     "GREEN",
+     "ORANGE",
+     "BLUE",
+     "YELLOW",
+     "PURPLE",
+     "RED"
+    ],
+    [
+     "PURPLE",
+     "GREEN",
+     "BLUE",
+     "ORANGE",
+     "RED",
+     "YELLOW"
+    ],
+    [
+     "ORANGE",
+     "PURPLE",
+     "YELLOW",
+     "GREEN",
+     "RED",
+     "BLUE"
+    ],
+    [
+     "YELLOW",
+     "RED",
+     "ORANGE",
+     "BLUE",
+     "PURPLE",
+     "GREEN"
+    ],
+    [
+     "ORANGE",
+     "GREEN",
+     "RED",
+     "YELLOW",
+     "PURPLE",
+     "BLUE"
+    ],
+    [
+     "PURPLE",
+     "GREEN",
+     "YELLOW",
+     "BLUE",
+     "RED",
+     "ORANGE"
+    ],
+    [
+     "ORANGE",
+     "RED",
+     "GREEN",
+     "PURPLE",
+     "BLUE",
+     "YELLOW"
+    ],
+    [
+     "PURPLE",
+     "YELLOW",
+     "BLUE",
+     "RED",
+     "ORANGE",
+     "GREEN"
+    ],
+    [
+     "YELLOW",
+     "RED",
+     "ORANGE",
+     "PURPLE",
+     "BLUE",
+     "GREEN"
+    ],
+    [
+     "ORANGE",
+     "GREEN",
+     "BLUE",
+     "PURPLE",
+     "RED",
+     "YELLOW"
+    ],
+    [
+     "GREEN",
+     "PURPLE",
+     "YELLOW",
+     "BLUE",
+     "ORANGE",
+     "RED"
+    ],
+    [
+     "ORANGE",
+     "BLUE",
+     "GREEN",
+     "PURPLE",
+     "YELLOW",
+     "RED"
+    ],
+    [
+     "ORANGE",
+     "RED",
+     "GREEN",
+     "BLUE",
+     "YELLOW",
+     "PURPLE"
+    ],
+    [
+     "GREEN",
+     "ORANGE",
+     "RED",
+     "BLUE",
+     "PURPLE",
+     "YELLOW"
+    ]
+   ]
+  }
+ }
+}

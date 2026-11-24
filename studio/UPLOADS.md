@@ -82,3 +82,10 @@ Ep.2 scheduled 2026-11-27 20:00 Istanbul (Metricool id 439701939, uuid 224603528
 channel2/episodes/brainwarplab-ep02.mp4.thumb.jpg). November Metricool count: 5 published + 12 scheduled = 17/20.
 Every daily run: for Metricool #2 posts that published since the last run, log them in tools/uploaded.tsv and add
 them to their playlist (episodes → PLA0sAqxxCuGA).
+
+## Long-form calendar (one long video per channel per slot; Zapier unless noted)
+- Brain Warp Lab episodes: Tue + Fri 20:00 (Metricool #2). Ep.2 Fri 11-27 (scheduled). Ep.3 Tue 12-01: file ready and
+  QA PASS (channel2/episodes/brainwarplab-ep03.mp4, audio peak fixed) — schedule on Metricool once December opens.
+- Zeipan Color Cup: Saturday 20:00. Ep.1 READY (zeipan/episodes/zeipan-colorcup-ep01.mp4, QA PASS, points verified):
+  upload it first in the Saturday 11-28 batch (zeipan/POSTING.md has title/description/tags), thumbnail from
+  zeipan/episodes/zeipan-colorcup-ep01.thumb.jpg. Ep.2 is rendered on Thursdays with `zeipan/tournament.py 2 ...`.

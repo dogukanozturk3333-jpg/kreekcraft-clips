@@ -24,3 +24,21 @@ Tags: satisfying, physics simulation, oddly satisfying, simulation, which color 
   hook: Six marbles, one peg board, one winner. Who is your pick? · #marblerace · tags + marble race, plinko
 - zp-004-rings: Can This Ball Escape All 8 Rings? 😱 #shorts
   hook: Eight spinning rings, one tiny gap in each. Will it make it out? · #ballescape · tags + escape the rings
+
+## Long-form: ZEIPAN COLOR CUP (weekly, Saturday 20:00 Istanbul) — zeipan/tournament.py EP OUT.mp4
+16 events (marble races + ball escapes), voiced standings after each, champion, season table (zeipan/season1.json).
+Category 24, not made for kids, en, public. Thumbnail: zeipan/episodes/zeipan-colorcup-epNN.thumb.jpg.
+### Ep.1 — zeipan/episodes/zeipan-colorcup-ep01.mp4 (8.3 min, QA PASS, champion ORANGE 98 pts — don't spoil it)
+Title: Which Color Wins the Cup? 🏆 16 Satisfying Marble Races & Ball Escapes | Zeipan Color Cup Ep. 1
+Description:
+Six colors, 16 events, one champion. 🔴🔵🟢🟡🟣🟠 Pick your team at the start, write it in the comments and
+cheer for it through marble races and ball escapes. Points after every event — who takes the cup?
+
+⏱ Chapters
+<paste zeipan/episodes/zeipan-colorcup-ep01.mp4.chapters.txt>
+
+Season 1 points carry over: every episode counts for the season title. New Color Cup every Saturday!
+Everything is simulated and drawn by Zeipan.
+#satisfying #marblerace #physicssimulation
+Tags: marble race, color race, which color wins, satisfying, physics simulation, ball escape, marble run,
+oddly satisfying, tournament, simulation, color cup
