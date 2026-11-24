@@ -10,6 +10,17 @@ the same video every night, so every long video must be a different, carefully m
 - Daily Zapier budget (~5 uploads, shared with Zeipan and Brain Warp Lab): ambience gets 1 long + 1 Short
   on long-video days, 1–2 Shorts on the other days.
 
+## Christmas season (user, 2026-11-24): December is Christmas on this channel
+Christmas ambience goes ONLY to Lantern Rain Room (never to Brain Warp Lab or Zeipan — channels stay separate).
+Each video is ONE sound world (fire, snow or rain — never mixed, no wind, no music), 1 hour, plus 1–2 Shorts.
+1. Christmas Fireplace — crackling fire only; tree lights twinkle, quiet snow in the window
+   (ambient/christmas-fireplace.json, img/christmas-fireplace.jpg) — rendering 11-24
+2. Snowy Christmas Village — soft snow hush; heavy slow snowfall over lit cottages (image 11-24)
+3. Rainy Christmas Window — rain on glass; fairy lights inside, blurred city tree outside (image 11-25,
+   ElevenLabs free plan allows only a few images per day; Canva credits were used up on 11-24)
+4. Christmas Eve bedroom / snowy cabin porch / Christmas train window — next, one per 2–3 days
+Titles lead with the search phrase: "Christmas Fireplace", "Christmas Snowfall", "Christmas Rain Sounds".
+
 ## Scene list (one per long video, in this order)
 1. Cozy cabin — rain + fireplace (done, uploads tonight)
 2. Snowy cabin window — blizzard wind + fireplace
