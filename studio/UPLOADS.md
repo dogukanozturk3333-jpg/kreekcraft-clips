@@ -19,8 +19,8 @@ Lantern Rain Room: ambient/01-cozy-cabin-rain-fireplace-1h.mp4, ambient/03-chris
   season: Christmas videos go first from now on), ambient/shorts/s01-rain-outside-fire-inside.mp4,
   ambient/02-snowy-night-window-45m.mkv, ambient/04-christmas-village-snowfall-1h.mkv (when rendered), ambient/shorts/s02-snowfall.mp4
 Brain Warp Lab (uploaded: odd-001, lilac-01, odd-002, spiral-01, odd-003). Next, in this order:
-  ZAPIER pool (formats odd / col / txt + illusions): NEW ILLUSIONS FIRST, one a day — checker-01, munker-01,
-  mib-01, cafe-01, ebbinghaus-01 (2026-11-24, new watermark, claims verified) — then col-001, afterimage-01, txt-001, odd-004,
+  ZAPIER pool (formats odd / col / txt + illusions): NEW ILLUSIONS FIRST, one a day — checker-01, mib-01,
+  cafe-01, ebbinghaus-01 (munker-01 went out via Metricool) (2026-11-24, new watermark, claims verified) — then col-001, afterimage-01, txt-001, odd-004,
   col-002, spiral-02, txt-002, odd-005, col-003, troxler-01, txt-003, odd-006, col-004, afterimage-02,
   txt-004, odd-007, then keep rotating col / txt / odd (lowest number first).
   METRICOOL #2 pool (never via Zapier): emoji math, spot the difference, the new illusions (flag-*,
@@ -89,3 +89,7 @@ them to their playlist (episodes → PLA0sAqxxCuGA).
 - Zeipan Color Cup: Saturday 20:00. Ep.1 READY (zeipan/episodes/zeipan-colorcup-ep01.mp4, QA PASS, points verified):
   upload it first in the Saturday 11-28 batch (zeipan/POSTING.md has title/description/tags), thumbnail from
   zeipan/episodes/zeipan-colorcup-ep01.thumb.jpg. Ep.2 is rendered on Thursdays with `zeipan/tournament.py 2 ...`.
+
+munker-01 → Metricool #2, published 2026-11-24 07:12 Istanbul (id 439775736, uuid 2996288497648419354) at the user's
+request ("upload what is tested now"). November Metricool count: 18/20. Zapier was still throttled at 04:00 UTC.
+So the Zapier illusion order is now: checker-01 (11-24), mib-01, cafe-01, ebbinghaus-01.
