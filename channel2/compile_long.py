@@ -129,7 +129,7 @@ chapters.append((t, 'Your score')); add(f'{TMP}/s999.mp4')
 open(f'{TMP}/list.txt', 'w').write(''.join(f"file '{s}'\n" for s in segs))
 run(['-f', 'concat', '-safe', '0', '-i', f'{TMP}/list.txt', '-c', 'copy', f'{TMP}/joined.mp4'])
 # one final audio pass over the whole episode: even loudness and no peaks above ~-1.5 dBFS after AAC
-run(['-i', f'{TMP}/joined.mp4', '-c:v', 'copy', '-af', 'loudnorm=I=-15:TP=-2:LRA=7,aresample=48000,alimiter=limit=0.68:level=false',
+run(['-i', f'{TMP}/joined.mp4', '-c:v', 'copy', '-af', 'loudnorm=I=-15:TP=-2:LRA=7,aresample=48000,lowpass=f=15500,alimiter=limit=0.6:attack=0.5:release=40:level=false',
      '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', OUT])
 open(OUT + '.chapters.txt', 'w').write(''.join(f'{int(c // 60)}:{int(c % 60):02d} {n}\n' for c, n in chapters))
 # thumbnail (for when custom thumbnails are enabled on the channel)
