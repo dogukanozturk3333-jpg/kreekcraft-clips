@@ -225,11 +225,13 @@ def sim_rings(seed):
 
 SIMS = {'grow': (sim_grow, 15, 45), 'escape': (sim_escape, 10, 45), 'race': (sim_race, 7, 40), 'rings': (sim_rings, 14, 48)}
 fn, lo, hi = SIMS[KIND]
-for seed in range(SEED, SEED + 60):                      # accept the first seed whose run fits a Short
+for seed in range(SEED, SEED + 120):                      # accept the first seed whose run fits a Short
     frames, events, info = fn(seed)
     end_t = frames[-1]['t']
     if os.environ.get('SIMDEBUG'): print('try', seed, round(end_t, 1), {k: v for k, v in info.items() if k != 'order'}, flush=True)
     if EVENT:
+        if '--prefer' in sys.argv and info.get('order') and len(info['order']) == 6 and \
+           info['order'].index(sys.argv[sys.argv.index('--prefer') + 1]) >= int(sys.argv[sys.argv.index('--top') + 1]): continue
         if info.get('t_last') and len(info['order']) == 6 and (info['t_win'] >= (2 if KIND == 'escape' else 6)) and \
            (15 if KIND == 'escape' else 8) <= info['t_last'] <= (60 if KIND == 'escape' else 50): break
         continue

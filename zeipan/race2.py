@@ -119,11 +119,15 @@ def simulate(seed):
     return frames, events, order
 
 
-for seed in range(SEED, SEED + 40):
+for seed in range(SEED, SEED + 80):
     frames, events, order = simulate(seed)
     t_first = next((e[0] for e in events if e[1] == 'finish'), None); t_last = frames[-1]['t']
     if os.environ.get('SIMDEBUG'): print('try', seed, round(t_first or -1, 1), round(t_last, 1), [NAMES[i] for i in order], flush=True)
-    if len(order) == NB and t_first and 18 <= t_first <= 48 and t_last <= 62: break
+    pref_ok = True
+    if '--prefer' in sys.argv:
+        pn = sys.argv[sys.argv.index('--prefer') + 1]; top = int(sys.argv[sys.argv.index('--top') + 1]) if '--top' in sys.argv else 1
+        pref_ok = len(order) == NB and [NAMES[i] for i in order].index(pn) < top
+    if len(order) == NB and t_first and 18 <= t_first <= 48 and t_last <= 62 and pref_ok: break
 else:
     sys.exit('no seed gives a race of the right length')
 print('seed', seed, 'first %.1f s, all %.1f s' % (t_first, t_last), [NAMES[i] for i in order], flush=True)

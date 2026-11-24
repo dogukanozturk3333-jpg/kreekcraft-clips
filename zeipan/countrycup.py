@@ -14,6 +14,8 @@ from PIL import Image, ImageDraw, ImageFont
 EP = int(sys.argv[1]); OUT = sys.argv[2]
 CODES = (sys.argv[sys.argv.index('--teams') + 1] if '--teams' in sys.argv else 'TR,US,BR,IN,MX,ID').split(',')
 WORKERS = int(sys.argv[sys.argv.index('--workers') + 1]) if '--workers' in sys.argv else 2
+PREFER = sys.argv[sys.argv.index('--prefer') + 1] if '--prefer' in sys.argv else None      # editorial pick of runs
+PREFER_FROM = int(sys.argv[sys.argv.index('--prefer-from') + 1]) if '--prefer-from' in sys.argv else 0
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 SCR = os.environ.get('ZP_SCRATCH', '/tmp/claude-0/-home-user/d825807f-e0e5-55ce-ac85-8ebee4d46dbb/scratchpad/cup')
 WORK = os.path.join(SCR, f'country-ep{EP:02d}'); os.makedirs(WORK, exist_ok=True)
@@ -44,6 +46,7 @@ def run_event(k):
         cmd = ['python3', '-I', os.path.join(HERE, 'race2.py'), str(seed), out, '--teams', ','.join(CODES), '--wide', '--label', label]
     else:
         cmd = ['python3', '-I', os.path.join(HERE, 'sim.py'), 'escape', str(seed), out, '--event', '--label', label, '--teams', ','.join(CODES)]
+    if PREFER and k >= PREFER_FROM: cmd += ['--prefer', PREFER, '--top', '2']
     r = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True)
     if r.returncode != 0 or not os.path.exists(out + '.json'): sys.exit(f'event {k + 1} failed: {r.stderr[-500:]}')
     return k, json.load(open(out + '.json'))
